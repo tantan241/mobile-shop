@@ -1,0 +1,89 @@
+import { useCallback, useEffect, useState } from 'react';
+import Tippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css'; // optional
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import classNames from 'classnames/bind';
+import styles from './Search.module.scss';
+
+import * as searchService from '~/apiServices/searchService';
+import { useDebounce } from '~/hooks';
+import { actions } from '~/store';
+import { SEARCH_HISTORY } from '~/constants';
+import useStore from '~/store/hooks';
+
+import HistoryItem from './components/HistoryItem';
+import ProductSearch from './components/ProductSearch';
+
+const cx = classNames.bind(styles);
+function Search() {
+    const [searchInput, setSearchInput] = useState('');
+    const [state, dispatch] = useStore();
+    const searchHistory = state.searchHistory;
+
+    const [searchProducts, setSearchProducts] = useState([]);
+    const searchValue = useDebounce(searchInput, 400);
+    useEffect(() => {
+        dispatch(actions.setSearchHistory(JSON.parse(localStorage.getItem(SEARCH_HISTORY)) || []));
+    }, []);
+    useEffect(() => {
+        const fetchApi = async () => {
+            const res = await searchService.search(searchValue);
+            setSearchProducts(res);
+        };
+        fetchApi();
+    }, [searchValue]);
+    const handleInputChange = useCallback((e) => {
+        if (e.target.value.startsWith(' ')) {
+            return;
+        }
+        setSearchInput(e.target.value);
+    });
+    const handleClickSearch = useCallback(() => {
+        dispatch(actions.addSearchHistory(searchValue));
+        setSearchInput('');
+    }, [searchValue, searchHistory]);
+
+    return (
+        <div className={cx('wrapper')}>
+            <div style={{ width: '90%', position: 'relative' }}>
+                <Tippy
+                    interactive="true"
+                    placement="bottom"
+                    trigger="click"
+                    render={(attrs) => (
+                        <div className={cx('search-result')} tabIndex="-1" {...attrs}>
+                            <span className={cx('result-title')}>
+                                {searchValue ? 'Gợi ý tìm kiếm' : 'Lịch sử tìm kiếm'}
+                            </span>
+                            <ul className={cx('history-list')}>
+                                {searchValue
+                                    ? searchProducts.map((product, index) => (
+                                          <ProductSearch key={index} product={product} />
+                                      ))
+                                    : searchHistory
+                                          .slice(0, 10)
+                                          .map((historyItem, index) => (
+                                              <HistoryItem key={index} title={historyItem} index={index} />
+                                          ))}
+                            </ul>
+                        </div>
+                    )}
+                >
+                    <input
+                        className={cx('search-input')}
+                        value={searchInput}
+                        placeholder="Bạn đang cần tìm gì ?"
+                        onChange={handleInputChange}
+                    />
+                </Tippy>
+            </div>
+            <button onClick={handleClickSearch} className={cx('search-btn')}>
+                <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
+            </button>
+        </div>
+    );
+}
+
+export default Search;

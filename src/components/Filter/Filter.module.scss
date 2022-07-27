@@ -1,0 +1,17 @@
+.wrapper {
+    width: 100%;
+}
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2.4rem;
+    padding: 10px 5px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.fillter-list {
+    list-style: none;
+    padding: 5px;
+}

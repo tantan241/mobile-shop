@@ -1,0 +1,116 @@
+.wrapper {
+    position: relative;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    flex: 1;
+    text-decoration: none;
+    color: var(--text-color);
+    &:hover {
+        border-color: rgba(0, 0, 0, 0.1);
+        box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    &:hover .footer {
+        display: block;
+    }
+}
+.wrapper.l_5 {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+.wrapper.l_3 {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+}
+.image {
+    width: 100%;
+}
+.discount {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 4px 6px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 999px;
+}
+.noti-1 {
+    width: 50%;
+    text-align: center;
+    padding: 2px;
+    margin: 4px 0 8px 0;
+    color: rgb(236, 48, 48);
+    border: 1px solid rgb(236, 48, 48);
+    border-radius: 2px;
+}
+.name {
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+.price {
+    display: flex;
+    align-items: center;
+    margin: 6px 0;
+}
+.price-current {
+    font-size: 1.7rem;
+    font-weight: 500;
+
+    color: red;
+}
+.price-old {
+    font-size: 1.2rem;
+    margin-left: 5px;
+    text-decoration: line-through;
+    color: rgba(0, 0, 0, 0.4);
+}
+.price-saved {
+    font-size: 1rem;
+    padding-bottom: 10px;
+}
+.noti-2 {
+    height: 40px;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 4px 4px 4px 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 2px 5px rgb(41, 41, 41);
+    border-left: 5px solid var(--primary-color);
+    margin-bottom: 10px;
+}
+.footer {
+    display: none;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+}
+.btn-buy {
+    width: 55%;
+    padding: 8px;
+    font-size: 1.8rem;
+    color: white;
+    background-color: var(--primary-color);
+    border-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+        background-color: #191989;
+    }
+}
+.btn-buy-title {
+    margin-right: 4px;
+}
+.btn-compare {
+    padding: 8px;
+    font-size: 1.8rem;
+    border-radius: 4px;
+    border-color: transparent;
+    cursor: pointer;
+    &:hover {
+        background-color: #ccc;
+    }
+}
