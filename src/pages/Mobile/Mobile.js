@@ -10,19 +10,26 @@ import Filter from '~/components/Filter';
 import MobileItem from '~/pages/Mobile/components/MobileItem';
 import MostBuy from '~/pages/Mobile/components/MostBuy';
 import Sort from './components/Sort';
+import MobilePages from './components/MobilePages';
+import { actions } from '~/store';
 
 const cx = classNames.bind(styles);
 function Mobile() {
     const [store, dispatch] = useStore();
     const [products, setProducts] = useState([]);
     const [filters, setFilters] = useState([]);
+    const [pagesMax, setPagesMax] = useState(2);
+    // useEffect(() => {
+    //     fetch(store.pathApi)
+    //         .then((responsive) => responsive.json())
+    //         .then((data) => {
+    //             return setProducts(data);
+    //         });
+    // }, [store]);
     useEffect(() => {
-        fetch(store.pathApi)
-            .then((responsive) => responsive.json())
-            .then((data) => {
-                return setProducts(data);
-            });
-    }, [store]);
+        // dispatch(actions.setMaxPageNumber(9));
+        dispatch(actions.setParamsApiFilter({ page: 1 }));
+    }, []);
     useEffect(() => {
         const fetchApi = async () => {
             const res = await mobileService.filter();
@@ -34,6 +41,7 @@ function Mobile() {
         const fetchApi = async () => {
             const res = await mobileService.mobile(store.paramsApiFilter);
             setProducts(res);
+            setPagesMax(19); // lấy số trang từ BE
         };
         fetchApi();
     }, [store]);
@@ -54,6 +62,7 @@ function Mobile() {
                             <MobileItem l_3 key={product.id} product={product} buyNow />
                         ))}
                     </div>
+                    <MobilePages pagesMax={pagesMax} />
                 </div>
             </div>
         </div>

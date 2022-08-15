@@ -1,10 +1,17 @@
-import { ADD_SEARCH_HISTORY, SET_SEARCH_HISTORY, DELETE_SEARCH_HISTORY, SET_PARAMS_API_FILTER } from './constants';
+import {
+    ADD_SEARCH_HISTORY,
+    SET_SEARCH_HISTORY,
+    DELETE_SEARCH_HISTORY,
+    SET_PARAMS_API_FILTER,
+    SET_ID_PRODUCT,
+} from './constants';
 import { SEARCH_HISTORY } from '~/constants';
 
 const initState = {
     searchHistory: [],
     pathApi: 'http://localhost:3000/products',
     paramsApiFilter: {},
+    idProduct: null,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -26,6 +33,9 @@ const reducer = (state, action) => {
             };
         case SET_PARAMS_API_FILTER:
             return { ...state, paramsApiFilter: { ...state.paramsApiFilter, ...action.payload } };
+        case SET_ID_PRODUCT:
+            return { ...state, idProduct: action.payload };
+
         default:
             throw new Error('Error');
     }

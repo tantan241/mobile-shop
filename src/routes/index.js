@@ -1,4 +1,5 @@
 import Mobile from '~/pages/Mobile';
+import MobileDetail from '~/pages/MobileDetail';
 import MobileOld from '~/pages/MobileOld';
 
 const publicLayouts = [
@@ -9,6 +10,10 @@ const publicLayouts = [
     {
         path: '/mobile-old',
         component: MobileOld,
+    },
+    {
+        path: '/mobile-detail/:name',
+        component: MobileDetail,
     },
 ];
 const privateLayouts = [{}];

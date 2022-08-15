@@ -26,7 +26,8 @@ function FilterItem({ name, data }) {
                     } else {
                         paramValues = [...store.paramsApiFilter[key], nameFilterItem];
                     }
-                    dispatch(actions.setParamsApiFilter({ [key]: paramValues }));
+                    dispatch(actions.setParamsApiFilter({ [key]: paramValues, page: 1 }));
+                    // dispatch(actions.setMaxPageNumber(2));
                 }
             });
         },

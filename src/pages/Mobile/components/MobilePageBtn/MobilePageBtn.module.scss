@@ -1,0 +1,23 @@
+.btn-page {
+    width: 40px;
+    height: 40px;
+    font-size: 1.8rem;
+    padding: 4px;
+    border-radius: 50%;
+    border-color: transparent;
+    cursor: pointer;
+    &.active {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    &:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    &.hidden {
+        display: none;
+    }
+}
+.btn-page + .btn-page {
+    margin-left: 10px;
+}

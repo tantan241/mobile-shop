@@ -1,0 +1,12 @@
+.wrapper {
+    padding: 4px;
+    width: 16.6667%;
+}
+.img {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    padding: 10px;
+    &.active {
+        border: 2px solid var(--primary-color);
+    }
+}

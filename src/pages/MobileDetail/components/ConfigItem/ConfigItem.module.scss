@@ -1,0 +1,20 @@
+.wrapper {
+    padding: 10px;
+}
+.wrapper:nth-child(odd) {
+    background-color: #eee;
+}
+.wrapper:nth-child(even) {
+    background-color: #fff;
+}
+.left,
+.right {
+    display: inline-block;
+    font-size: 1.6rem;
+}
+.left {
+    width: 160px;
+}
+.right {
+    width: calc(100% - 160px);
+}

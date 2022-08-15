@@ -1,0 +1,26 @@
+.warpper {
+    position: relative;
+}
+.warpper > img {
+    width: 100%;
+}
+.btn-arrow-left,
+.btn-arrow-right {
+    position: absolute;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+.btn-arrow-left {
+    left: 0;
+}
+.btn-arrow-right {
+    right: 0;
+}
+.img-list {
+    display: flex;
+    list-style: none;
+    margin: 20px 10px;
+}

@@ -1,0 +1,30 @@
+.wrapper {
+    width: 40%;
+    margin-left: 20px;
+}
+.advertise {
+    //quảng cáo
+    margin-bottom: 10px;
+}
+.advertise,
+.advertise > img {
+    width: 100%;
+}
+.buy-now {
+    width: 100%;
+    padding: 20px 10px;
+    font-size: 2.5rem;
+    color: white;
+    background-color: var(--primary-color);
+    border-color: transparent;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px blue;
+}
+.buy-installment {
+    width: 100%;
+    padding: 20px 10px;
+    font-size: 2.2rem;
+    border-color: transparent;
+    border-radius: 4px;
+}
