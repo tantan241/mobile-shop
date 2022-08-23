@@ -1,0 +1,40 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(231, 222, 222);
+    padding: 10px 20px;
+    border-color: transparent;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    &:hover {
+        background-color: #ccc;
+    }
+}
+.wrapper + .wrapper {
+    margin-top: 10px;
+}
+.big {
+    padding: 20px;
+    font-size: 2rem;
+}
+.primary {
+    background-color: var(--primary-color);
+    color: white;
+    &:hover {
+        background-color: #2626cc;
+    }
+}
+.more {
+    background-color: white;
+    border-color: var(--primary-color);
+    border-radius: 4px;
+    color: var(--primary-color);
+    &:hover {
+        background-color: rgb(247, 242, 242);
+    }
+}
+.right-icon {
+    margin-left: 5px;
+}

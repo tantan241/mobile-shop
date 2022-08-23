@@ -16,25 +16,26 @@ const cx = classNames.bind(styles);
 function MobileDetail() {
     const [store, dispatch] = useStore();
     const [product, setProduct] = useState([]);
-    const [images, setImages] = useState([
-        {
-            id: 1,
-            src: 'https://cdn.tgdd.vn/Products/Images/42/153856/Slider/vi-vn-iphone-11-tinhnang.jpg',
-            active: true,
-        },
-        { id: 2, src: 'https://cdn.tgdd.vn/Products/Images/42/261888/Slider/REALME-C35-1020x570.jpg', active: false },
-        {
-            id: 3,
-            src: 'https://cdn.tgdd.vn/Products/Images/42/262650/Slider/Samsung-Galaxy-A23-1020x570-1.jpg',
-            active: false,
-        },
-        { id: 4, src: 'https://cdn.tgdd.vn/Products/Images/42/262650/Slider/A23-1-1020x570-1.jpg', active: false },
-        { id: 5, src: 'https://cdn.tgdd.vn/Products/Images/42/262650/Slider/A23-2-1020x570.jpg', active: false },
-        { id: 6, src: 'https://cdn.tgdd.vn/Products/Images/42/262650/Slider/A23-5-1020x570-1.jpg', active: false },
-    ]);
+    const [images, setImages] = useState([]);
+    const starDetail = product?.assess?.star;
+    const avgStar = (
+        (starDetail?.star_1 * 1 +
+            starDetail?.star_2 * 2 +
+            starDetail?.star_3 * 3 +
+            starDetail?.star_4 * 4 +
+            starDetail?.star_5 * 5) /
+        product?.assess?.total
+    ).toFixed(1);
     useEffect(() => {
         const fetchApi = async () => {
             const res = await mobileService.mobileDetail(store.idProduct);
+            setImages(
+                res[0].images.map((image) =>
+                    image.id === 1
+                        ? { id: image.id, src: image.src, active: true }
+                        : { id: image.id, src: image.src, active: false },
+                ),
+            );
             setProduct(res[0]);
         };
         fetchApi();
@@ -70,20 +71,27 @@ function MobileDetail() {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <div className={cx('name')}>{product.name}</div>
-                <Rating number={4.6} />
-                <span className={cx('text')}>100 đánh giá</span>
+                <Rating number={avgStar} />
+                <a href="#rating-detail" className={cx('text')}>
+                    {product?.assess?.total} đánh giá
+                </a>
             </div>
             <div className={cx('content')}>
                 <div className={cx('assess')}>
-                    <MobileDetailImages
-                        images={images}
-                        onBtnLeftClick={handleBtnLeftClick}
-                        onBtnRightClick={handleBtnRightClick}
-                        onImageButtonClick={handleImageButtonClick}
-                    />
-                    <RatingDetail />
+                    {images.length > 0 && (
+                        <MobileDetailImages
+                            images={images}
+                            onBtnLeftClick={handleBtnLeftClick}
+                            onBtnRightClick={handleBtnRightClick}
+                            onImageButtonClick={handleImageButtonClick}
+                        />
+                    )}
+
+                    <div id="rating-detail">
+                        <RatingDetail data={product} />
+                    </div>
                 </div>
-                <DetailConfig />
+                <DetailConfig data={product} />
             </div>
         </div>
     );

@@ -1,0 +1,18 @@
+.wrapper {
+    text-align: center;
+}
+.header {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+.text {
+    display: flex;
+    justify-content: center;
+    // flex-direction: row;
+    font-size: 2rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}

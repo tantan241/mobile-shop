@@ -12,7 +12,7 @@ function MobilePageBtn({ pageNumber, active, hidden, onPageBtnClick = () => {} }
     const [store, dispatch] = useStore();
     const handlePageBtnClick = useCallback(() => {
         onPageBtnClick(pageNumber);
-        dispatch(actions.setParamsApiFilter({ page: pageNumber }));
+        dispatch(actions.setNumberPage(pageNumber));
     }, []);
     return (
         <button

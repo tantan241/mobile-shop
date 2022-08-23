@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import * as mobileService from '~/apiServices/mobileService';
 
 import classNames from 'classnames/bind';
 import styles from './MostBuy.module.scss';
@@ -11,43 +12,43 @@ import MobileItem from '../MobileItem';
 const cx = classNames.bind(styles);
 function MostBuy() {
     const productListRef = useRef();
-    const btnLeftRef = useRef();
-    let x = 0;
+    // let x = 0;
+    let withListProduct;
+    let widthItem;
+    const [x, setX] = useState(0);
     const [products, setProducts] = useState([]);
-    const [disableLeft, setDisableLeft] = useState(true);
-    const [disableRight, setDisableRight] = useState(false);
     useEffect(() => {
-        fetch(`http://localhost:3000/products`)
-            .then((responsive) => responsive.json())
-            .then((data) => {
-                return setProducts(data);
+        const fetchApi = async () => {
+            const res = await mobileService.mobile();
+            setProducts(res);
+        };
+        fetchApi();
+    }, []);
+
+    useEffect(() => {
+        productListRef.current.style.transform = `translate3d(${x}px, 0px, 0px)`;
+    }, [x]);
+    useEffect(() => {
+        withListProduct = productListRef.current.clientWidth;
+        widthItem = withListProduct / 5;
+    }, []);
+    useEffect(() => {
+        const idInterval = setInterval(() => {
+            setX((prev) => {
+                if (prev === -1200) {
+                    return 0;
+                } else {
+                    return prev - widthItem;
+                }
             });
+        }, 3000);
+        return () => clearInterval(idInterval);
     }, []);
     const handleBtnLeftClick = useCallback(() => {
-        if (x < 0) {
-            const withListProduct = productListRef.current.clientWidth;
-            const widthItem = withListProduct / 5;
-            x += widthItem;
-            productListRef.current.style.transform = `translate3d(${x}px, 0px, 0px)`;
-            if (x === 0) {
-                setDisableLeft(true);
-                return;
-            }
-            setDisableRight(false);
-        }
+        setX((prev) => prev + widthItem);
     }, []);
     const handleBtnRightClick = useCallback(() => {
-        if (x > -1200) {
-            const withListProduct = productListRef.current.clientWidth;
-            const widthItem = withListProduct / 5;
-            x -= widthItem;
-            productListRef.current.style.transform = `translate3d(${x}px, 0px, 0px)`;
-            if (x === -1200) {
-                setDisableRight(true);
-                return;
-            }
-            setDisableLeft(false);
-        }
+        setX((prev) => prev - widthItem);
     }, []);
 
     return (
@@ -60,21 +61,10 @@ function MostBuy() {
                     ))}
                 </ul>
             </div>
-            <button
-                ref={btnLeftRef}
-                onClick={handleBtnLeftClick}
-                className={cx('btn-left', {
-                    disable: disableLeft,
-                })}
-            >
+            <button disabled={x === 0} onClick={handleBtnLeftClick} className={cx('btn-left')}>
                 <FontAwesomeIcon icon={faAngleLeft}></FontAwesomeIcon>
             </button>
-            <button
-                onClick={handleBtnRightClick}
-                className={cx('btn-right', {
-                    disable: disableRight,
-                })}
-            >
+            <button disabled={x === -1200} onClick={handleBtnRightClick} className={cx('btn-right')}>
                 <FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon>
             </button>
         </div>

@@ -10,7 +10,7 @@ function App() {
                 <Routes>
                     {publicLayouts.map((publicLayout, index) => {
                         const Page = publicLayout.component;
-                        // const Layout = MainLayout;
+
                         return (
                             <Route
                                 key={index}

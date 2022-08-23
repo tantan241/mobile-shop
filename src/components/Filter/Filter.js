@@ -12,7 +12,7 @@ import FilterItem from './components/FilterItem';
 
 const cx = classNames.bind(styles);
 
-function Fillter({ data }) {
+function Filter({ data }) {
     const [isOpen, setIsOpen] = useState(true);
     const handleTitleClick = useCallback(() => {
         setIsOpen((isOpen) => !isOpen);
@@ -31,7 +31,7 @@ function Fillter({ data }) {
                     </div>{' '}
                 </h2>
                 {isOpen && (
-                    <ul className={cx('fillter-list')}>
+                    <ul className={cx('filter-list')}>
                         {data &&
                             data.children.map((filterData) => (
                                 <FilterItem key={filterData.id} name={data.name} data={filterData} />
@@ -42,8 +42,8 @@ function Fillter({ data }) {
         </div>
     );
 }
-Fillter.propTypes = {
+Filter.propTypes = {
     data: PropTypes.object,
 };
 
-export default Fillter;
+export default Filter;

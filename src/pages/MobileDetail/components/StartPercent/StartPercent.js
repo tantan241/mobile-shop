@@ -5,13 +5,16 @@ import classNames from 'classnames/bind';
 import styles from './StartPercent.module.scss';
 
 const cx = classNames.bind(styles);
-function StartPercent({ number }) {
+function StartPercent({ number, percent }) {
     return (
         <li className={cx('wrapper')}>
             <span className={cx('number')}>{number}</span>
             <FontAwesomeIcon icon={faStar} className={cx('icon')} />
-            <div className={cx('percent')}></div>
-            <span className={cx('number-percent')}>75%</span>
+            <div className={cx('percent-100')}>
+                <span style={{ width: percent + '%' }} className={cx('percent-display')}></span>
+            </div>
+
+            <span className={cx('number-percent')}>{percent}%</span>
         </li>
     );
 }

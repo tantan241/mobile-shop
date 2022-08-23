@@ -1,14 +1,11 @@
 .wrapper {
-    display: flex;
-    flex-wrap: wrap;
-}
-.star-detail {
     width: 40%;
+    padding-right: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 .star-number {
     display: flex;
     align-items: center;
-
     font-size: 2rem;
 }
 .number {
@@ -17,21 +14,6 @@
 .number-assess {
     margin-left: 20px;
 }
-.start-percents {
+.percents {
     margin: 10px 0 0 10px;
-}
-// images
-.image-list {
-    width: 55%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    border-left: 1px solid rgb(177, 168, 168);
-    margin-left: 20px;
-    padding-left: 10px;
-}
-
-// member-assess
-.comments {
-    width: 100%;
 }

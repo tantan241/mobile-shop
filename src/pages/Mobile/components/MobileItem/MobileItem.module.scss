@@ -22,6 +22,9 @@
     flex: 0 0 33.33333%;
     max-width: 33.33333%;
 }
+.content {
+    color: var(--text-color);
+}
 .image {
     width: 100%;
 }
@@ -87,30 +90,4 @@
 .footer-content {
     display: flex;
     justify-content: space-around;
-}
-.btn-buy {
-    width: 55%;
-    padding: 8px;
-    font-size: 1.8rem;
-    color: white;
-    background-color: var(--primary-color);
-    border-color: transparent;
-    border-radius: 4px;
-    cursor: pointer;
-    &:hover {
-        background-color: #191989;
-    }
-}
-.btn-buy-title {
-    margin-right: 4px;
-}
-.btn-compare {
-    padding: 8px;
-    font-size: 1.8rem;
-    border-radius: 4px;
-    border-color: transparent;
-    cursor: pointer;
-    &:hover {
-        background-color: #ccc;
-    }
 }

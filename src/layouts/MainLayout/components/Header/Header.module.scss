@@ -8,6 +8,7 @@
     background-image: linear-gradient(180deg, rgb(68, 68, 230), rgb(152, 152, 239));
 }
 .content {
+    margin-top: 10px;
     width: 1220px;
     display: flex;
     align-items: center;
@@ -28,6 +29,7 @@
 }
 .cart {
     position: relative;
+    color: white;
 }
 .number {
     position: absolute;

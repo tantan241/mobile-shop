@@ -2,7 +2,7 @@ import request from '~/utils/request';
 
 export const search = async (q) => {
     try {
-        const res = await request.get('products', {
+        const res = await request.get('mobiles', {
             params: {
                 q,
             },

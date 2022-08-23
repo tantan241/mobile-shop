@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 function FilterItem({ name, data }) {
     const [store, dispatch] = useStore();
     const [checked, setChecked] = useState(false);
+
     useEffect(() => {
         dispatch(actions.setParamsApiFilter({ [name]: [] }));
     }, []);
@@ -19,6 +20,7 @@ function FilterItem({ name, data }) {
         (nameFilterItem) => {
             let paramValues = [];
             setChecked((checked) => !checked);
+
             Object.keys(store.paramsApiFilter).forEach((key) => {
                 if (key === name) {
                     if (checked) {
@@ -26,7 +28,11 @@ function FilterItem({ name, data }) {
                     } else {
                         paramValues = [...store.paramsApiFilter[key], nameFilterItem];
                     }
-                    dispatch(actions.setParamsApiFilter({ [key]: paramValues, page: 1 }));
+
+                    data.max
+                        ? dispatch(actions.setParamsApiFilter({ min: data.min, max: data.max }))
+                        : dispatch(actions.setParamsApiFilter({ [key]: paramValues }));
+                    dispatch(actions.setNumberPage(1));
                     // dispatch(actions.setMaxPageNumber(2));
                 }
             });
@@ -40,7 +46,7 @@ function FilterItem({ name, data }) {
                 checked={checked}
                 id={data.id}
                 className={cx('checkbox')}
-                name="brand"
+                name={name}
                 value={data.name}
                 type="checkbox"
                 onChange={(e) => setChecked(e.target.checked)} //Cầm xem lại đoạn này ( fix báo warning)

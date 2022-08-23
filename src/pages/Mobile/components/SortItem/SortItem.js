@@ -13,7 +13,7 @@ function SortItem({ data, handleName }) {
     const [store, dispatch] = useStore();
     const handleSort = useCallback(
         (type, name) => {
-            dispatch(actions.setParamsApiFilter({ type, page: 1 }));
+            dispatch(actions.setParamsApiFilter({ type }));
             handleName(name);
         },
         [store],

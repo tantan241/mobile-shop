@@ -1,0 +1,43 @@
+.wrapper {
+    position: relative;
+    --size-bezel: 0.5rem;
+    --size-radius: 4px;
+    width: 100%;
+    & .label {
+        position: absolute;
+        left: 0;
+        top: -3px;
+        padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * 0.5);
+        margin: calc(var(--size-bezel) * 0.75 + 5px) calc(var(--size-bezel) * 0.5);
+        white-space: nowrap;
+        transform: translate(0, 0);
+        transform-origin: 0 0;
+        background: white;
+        transition: transform 120ms ease-in;
+        opacity: 0.6;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        margin-left: 4px;
+    }
+    & .field {
+        box-sizing: border-box;
+        display: block;
+        // min-width: 45%;
+        width: 100%;
+        max-width: 100%;
+        border: 2px solid rgba(0, 0, 0, 0.7);
+        padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+        background: transparent;
+        border-radius: var(--size-radius);
+        // margin-bottom: 20px;
+        font-size: 2rem;
+
+        &:focus,
+        &:not(:placeholder-shown) {
+            & + .label {
+                transform: translate(0.25rem, -65%) scale(0.9);
+                opacity: 1;
+            }
+        }
+    }
+}

@@ -3,7 +3,7 @@ import request from '~/utils/request';
 
 export const mobile = async (parameter) => {
     try {
-        const res = await request.get('products', {
+        const res = await request.get('mobiles', {
             params: parameter,
             paramsSerializer: function (params) {
                 return qs.stringify(params, { arrayFormat: 'repeat' });
@@ -24,7 +24,7 @@ export const filter = async () => {
 };
 export const mobileDetail = async (id) => {
     try {
-        const res = await request.get('products', {
+        const res = await request.get('mobile_detail', {
             params: {
                 id,
             },

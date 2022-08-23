@@ -1,11 +1,11 @@
 import classNames from 'classnames/bind';
 import styles from './ConfigItem.module.scss';
 const cx = classNames.bind(styles);
-function ConfigItem() {
+function ConfigItem({ data }) {
     return (
         <li className={cx('wrapper')}>
-            <span className={cx('left')}>Ram</span>
-            <span className={cx('right')}>8 GB</span>
+            <span className={cx('left')}>{data.name}</span>
+            <span className={cx('right')}>{data.title}</span>
         </li>
     );
 }

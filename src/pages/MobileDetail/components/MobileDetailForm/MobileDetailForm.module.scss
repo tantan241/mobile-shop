@@ -1,0 +1,60 @@
+.wrapper {
+    padding: 10px 40px;
+    width: 80vh;
+}
+.title {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+.image {
+    width: 80px;
+}
+.name {
+    margin-left: 20px;
+    font-size: 1.8rem;
+}
+.star-list {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin: 20px 0 15px;
+}
+.star {
+    font-size: 4rem;
+    color: yellow;
+}
+.star {
+    margin-right: 8px;
+}
+.input-content {
+}
+.input-file {
+    margin: 10px 0 20px;
+}
+.information {
+    display: flex;
+    justify-content: space-between;
+}
+.input-name,
+.input-phone {
+    width: 45%;
+}
+.action {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.description {
+    text-align: center;
+    width: 100%;
+    font-size: 1.2rem;
+    margin-top: 30px;
+}
+.description > a {
+    color: blue;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -10,12 +10,14 @@ const cx = classNames.bind(styles);
 
 function ProductSearch({ product }) {
     const [store, dispatch] = useStore();
-    const price = product.price_current.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const moneyDiscount = (product.price * product.discount) / 100;
+    const price = (product.price - moneyDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const handleClick = useCallback((id) => {
         dispatch(actions.setIdProduct(id));
     }, []);
+    const linkTo = `/mobile-detail/${product.name}`;
     return (
-        <Link to="/mobile-detail" className={cx('wrapper')} onClick={() => handleClick(product.id)}>
+        <Link to={linkTo} className={cx('wrapper')} onClick={() => handleClick(product.id)}>
             <img src={product.path} className={cx('image')} alt="" />
             <div>
                 <p className={cx('name')}>{product.name}</p>

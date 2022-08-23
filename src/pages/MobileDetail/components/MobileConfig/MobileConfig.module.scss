@@ -2,8 +2,8 @@
     margin-top: 40px;
 }
 .config-list {
-    // display: flex;
     list-style: none;
+    margin-bottom: 20px;
 }
 
 .name {
@@ -11,17 +11,7 @@
     margin: 10px 0;
     font-weight: 600;
 }
-.config-more {
-    width: 70%;
-    margin-top: 20px;
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: blue;
-    background: transparent;
-    padding: 10px;
-    border: 1px solid blue;
-    border-radius: 4px;
-    cursor: pointer;
+.more {
+    display: flex;
+    justify-content: center;
 }

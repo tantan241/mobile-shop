@@ -1,0 +1,29 @@
+.wrapper {
+    padding: 5px 40px 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+.title {
+    font-size: 1.8rem;
+    margin: 10px 0 20px;
+    font-weight: 600;
+}
+.input-field {
+    padding: 6px;
+    font-size: 1.6rem;
+    outline-color: var(--primary-color);
+    border-radius: 8px;
+    border-color: rgba(0, 0, 0, 0.4);
+    margin-right: 5px;
+}
+
+.input-name-number {
+    display: flex;
+}
+.input-name,
+.input-number {
+    width: 45%;
+    margin-right: 10px;
+}
+.input-address {
+    margin: 20px 0;
+}

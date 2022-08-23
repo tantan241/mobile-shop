@@ -1,47 +1,36 @@
-import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
-import ImageAssess from '../ImageAssess';
 import Rating from '../Rating';
 import StartPercent from '../StartPercent';
-import Comment from '../Comment';
 import styles from './StarDetail.module.scss';
 const cx = classNames.bind(styles);
-function StarDetail() {
+function StarDetail({ starDetail, total }) {
+    const avgStar = (
+        (starDetail?.star_1 * 1 +
+            starDetail?.star_2 * 2 +
+            starDetail?.star_3 * 3 +
+            starDetail?.star_4 * 4 +
+            starDetail?.star_5 * 5) /
+        total
+    ).toFixed(1);
+    const percentStar5 = ((starDetail?.star_5 / total) * 100).toFixed();
+    const percentStar4 = ((starDetail?.star_4 / total) * 100).toFixed();
+    const percentStar3 = ((starDetail?.star_3 / total) * 100).toFixed();
+    const percentStar2 = ((starDetail?.star_2 / total) * 100).toFixed();
+    const percentStar1 = ((starDetail?.star_1 / total) * 100).toFixed();
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('star-detail')}>
-                <div className={cx('')}>
-                    <div className={cx('star-number')}>
-                        <span className={cx('number')}>4.0</span>
-                        <Rating number="4" />
-                        <div className={cx('number-assess')}>254 đánh giá</div>
-                    </div>
-                    <ul className={cx('start-percents')}>
-                        <StartPercent number="5" />
-                        <StartPercent number="4" />
-                        <StartPercent number="3" />
-                        <StartPercent number="2" />
-                        <StartPercent number="1" />
-                    </ul>
-                </div>
+            <div className={cx('star-number')}>
+                <span className={cx('number')}>{avgStar}</span>
+                <Rating number={avgStar} />
+                <div className={cx('number-assess')}>{total} đánh giá</div>
             </div>
-            <div className={cx('image-list')}>
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess />
-                <ImageAssess more />
-            </div>
-            <div className={cx('comments')}>
-                <Comment />
-                <Comment />
-            </div>
+            <ul className={cx('percents')}>
+                <StartPercent percent={percentStar5} number="5" />
+                <StartPercent percent={percentStar4} number="4" />
+                <StartPercent percent={percentStar3} number="3" />
+                <StartPercent percent={percentStar2} number="2" />
+                <StartPercent percent={percentStar1} number="1" />
+            </ul>
         </div>
     );
 }

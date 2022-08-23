@@ -15,6 +15,7 @@ import useStore from '~/store/hooks';
 
 import HistoryItem from './components/HistoryItem';
 import ProductSearch from './components/ProductSearch';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Search() {
@@ -41,6 +42,9 @@ function Search() {
         setSearchInput(e.target.value);
     });
     const handleClickSearch = useCallback(() => {
+        if (searchValue.startsWith('')) {
+            return;
+        }
         dispatch(actions.addSearchHistory(searchValue));
         setSearchInput('');
     }, [searchValue, searchHistory]);
@@ -79,9 +83,9 @@ function Search() {
                     />
                 </Tippy>
             </div>
-            <button onClick={handleClickSearch} className={cx('search-btn')}>
+            <Link to="/" onClick={handleClickSearch} className={cx('search-btn')}>
                 <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
-            </button>
+            </Link>
         </div>
     );
 }

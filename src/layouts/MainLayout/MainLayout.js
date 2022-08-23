@@ -7,11 +7,9 @@ import Header from './components/Header';
 
 const cx = classNames.bind(styles);
 function MainLayout({ children }) {
-    // console.log(childern);
     return (
         <div className={cx('wrapper')}>
             <Header />
-            {/* <Navbar /> */}
             <div className={cx('content')}>
                 <div className={cx('center')}>{children}</div>
             </div>

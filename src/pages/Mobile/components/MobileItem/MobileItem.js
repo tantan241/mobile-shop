@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
@@ -10,49 +10,62 @@ import classNames from 'classnames/bind';
 import styles from './MobileItem.module.scss';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
+import Button from '~/components/Button';
 
 const cx = classNames.bind(styles);
 
 function MobileItem({ product, l_5, l_3, buyNow }) {
     const [store, dispatch] = useStore();
-    const priceCurrent = product.price_current.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    const priceOld = product.price_old.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    const priceSaved = (product.price_old - product.price_current).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    const linkTo = `mobile-detail/${product.name}`;
-    const handleClick = useCallback((productId) => {
+    const moneyDiscount = (product.price * product.discount) / 100;
+    const priceCurrent = (product.price - moneyDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const priceOld = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const priceSaved = moneyDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // const [linkTo, setLinkTo] = useState(`mobile-detail/${product.name}`);
+    let linkTo = `/mobile-detail/${product.name}`;
+    const handleClick = useCallback((productId, e) => {
         dispatch(actions.setIdProduct(productId));
     }, []);
+    const handleBuyNow = useCallback((id) => {
+        dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
+    }, []);
     return (
-        <Link
-            to={linkTo}
+        <div
             className={cx('wrapper', {
                 l_5,
                 l_3,
             })}
             onClick={() => handleClick(product.id)}
         >
-            <img className={cx('image')} src={product.path} alt={product.name} />
-            <div className={cx('discount')}>{product.discount}%</div>
-            <p className={cx('noti-1')}>Trả góp 0%</p>
-            <span className={cx('name')}>{product.name}</span>
-            <div className={cx('price')}>
-                <span className={cx('price-current')}>{priceCurrent} vnđ</span>
-                <span className={cx('price-old')}>{priceOld} vnđ</span>
-            </div>
-            <p className={cx('price-saved')}>Tiết kiếm: {priceSaved} vnđ </p>
-            <div className={cx('noti-2')}>Mua online giảm thêm đến 1.000.000 vnđ</div>
+            <Link to={linkTo} className={cx('content')}>
+                <img className={cx('image')} src={product.path} alt={product.name} />
+                {product.discount > 0 && <div className={cx('discount')}>{product.discount}%</div>}
+                <p className={cx('noti-1')}>Trả góp 0%</p>
+                <span className={cx('name')}>{product.name}</span>
+                <div className={cx('price')}>
+                    <span className={cx('price-current')}>{priceCurrent} vnđ</span>
+                    <span className={cx('price-old')}>{priceOld} vnđ</span>
+                </div>
+                <p className={cx('price-saved')}>Tiết kiếm: {priceSaved} vnđ </p>
+                {product.note && <div className={cx('noti-2')}>{product.note}</div>}
+            </Link>
+
             {buyNow && (
                 <div className={cx('footer')}>
                     <div className={cx('footer-content')}>
-                        <button className={cx('btn-buy')}>
-                            <span className={cx('btn-buy-title')}>Mua ngay</span>
-                            <FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>
-                        </button>
-                        <button className={cx('btn-compare')}>So sánh</button>
+                        <Button
+                            onClick={() => handleBuyNow(product.id)}
+                            to="/cart"
+                            primary
+                            rightIcon={<FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>}
+                        >
+                            Mua ngay
+                        </Button>
+
+                        <Button to="mobile-old">So sánh</Button>
                     </div>
                 </div>
             )}
-        </Link>
+        </div>
     );
 }
 MobileItem.propTypes = {

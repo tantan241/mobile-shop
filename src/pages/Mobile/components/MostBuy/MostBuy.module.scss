@@ -44,7 +44,7 @@
     background-color: rgba(131, 117, 117, 0.1);
     border-radius: 50%;
     border-color: transparent;
-    &.disable {
+    &:disabled {
         color: rgb(175, 170, 170);
         background-color: rgba(211, 203, 203, 0.1);
     }
