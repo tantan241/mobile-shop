@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 20px 100px;
+    justify-content: space-between;
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2rem;
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--primary-color);
+}
+.text,
+.close {
+    cursor: pointer;
+}
+
+.close {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    border-radius: 4px;
+}

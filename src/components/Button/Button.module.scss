@@ -11,6 +11,9 @@
     &:hover {
         background-color: #ccc;
     }
+    &:disabled {
+        opacity: 0.4;
+    }
 }
 .wrapper + .wrapper {
     margin-top: 10px;

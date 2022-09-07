@@ -1,11 +1,25 @@
-import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+
+import classNames from 'classnames/bind';
 import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
-function Button({ children, to, href, onClick, leftIcon, rightIcon, primary = false, more = false, width, big }) {
+function Button({
+    children,
+    to,
+    href,
+    onClick,
+    leftIcon,
+    rightIcon,
+    primary = false,
+    more = false,
+    width,
+    big,
+    disabled,
+}) {
     let Button = 'button';
-    const props = { href, to };
+    const props = { href, to, disabled };
     const classNames = { more, primary, big };
     if (href) {
         Button = 'a';
@@ -23,5 +37,18 @@ function Button({ children, to, href, onClick, leftIcon, rightIcon, primary = fa
         </Button>
     );
 }
+Button.propTypes = {
+    children: PropTypes.node,
+    to: PropTypes.string,
+    href: PropTypes.string,
+    onClick: PropTypes.func,
+    leftIcon: PropTypes.node,
+    rightIcon: PropTypes.node,
+    primary: PropTypes.bool,
+    more: PropTypes.bool,
+    width: PropTypes.string,
+    big: PropTypes.bool,
+    disabled: PropTypes.bool,
+};
 
 export default Button;

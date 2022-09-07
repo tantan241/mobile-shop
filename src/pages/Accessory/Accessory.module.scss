@@ -1,0 +1,17 @@
+.wrapper {
+    display: flex;
+    margin-top: 20px;
+}
+.filter {
+    width: 25%;
+    margin-right: 10px;
+}
+.content {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+}
+.products {
+    display: flex;
+    flex-wrap: wrap;
+}

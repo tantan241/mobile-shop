@@ -17,13 +17,13 @@ function Navbar() {
                     </i>
                     <span className={cx('title')}> Trang chủ</span>
                 </Link>
-                <Link to="/cart" className={cx('navbar-item')}>
+                <Link to="/mobile" className={cx('navbar-item')}>
                     <i className={cx('icon')}>
                         <FontAwesomeIcon icon={faMobileScreen}></FontAwesomeIcon>
                     </i>
                     <span className={cx('title')}> Điện thoại</span>
                 </Link>
-                <Link to="/" className={cx('navbar-item')}>
+                <Link to="/accessory" className={cx('navbar-item')}>
                     <i className={cx('icon')}>
                         <FontAwesomeIcon icon={faHeadphones}></FontAwesomeIcon>
                     </i>
@@ -35,12 +35,6 @@ function Navbar() {
                     </i>
                     <span className={cx('title')}>Liên hệ</span>
                 </Link>
-                {/* <div className={cx('navbar-item')}>
-                    <i className={cx('icon')}>
-                        <FontAwesomeIcon icon={faSimCard}></FontAwesomeIcon>
-                    </i>
-                    <span className={cx('title')}>Sim số đẹp</span>
-                </div> */}
             </div>
         </div>
     );

@@ -1,19 +1,17 @@
-import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons';
-import { faArrowLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+
+import classNames from 'classnames/bind';
 import Button from '~/components/Button';
 import useStore from '~/store/hooks';
 import styles from './Cart.module.scss';
-import ProductInCart from './ProductInCart';
-import * as mobileService from '~/apiServices/mobileService';
-import Input from '~/components/Input';
+import ProductInCart from './components/ProductInCart';
+import * as cartServices from '~/apiServices/cartServices';
 import { CART } from '~/constants';
 import NoCart from './components/NoCart';
 import FormCart from './components/FormCart';
-
 const cx = classNames.bind(styles);
 function Cart() {
     const [store, dispatch] = useStore();
@@ -28,7 +26,7 @@ function Cart() {
             const productsId = store.productsInCart.map((product) => product.idProduct);
             const fetchApi = async () => {
                 const productsInCart = [];
-                const res = await mobileService.mobile({ id: productsId });
+                const res = await cartServices.products({ id: productsId });
                 res.map((product) => {
                     for (const item of store.productsInCart) {
                         product.id === item.idProduct &&

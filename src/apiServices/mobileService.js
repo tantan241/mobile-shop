@@ -16,7 +16,7 @@ export const mobile = async (parameter) => {
 };
 export const filter = async () => {
     try {
-        const res = await request.get('filters');
+        const res = await request.get('filtersMobile');
         return res.data;
     } catch (error) {
         console.log(' lỗi ở apiService -> filter');

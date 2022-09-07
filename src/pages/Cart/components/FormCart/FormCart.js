@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
-import Input from '~/components/Input';
 import styles from './FormCart.module.scss';
+import Input from '~/components/Input';
 const cx = classNames.bind(styles);
 function FormCart() {
     return (

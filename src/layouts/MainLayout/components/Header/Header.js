@@ -2,28 +2,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import Tippy from '@tippyjs/react/headless';
+import 'tippy.js/dist/tippy.css'; // optional
 
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
-
 import Navbar from '../Navbar';
 import Search from '../Search';
 import useStore from '~/store/hooks';
 import Overlay from '~/components/Overlay';
-import LoginAndLogout from '~/pages/LoginAndLogout';
-
+import logo from '~/images/Tan.png';
+import Login from '~/layouts/MainLayout/components/Header/components/Login';
+import Logout from './components/Logout';
+import { actions } from '~/store';
 const cx = classNames.bind(styles);
 function Header() {
-    const isSignIn = false;
     const [store, dispatch] = useStore();
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
-                <img
-                    className={cx('image')}
-                    src="https://cdn.nguyenkimmall.com/images/companies/_1/html/2017/T11/homepage/Logo_NK.svg?v=2020"
-                    alt="Logo"
-                />
+                <Link to="/">
+                    <img className={cx('image')} src={logo} alt="Logo" />
+                </Link>
                 <Search />
                 <div className={cx('cart-account')}>
                     <Link to="/cart" className={cx('cart')}>
@@ -34,25 +35,34 @@ function Header() {
 
                         <span className={cx('title')}>Giỏ hàng</span>
                     </Link>
-                    {isSignIn ? (
-                        <div className={cx('user')}>
-                            <img
-                                className={cx('avatar')}
-                                src="https://vnn-imgs-a1.vgcloud.vn/image1.ictnews.vn/_Files/2020/03/17/trend-avatar-1.jpg"
-                                alt="avater"
-                            />
-                            <p className={cx('name')}>Nguyễn Văn A</p>
-                        </div>
+                    {Object.keys(store.profileUser).length > 0 ? (
+                        <Tippy
+                            interactive="true"
+                            placement="bottom"
+                            trigger="click"
+                            render={(attrs) => (
+                                <div className={cx('logout')} tabIndex="-1" {...attrs}>
+                                    <Logout />
+                                </div>
+                            )}
+                        >
+                            <div className={cx('user')}>
+                                <img className={cx('avatar')} src={store.profileUser.imageUrl} alt="avatar" />
+                                <p className={cx('name')}>{store.profileUser.name}</p>
+                            </div>
+                        </Tippy>
                     ) : (
-                        <div className={cx('account')}>
+                        <div className={cx('account')} onClick={() => dispatch(actions.setIsLogin(true))}>
                             <FontAwesomeIcon className={cx('icon-account')} icon={faUser}></FontAwesomeIcon>
-                            <span className={cx('title')}>Tài khoản</span>
+                            <span className={cx('title')}>Đăng nhập</span>
                         </div>
                     )}
                 </div>
-                {/* <Overlay>
-                    <LoginAndLogout />
-                </Overlay> */}
+                {store.isLogin && (
+                    <Overlay>
+                        <Login />
+                    </Overlay>
+                )}
             </div>
             <Navbar />
         </div>

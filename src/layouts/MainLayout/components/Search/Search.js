@@ -1,22 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
 import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
-
 import * as searchService from '~/apiServices/searchService';
 import { useDebounce } from '~/hooks';
 import { actions } from '~/store';
 import { SEARCH_HISTORY } from '~/constants';
 import useStore from '~/store/hooks';
-
 import HistoryItem from './components/HistoryItem';
 import ProductSearch from './components/ProductSearch';
-import { Link } from 'react-router-dom';
-
 const cx = classNames.bind(styles);
 function Search() {
     const [searchInput, setSearchInput] = useState('');
@@ -42,7 +39,7 @@ function Search() {
         setSearchInput(e.target.value);
     });
     const handleClickSearch = useCallback(() => {
-        if (searchValue.startsWith('')) {
+        if (searchValue.startsWith(' ') || searchValue.length === 0) {
             return;
         }
         dispatch(actions.addSearchHistory(searchValue));
@@ -83,7 +80,11 @@ function Search() {
                     />
                 </Tippy>
             </div>
-            <Link to="/" onClick={handleClickSearch} className={cx('search-btn')}>
+            <Link
+                to={searchValue.length > 1 && '/search/?q=' + searchValue}
+                onClick={handleClickSearch}
+                className={cx('search-btn')}
+            >
                 <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
             </Link>
         </div>

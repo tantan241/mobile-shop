@@ -8,3 +8,6 @@ export const SET_ID_PRODUCT = 'set_id_product';
 export const ADD_PRODUCT_IN_CART = 'add_product_in_cart';
 export const UPDATE_NUMBER_PRODUCT_BUY = 'update_number_product_buy';
 export const DELETE_PRODUCT_IN_CART = 'delete_product_in_cart';
+export const SET_PRODUCT_COMPARE = 'set_product_compare';
+export const SET_IS_LOGIN = 'set_is_login';
+export const SET_PROFILE_USER = 'set_profile_user';

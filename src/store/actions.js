@@ -8,6 +8,9 @@ import {
     ADD_PRODUCT_IN_CART,
     UPDATE_NUMBER_PRODUCT_BUY,
     DELETE_PRODUCT_IN_CART,
+    SET_PRODUCT_COMPARE,
+    SET_PROFILE_USER,
+    SET_IS_LOGIN,
 } from './constants';
 export const addSearchHistory = (payload) => {
     return {
@@ -60,6 +63,24 @@ export const updateNumberProductBuy = (payload) => {
 export const deleteProductInCart = (payload) => {
     return {
         type: DELETE_PRODUCT_IN_CART,
+        payload,
+    };
+};
+export const setProductCompare = (payload) => {
+    return {
+        type: SET_PRODUCT_COMPARE,
+        payload,
+    };
+};
+export const setProfileUser = (payload) => {
+    return {
+        type: SET_PROFILE_USER,
+        payload,
+    };
+};
+export const setIsLogin = (payload) => {
+    return {
+        type: SET_IS_LOGIN,
         payload,
     };
 };

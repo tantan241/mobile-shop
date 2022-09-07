@@ -53,11 +53,13 @@
     margin-right: 15px;
 }
 .account {
+    cursor: pointer;
 }
 .user {
     display: flex;
     align-items: center;
     margin-left: 16px;
+    cursor: pointer;
 }
 .avatar {
     width: 35px;

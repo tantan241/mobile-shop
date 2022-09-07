@@ -1,0 +1,24 @@
+.wrapper {
+    position: relative;
+    padding: 40px 10px;
+    text-align: center;
+}
+.close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    font-size: 2rem;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    border: 1px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.header {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 20px;
+}

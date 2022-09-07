@@ -8,6 +8,9 @@ import {
     ADD_PRODUCT_IN_CART,
     UPDATE_NUMBER_PRODUCT_BUY,
     DELETE_PRODUCT_IN_CART,
+    SET_PRODUCT_COMPARE,
+    SET_PROFILE_USER,
+    SET_IS_LOGIN,
 } from './constants';
 import { CART, SEARCH_HISTORY } from '~/constants';
 
@@ -19,6 +22,9 @@ const initState = {
     numberPage: 1,
     isLogin: true,
     productsInCart: JSON.parse(localStorage.getItem(CART)) || [],
+    productCompare: {},
+    isLogin: false,
+    profileUser: {},
 };
 const reducer = (state, action) => {
     let newProductsInCart;
@@ -26,6 +32,9 @@ const reducer = (state, action) => {
         case SET_SEARCH_HISTORY:
             return { ...state, searchHistory: action.payload };
         case ADD_SEARCH_HISTORY:
+            if (state.searchHistory.includes(action.payload)) {
+                return { ...state };
+            }
             const newSearchHistory = [action.payload, ...state.searchHistory];
             localStorage.setItem(SEARCH_HISTORY, JSON.stringify(newSearchHistory));
             return {
@@ -79,6 +88,13 @@ const reducer = (state, action) => {
             });
             localStorage.setItem(CART, JSON.stringify(state.productsInCart));
             return { ...state };
+        case SET_PRODUCT_COMPARE:
+            return { ...state, productCompare: action.payload };
+        case SET_PROFILE_USER:
+            return { ...state, profileUser: action.payload };
+        case SET_IS_LOGIN:
+            return { ...state, isLogin: action.payload };
+
         default:
             throw new Error('Error');
     }
