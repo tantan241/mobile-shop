@@ -14,4 +14,10 @@
     transform: translate(-50%, -50%);
     background-color: white;
     border-radius: 8px;
+    &.full_display {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        overflow-y: scroll;
+    }
 }

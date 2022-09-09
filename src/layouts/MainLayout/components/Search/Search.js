@@ -53,6 +53,7 @@ function Search() {
                     interactive="true"
                     placement="bottom"
                     trigger="click"
+                    offset={['5%', 10]}
                     render={(attrs) => (
                         <div className={cx('search-result')} tabIndex="-1" {...attrs}>
                             <span className={cx('result-title')}>

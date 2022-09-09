@@ -17,10 +17,11 @@ function Button({
     width,
     big,
     disabled,
+    mobile,
 }) {
     let Button = 'button';
     const props = { href, to, disabled };
-    const classNames = { more, primary, big };
+    const classNames = { more, primary, big, mobile };
     if (href) {
         Button = 'a';
         props.href = href;
@@ -49,6 +50,7 @@ Button.propTypes = {
     width: PropTypes.string,
     big: PropTypes.bool,
     disabled: PropTypes.bool,
+    mobile: PropTypes.bool,
 };
 
 export default Button;

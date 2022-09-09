@@ -68,7 +68,9 @@ function MobileDetail() {
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <div className={cx('name')}>{product.name}</div>
-                <Rating number={avgStar} />
+                <div className={cx('rating')}>
+                    <Rating number={avgStar} />
+                </div>
                 <a href="#rating-detail" className={cx('text')}>
                     {product?.assess?.total} đánh giá
                 </a>

@@ -1,5 +1,6 @@
+@import '../../../../scss/global.scss';
 .wrapper {
-    width: 40%;
+    width: 90%;
     display: flex;
     background-color: white;
 }
@@ -41,4 +42,14 @@
     border: 1px solid;
     border-color: transparent transparent transparent rgba(0, 0, 0, 0.1);
     background-color: white;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        width: 90%;
+        margin-left: 10px;
+    }
 }

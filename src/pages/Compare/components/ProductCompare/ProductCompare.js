@@ -21,7 +21,7 @@ function ProductCompare({ src, name, icon, handleClose }) {
 ProductCompare.propTypes = {
     src: PropTypes.string,
     name: PropTypes.string,
-    icon: PropTypes.node,
+    icon: PropTypes.bool,
     handleClose: PropTypes.func,
 };
 

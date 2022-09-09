@@ -38,6 +38,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
             {comments && comments.length > 3 ? (
                 endArrComment <= 3 ? (
                     <Button
+                        mobile
                         more
                         rightIcon={<FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>}
                         onClick={showMoreCmt}
@@ -45,12 +46,17 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                         Xem {comments && comments.length - 3} đánh giá
                     </Button>
                 ) : (
-                    <Button more rightIcon={<FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>} onClick={hidCmt}>
+                    <Button
+                        mobile
+                        more
+                        rightIcon={<FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>}
+                        onClick={hidCmt}
+                    >
                         Ẩn bớt đánh giá
                     </Button>
                 )
             ) : (
-                <Button more disabled>
+                <Button mobile more disabled>
                     Xem thêm đánh giá
                 </Button>
             )}

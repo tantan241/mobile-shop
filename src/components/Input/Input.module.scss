@@ -1,3 +1,4 @@
+@import '../../scss/global.scss';
 .wrapper {
     position: relative;
     --size-bezel: 0.5rem;
@@ -38,6 +39,15 @@
                 transform: translate(0.25rem, -65%) scale(0.9);
                 opacity: 1;
             }
+        }
+    }
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+        & .label {
+            // max-width: 90%;
+            // // display: inline-block;
+            // overflow-wrap: break-word;
         }
     }
 }

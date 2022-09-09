@@ -1,7 +1,8 @@
-.warpper {
+@import '../../../../scss/global.scss';
+.wrapper {
     position: relative;
 }
-.warpper > img {
+.wrapper > img {
     width: 100%;
 }
 .btn-arrow-left,
@@ -23,4 +24,20 @@
     display: flex;
     list-style: none;
     margin: 20px 10px;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .btn-arrow-left {
+        left: 20px;
+    }
+    .btn-arrow-right {
+        right: -20px;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .btn-arrow-left {
+        left: 30px;
+    }
+    .btn-arrow-right {
+        right: -20px;
+    }
 }

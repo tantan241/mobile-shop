@@ -1,3 +1,4 @@
+@import '../../../../scss/global.scss';
 .wrapper {
     padding: 10px 40px;
     width: 80vh;
@@ -56,5 +57,10 @@
     cursor: pointer;
     &:hover {
         text-decoration: underline;
+    }
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+        width: 60vh;
     }
 }

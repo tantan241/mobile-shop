@@ -11,3 +11,4 @@ export const DELETE_PRODUCT_IN_CART = 'delete_product_in_cart';
 export const SET_PRODUCT_COMPARE = 'set_product_compare';
 export const SET_IS_LOGIN = 'set_is_login';
 export const SET_PROFILE_USER = 'set_profile_user';
+export const SET_OPEN_FILTERS_MOBILE = 'set_open_filters_mobile';

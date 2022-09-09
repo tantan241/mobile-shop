@@ -11,6 +11,7 @@ import MobilePages from '../../components/Pages';
 import { actions } from '~/store';
 import Advertise from '~/components/Advertise';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
+import FiltersMobile from '~/components/FiltersMobile';
 const cx = classNames.bind(styles);
 function Mobile() {
     const [store, dispatch] = useStore();
@@ -35,7 +36,7 @@ function Mobile() {
     }, [store]);
     return (
         <div className={cx('wrapper')}>
-            <Advertise src="https://cdn.tgdd.vn/2022/08/banner/1200-44-1200x44-13.png" />
+            <Advertise width="100%" src="https://cdn.tgdd.vn/2022/08/banner/1200-44-1200x44-13.png" />
             <div className={cx('content')}>
                 <div className={cx('filters')}>
                     {filters.map((filter) => (
@@ -47,12 +48,13 @@ function Mobile() {
                     <Sort />
                     <div className={cx('products-content')}>
                         {products.slice((store.numberPage - 1) * 9, (store.numberPage - 1) * 9 + 9).map((product) => (
-                            <MobileItem l_3 key={product.id} product={product} buyNow />
+                            <MobileItem s_2 m_2 l_3 key={product.id} product={product} buyNow />
                         ))}
                     </div>
                     <MobilePages pagesMax={pagesMax} />
                 </div>
             </div>
+            {store.openFiltersMobile && <FiltersMobile filters={filters} />}
         </div>
     );
 }

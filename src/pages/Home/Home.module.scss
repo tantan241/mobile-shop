@@ -1,6 +1,9 @@
+@import '../../scss/global.scss';
+.wrapper {
+    width: 100%;
+}
 .content {
     display: flex;
-    // min-height: 1000px;
 }
 .filters {
     width: 25%;
@@ -9,10 +12,29 @@
 
 .products {
     width: 75%;
-    // display: flex;
 }
 .products-content {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+}
+
+@include MediaQuery($min_tablet, $max_tablet) {
+    .content {
+        padding: 0 15px;
+    }
+    .filters {
+        width: 35%;
+    }
+    .products {
+        width: 65%;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .filters {
+        display: none;
+    }
+    .products {
+        width: 100%;
+    }
 }

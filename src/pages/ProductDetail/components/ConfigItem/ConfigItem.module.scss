@@ -1,3 +1,7 @@
+@import '../../../../scss/global.scss';
+:root {
+    --width-left: 160px;
+}
 .wrapper {
     padding: 10px;
 }
@@ -13,8 +17,17 @@
     font-size: 1.6rem;
 }
 .left {
-    width: 160px;
+    width: var(--width-left);
 }
 .right {
-    width: calc(100% - 160px);
+    width: calc(100% - var(--width-left));
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    :root {
+        --width-left: 110px;
+    }
+    .left,
+    .right {
+        font-size: 1.5rem;
+    }
 }

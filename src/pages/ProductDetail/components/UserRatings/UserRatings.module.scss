@@ -1,7 +1,13 @@
+@import '../../../../scss/global.scss';
 .wrapper {
     display: flex;
     flex-wrap: wrap;
 }
 .comments {
     width: 100%;
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        flex-direction: column;
+    }
 }

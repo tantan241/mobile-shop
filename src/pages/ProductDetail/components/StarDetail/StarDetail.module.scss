@@ -1,3 +1,4 @@
+@import '../../../../scss/global.scss';
 .wrapper {
     width: 40%;
     padding-right: 10px;
@@ -16,4 +17,16 @@
 }
 .percents {
     margin: 10px 0 0 10px;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+        width: 100%;
+        border-color: transparent;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        width: 100%;
+        border-color: transparent;
+    }
 }

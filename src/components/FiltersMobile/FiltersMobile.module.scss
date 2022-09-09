@@ -1,0 +1,19 @@
+.wrapper {
+}
+.header {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 4px 0;
+}
+.close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    font-size: 2.4rem;
+    margin-right: 5px;
+    padding: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+}

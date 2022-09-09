@@ -24,7 +24,7 @@ export const filter = async () => {
 };
 export const mobileDetail = async (id) => {
     try {
-        const res = await request.get('mobile_detail', {
+        const res = await request.get('product_detail', {
             params: {
                 id,
             },

@@ -16,7 +16,7 @@ function MobileDetailImages({ images, onBtnLeftClick, onBtnRightClick, onImageBu
     }, [images]);
     return (
         <>
-            <div className={cx('warpper')}>
+            <div className={cx('wrapper')}>
                 <img src={imageBig} alt=""></img>
                 {images.length > 1 && (
                     <>

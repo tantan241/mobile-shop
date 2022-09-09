@@ -9,8 +9,10 @@ import MobileItem from '../../../Mobile/components/MobileItem';
 const cx = classNames.bind(styles);
 function MostBuy() {
     const productListRef = useRef();
-    let withListProduct;
+    let widthListProduct;
     let widthItem;
+    let numberProduct;
+    const [disabledBtnRight, setDisabledBtnRight] = useState(0);
     const [x, setX] = useState(0);
     const [products, setProducts] = useState([]);
     useEffect(() => {
@@ -20,18 +22,27 @@ function MostBuy() {
         };
         fetchApi();
     }, []);
-
+    useEffect(() => {
+        widthListProduct = productListRef.current.clientWidth.toFixed(2);
+        setDisabledBtnRight(widthListProduct);
+        if (widthListProduct < 1024) {
+            numberProduct = 4;
+        } else {
+            numberProduct = 5;
+        }
+        widthItem = widthListProduct / numberProduct;
+    }, []);
     useEffect(() => {
         productListRef.current.style.transform = `translate3d(${x}px, 0px, 0px)`;
     }, [x]);
     useEffect(() => {
-        withListProduct = productListRef.current.clientWidth;
-        widthItem = withListProduct / 5;
-    }, []);
-    useEffect(() => {
+        if (numberProduct === 4) {
+            widthListProduct = widthItem * 6;
+            setDisabledBtnRight(widthItem * 6);
+        }
         const idInterval = setInterval(() => {
             setX((prev) => {
-                if (prev === -1200) {
+                if (prev <= -widthListProduct) {
                     return 0;
                 } else {
                     return prev - widthItem;
@@ -53,14 +64,14 @@ function MostBuy() {
             <div className={cx('product-list-wrapper')}>
                 <ul ref={productListRef} className={cx('product-list')}>
                     {products.map((product) => (
-                        <MobileItem l_5 key={product.id} product={product} />
+                        <MobileItem m_4 l_5 key={product.id} product={product} />
                     ))}
                 </ul>
             </div>
             <button disabled={x === 0} onClick={handleBtnLeftClick} className={cx('btn-left')}>
                 <FontAwesomeIcon icon={faAngleLeft}></FontAwesomeIcon>
             </button>
-            <button disabled={x === -1200} onClick={handleBtnRightClick} className={cx('btn-right')}>
+            <button disabled={x === -disabledBtnRight} onClick={handleBtnRightClick} className={cx('btn-right')}>
                 <FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon>
             </button>
         </div>

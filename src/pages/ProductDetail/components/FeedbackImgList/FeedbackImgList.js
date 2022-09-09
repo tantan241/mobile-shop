@@ -80,7 +80,7 @@ function FeedbackImgList({ images, comments }) {
                                 <div className={cx('image')}>
                                     <img alt="ảnh" src={commentDetail.image} />
                                 </div>
-                                <div className="content">
+                                <div className={cx('content')}>
                                     <Comment
                                         name={commentDetail.name_user}
                                         star={commentDetail.star}

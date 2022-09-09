@@ -30,7 +30,7 @@ SelectFormItem.propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
     handleChoose: PropTypes.func,
-    data: PropTypes.object,
+    data: PropTypes.array,
 };
 
 export default SelectFormItem;

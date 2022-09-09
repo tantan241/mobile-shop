@@ -1,3 +1,4 @@
+@import '../../scss/global.scss';
 .wrapper {
     margin-top: 10px;
 }
@@ -16,4 +17,20 @@
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .filters {
+        width: 35%;
+    }
+    .products {
+        width: 65%;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .filters {
+        display: none;
+    }
+    .products {
+        width: 100%;
+    }
 }

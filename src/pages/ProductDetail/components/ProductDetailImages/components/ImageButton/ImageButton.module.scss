@@ -1,3 +1,4 @@
+@import '../../../../../../scss/global.scss';
 .wrapper {
     padding: 4px;
     width: 16.6667%;
@@ -8,5 +9,13 @@
     padding: 10px;
     &.active {
         border: 2px solid var(--primary-color);
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        padding: 1px;
+    }
+    .img {
+        padding: 3px;
     }
 }

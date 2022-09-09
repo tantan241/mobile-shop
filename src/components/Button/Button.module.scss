@@ -1,3 +1,4 @@
+@import '../../scss/global.scss';
 .wrapper {
     display: flex;
     align-items: center;
@@ -40,4 +41,16 @@
 }
 .right-icon {
     margin-left: 5px;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .big {
+        font-size: 1.6rem;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        &.mobile {
+            font-size: 1rem;
+        }
+    }
 }

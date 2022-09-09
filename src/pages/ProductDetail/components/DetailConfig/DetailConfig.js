@@ -17,7 +17,9 @@ function DetailConfig({ data }) {
     }, []);
     return (
         <div className={cx('wrapper')}>
-            <Advertise width="100%" src="https://cdn.tgdd.vn/2022/08/banner/Banner---Desk-920x220.png" />
+            <div className={cx('advertise')}>
+                <Advertise width="100%" src="https://cdn.tgdd.vn/2022/08/banner/Banner---Desk-920x220.png" />
+            </div>
             <Button to="/cart" big primary width="100%" onClick={() => handleBuyNow(data.id)}>
                 Mua ngay với giá {price} vnđ
             </Button>

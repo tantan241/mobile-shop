@@ -11,7 +11,7 @@ import { actions } from '~/store';
 import Button from '~/components/Button';
 import Rating from '~/components/Rating';
 const cx = classNames.bind(styles);
-function MobileItem({ product, l_5, l_3, buyNow }) {
+function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const [store, dispatch] = useStore();
     const moneyDiscount = (product.price * product.discount) / 100;
     const priceCurrent = (product.price - moneyDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -32,6 +32,9 @@ function MobileItem({ product, l_5, l_3, buyNow }) {
             className={cx('wrapper', {
                 l_5,
                 l_3,
+                m_4,
+                m_2,
+                s_2,
             })}
             onClick={() => handleClick(product.id)}
         >
@@ -47,8 +50,8 @@ function MobileItem({ product, l_5, l_3, buyNow }) {
                 <p className={cx('price-saved')}>Tiết kiệm: {priceSaved} vnđ </p>
                 {product.rating && (
                     <div className={cx('rating')}>
-                        <Rating number="3.5" />
-                        <span className={cx('number-rating')}>17</span>
+                        <Rating number={product.rating} />
+                        <span className={cx('number-rating')}>{product.rating_number}</span>
                     </div>
                 )}
 

@@ -22,10 +22,12 @@ function Header() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
-                <Link to="/">
+                <Link to="/" className={cx('logo')}>
                     <img className={cx('image')} src={logo} alt="Logo" />
                 </Link>
-                <Search />
+                <div className={cx('search')}>
+                    <Search />
+                </div>
                 <div className={cx('cart-account')}>
                     <Link to="/cart" className={cx('cart')}>
                         <FontAwesomeIcon className={cx('icon-cart')} icon={faCartShopping}></FontAwesomeIcon>
@@ -33,7 +35,7 @@ function Header() {
                             <span className={cx('number')}>{store.productsInCart.length}</span>
                         )}
 
-                        <span className={cx('title')}>Giỏ hàng</span>
+                        <span className={cx('title', 'hidden-mobile')}>Giỏ hàng</span>
                     </Link>
                     {Object.keys(store.profileUser).length > 0 ? (
                         <Tippy
@@ -63,6 +65,9 @@ function Header() {
                         <Login />
                     </Overlay>
                 )}
+            </div>
+            <div className={cx('search-mobile')}>
+                <Search />
             </div>
             <Navbar />
         </div>

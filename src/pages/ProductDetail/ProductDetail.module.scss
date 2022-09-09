@@ -1,5 +1,5 @@
+@import '../../scss/global.scss';
 .wrapper {
-    // display: flex;
     margin-top: 40px;
 }
 
@@ -21,6 +21,7 @@
     font-size: 2.4rem;
     font-weight: 600;
     margin-right: 10px;
+    max-width: 70%;
 }
 
 .text {
@@ -43,4 +44,28 @@
     width: 60%;
 }
 
-// Rating detail
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+        padding: 0 15px;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        margin-top: 10px;
+    }
+    .name {
+        padding-left: 10px;
+    }
+    .rating {
+        display: none;
+    }
+    .text {
+        display: none;
+    }
+    .content {
+        flex-direction: column;
+    }
+    .assess {
+        width: 100%;
+    }
+}

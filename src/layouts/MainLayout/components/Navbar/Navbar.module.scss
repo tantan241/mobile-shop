@@ -1,3 +1,4 @@
+@import '../../../../scss/global.scss';
 .wrapper {
     display: flex;
     justify-content: center;
@@ -6,7 +7,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1080px;
+    width: 1024px;
 }
 .navbar-item {
     position: relative;
@@ -33,4 +34,29 @@
 }
 
 .title {
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+        width: 100%;
+        padding: 0 30px;
+    }
+    .navbar-item {
+        padding: 10px 0;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        width: 100%;
+        padding: 0 10px;
+    }
+    .navbar-item {
+        font-size: 1.5rem;
+        padding: 10px 0;
+        &::after {
+            display: none;
+        }
+    }
+    .icon {
+        margin-right: 1px;
+    }
 }

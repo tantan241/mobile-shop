@@ -2,12 +2,15 @@ import { useCallback, useState } from 'react';
 import TippyHeadless from '@tippyjs/react/headless';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faBars } from '@fortawesome/free-solid-svg-icons';
 import classNames from 'classnames/bind';
 import styles from './Sort.module.scss';
 import SortItem from './components/SortItem';
+import useStore from '~/store/hooks';
+import { actions } from '~/store';
 const cx = classNames.bind(styles);
 function Sort() {
+    const [store, dispatch] = useStore();
     const sorts = [
         { id: 1, name: 'Nổi bật', type: 'popularity' },
         {
@@ -34,6 +37,9 @@ function Sort() {
     );
     return (
         <div className={cx('wrapper')}>
+            <div className={cx('menu-mobile')} onClick={() => dispatch(actions.setOpenFiltersMobile(true))}>
+                <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
+            </div>
             <TippyHeadless
                 interactive
                 trigger="click"

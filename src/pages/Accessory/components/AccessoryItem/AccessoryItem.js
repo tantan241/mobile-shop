@@ -11,7 +11,7 @@ import { actions } from '~/store';
 import useStore from '~/store/hooks';
 import styles from './AccessoryItem.module.scss';
 const cx = classNames.bind(styles);
-function AccessoryItem({ product, l_5, buyNow }) {
+function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
     const [store, dispatch] = useStore();
     const price_cur = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const price_real = (product.price - (product.price * product.discount) / 100)
@@ -31,6 +31,9 @@ function AccessoryItem({ product, l_5, buyNow }) {
         <div
             className={cx('wrapper', {
                 l_5,
+                m_2,
+                m_4,
+                s_2,
             })}
             onClick={() => handleClick(product.id)}
         >

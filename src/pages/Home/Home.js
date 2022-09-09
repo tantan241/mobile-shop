@@ -12,6 +12,7 @@ import AccessoryItem from '../Accessory/components/AccessoryItem';
 import Sort from '../../components/Sort';
 import MobilePages from '../../components/Pages';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
+import FiltersMobile from '~/components/FiltersMobile';
 const cx = classNames.bind(styles);
 function Home() {
     const [store, dispatch] = useStore();
@@ -37,7 +38,7 @@ function Home() {
     }, [store]);
 
     return (
-        <div className="wrapper">
+        <div className={cx('wrapper')}>
             <MostBuy />
             <div className={cx('content')}>
                 <div className={cx('filters')}>
@@ -53,14 +54,15 @@ function Home() {
                             .slice((store.numberPage - 1) * 6, (store.numberPage - 1) * 6 + 6)
                             .map((product) =>
                                 product.type === 'accessory' ? (
-                                    <AccessoryItem key={product.id} product={product} buyNow />
+                                    <AccessoryItem m_2 s_2 key={product.id} product={product} buyNow />
                                 ) : (
-                                    <MobileItem l_3 key={product.id} product={product} buyNow />
+                                    <MobileItem m_2 l_3 s_2 key={product.id} product={product} buyNow />
                                 ),
                             )}
                     </div>
                     <MobilePages pagesMax={pagesMax} />
                 </div>
+                {store.openFiltersMobile && <FiltersMobile filters={filters} />}
             </div>
         </div>
     );

@@ -11,6 +11,7 @@ import {
     SET_PRODUCT_COMPARE,
     SET_PROFILE_USER,
     SET_IS_LOGIN,
+    SET_OPEN_FILTERS_MOBILE,
 } from './constants';
 import { CART, SEARCH_HISTORY } from '~/constants';
 
@@ -25,6 +26,7 @@ const initState = {
     productCompare: {},
     isLogin: false,
     profileUser: {},
+    openFiltersMobile: false,
 };
 const reducer = (state, action) => {
     let newProductsInCart;
@@ -94,6 +96,8 @@ const reducer = (state, action) => {
             return { ...state, profileUser: action.payload };
         case SET_IS_LOGIN:
             return { ...state, isLogin: action.payload };
+        case SET_OPEN_FILTERS_MOBILE:
+            return { ...state, openFiltersMobile: action.payload };
 
         default:
             throw new Error('Error');

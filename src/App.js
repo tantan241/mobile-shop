@@ -1,5 +1,4 @@
 import MainLayout from './layouts/MainLayout';
-import logo from './logo.svg';
 import { publicLayouts } from '~/routes';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 

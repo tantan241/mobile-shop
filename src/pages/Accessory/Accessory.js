@@ -10,6 +10,7 @@ import MobilePages from '../../components/Pages';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
+import FiltersMobile from '~/components/FiltersMobile';
 const cx = classNames.bind(styles);
 function Accessory() {
     const [filters, setFilters] = useState();
@@ -35,7 +36,7 @@ function Accessory() {
     }, [store]);
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('filter')}>
+            <div className={cx('filters')}>
                 {filters && filters.map((filter) => <Filters data={filter} key={filter.id} />)}
                 <FilterPrice />
             </div>
@@ -46,10 +47,11 @@ function Accessory() {
                     {products &&
                         products
                             .slice((store.numberPage - 1) * 9, (store.numberPage - 1) * 9 + 9)
-                            .map((product) => <AccessoryItem key={product.id} product={product} buyNow />)}
+                            .map((product) => <AccessoryItem s_2 m_2 key={product.id} product={product} buyNow />)}
                 </div>
                 <MobilePages pagesMax={pagesMax} />
             </div>
+            {store.openFiltersMobile && <FiltersMobile filters={filters} />}
         </div>
     );
 }

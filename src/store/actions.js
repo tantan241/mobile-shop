@@ -11,6 +11,7 @@ import {
     SET_PRODUCT_COMPARE,
     SET_PROFILE_USER,
     SET_IS_LOGIN,
+    SET_OPEN_FILTERS_MOBILE,
 } from './constants';
 export const addSearchHistory = (payload) => {
     return {
@@ -81,6 +82,12 @@ export const setProfileUser = (payload) => {
 export const setIsLogin = (payload) => {
     return {
         type: SET_IS_LOGIN,
+        payload,
+    };
+};
+export const setOpenFiltersMobile = (payload) => {
+    return {
+        type: SET_OPEN_FILTERS_MOBILE,
         payload,
     };
 };

@@ -1,18 +1,22 @@
+@import '../../scss/global.scss';
 .header {
     font-size: 3rem;
     margin: 20px 0;
 }
 .table {
-    width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
 }
 
 th,
 td {
+    max-width: 100%;
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
 .text {
     font-size: 1.8rem;
     font-weight: 500;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
 }

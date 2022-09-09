@@ -1,7 +1,19 @@
+@import '../../scss/global.scss';
+.wrapper {
+    width: 100%;
+}
 .content {
     display: flex;
     justify-content: center;
 }
 .center {
-    width: 1200px;
+    width: 1024px;
+}
+@include MediaQuery($min_mobile, $max_tablet) {
+    .wrapper {
+        width: 100%;
+    }
+    .center {
+        width: 100%;
+    }
 }
