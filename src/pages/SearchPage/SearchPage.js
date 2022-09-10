@@ -32,9 +32,9 @@ function SearchPage() {
                             .slice((store.numberPage - 1) * 15, (store.numberPage - 1) * 15 + 15)
                             .map((product) =>
                                 product.type === 'accessory' ? (
-                                    <AccessoryItem m_4 l_5 key={product.id} product={product} />
+                                    <AccessoryItem s_2 m_4 l_5 key={product.id} product={product} />
                                 ) : (
-                                    <MobileItem m_4 l_5 key={product.id} product={product} />
+                                    <MobileItem s_2 m_4 l_5 key={product.id} product={product} />
                                 ),
                             )}
                     </div>

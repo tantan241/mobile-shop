@@ -1,33 +1,29 @@
 @import '../../scss/global.scss';
 
 .wrapper {
-    position: relative;
+    // position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
 }
 .menu-mobile {
-    font-size: 2.2rem;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    left: 10px;
+    font-size: 2.6rem;
+    margin-left: 10px;
     display: none;
 }
 .sort-list {
     list-style: none;
-    width: 210px;
+    width: 100%;
     font-size: 2rem;
     box-shadow: 1px 1px rgb(231, 229, 229);
     background-color: white;
 }
 
 .content {
-    flex: 1 1 100%;
     font-size: 2.2rem;
-    margin-right: 20px;
-    padding: 10px;
-    text-align: right;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
+    padding: 11px;
     cursor: pointer;
 }
 .title {
@@ -41,6 +37,11 @@
     margin-right: 10px;
 }
 @include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     .content {
         margin-right: 0;
         font-size: 1.6rem;

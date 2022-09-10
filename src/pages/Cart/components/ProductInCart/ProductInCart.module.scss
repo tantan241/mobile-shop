@@ -1,3 +1,4 @@
+@import '../../../../scss/global.scss';
 .wrapper {
     display: flex;
     padding: 10px 60px 5px;
@@ -65,4 +66,24 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     cursor: pointer;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    .wrapper {
+        padding: 20px;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        padding: 10px;
+    }
+    .infor {
+        width: 60%;
+    }
+    .img {
+        width: 70px;
+        height: 70px;
+    }
+    .name {
+        font-size: 1.8rem;
+    }
 }

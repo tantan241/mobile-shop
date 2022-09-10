@@ -43,7 +43,7 @@ function Sort() {
             <TippyHeadless
                 interactive
                 trigger="click"
-                placement="bottom-end"
+                placement="bottom-start"
                 render={(attrs) => (
                     <ul className={cx('sort-list')} tabIndex="-1" {...attrs}>
                         {sorts.map((sort) => (

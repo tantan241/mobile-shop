@@ -42,12 +42,11 @@
         }
     }
 }
-@include MediaQuery($min_tablet, $max_tablet) {
+@include MediaQuery($min_mobile, $max_tablet) {
     .wrapper {
         & .label {
-            // max-width: 90%;
-            // // display: inline-block;
-            // overflow-wrap: break-word;
+            white-space: unset;
+            font-size: 1.6rem;
         }
     }
 }

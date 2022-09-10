@@ -1,4 +1,4 @@
-// cart has product
+@import '../../scss/global.scss';
 .wrapper {
     display: flex;
     justify-content: center;
@@ -39,4 +39,21 @@
     display: flex;
     justify-content: center;
     margin-bottom: 50px;
+}
+@include MediaQuery($min_tablet, $max_tablet) {
+    // .center {
+    //     width: 80%;
+    // }
+    .total {
+        padding: 20px;
+    }
+}
+
+@include MediaQuery($min_mobile, $max_mobile) {
+    .center {
+        width: 100%;
+    }
+    .total {
+        padding: 10px;
+    }
 }

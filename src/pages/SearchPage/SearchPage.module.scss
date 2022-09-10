@@ -1,3 +1,4 @@
+@import '../../scss/global.scss';
 .header {
     text-align: center;
     margin-top: 30px;
@@ -6,4 +7,6 @@
 .products {
     display: flex;
     flex-wrap: wrap;
+}
+@include MediaQuery($min_mobile, $max_mobile) {
 }
