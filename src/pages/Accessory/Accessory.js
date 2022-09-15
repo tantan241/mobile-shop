@@ -25,6 +25,7 @@ function Accessory() {
             setFilters(res);
         };
         fetchApi();
+        document.title = 'Phụ kiện | VuTan-Mobile';
     }, []);
     useEffect(() => {
         const fetchApi = async () => {

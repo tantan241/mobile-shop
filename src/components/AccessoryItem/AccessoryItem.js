@@ -56,6 +56,7 @@ function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
                 <div className={cx('actions')}>
                     <div className={cx('actions-content')}>
                         <Button
+                            className={cx('btn-buy-now')}
                             onClick={() => handleBuy(product.id)}
                             to="/cart"
                             primary
@@ -64,14 +65,13 @@ function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
                             Mua ngay
                         </Button>
 
-                        <div className={cx('btn-compare')}>
-                            <Button
-                                onClick={() => handleCompareClick(product.id, product.type, product.type_accessory)}
-                                to="/compare"
-                            >
-                                So sánh
-                            </Button>
-                        </div>
+                        <Button
+                            className={cx('btn-compare')}
+                            onClick={() => handleCompareClick(product.id, product.type, product.type_accessory)}
+                            to="/compare"
+                        >
+                            So sánh
+                        </Button>
                     </div>
                 </div>
             )}

@@ -54,16 +54,22 @@
 }
 .actions {
     display: none;
-    margin-bottom: 20px;
 }
 .actions-content {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
-.compare {
+.btn-buy-now {
+    width: 120px;
+    line-height: 1.5;
+    font-size: 1.6rem;
 }
+.btn-compare {
+    line-height: 1.5;
+    font-size: 1.6rem;
+}
+
 @include MediaQuery($min_tablet, $max_tablet) {
     .wrapper {
         &.m_2 {

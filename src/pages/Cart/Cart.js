@@ -18,9 +18,11 @@ function Cart() {
     const [products, setProduct] = useState();
     const [totalMoney, setTotalMoney] = useState(0);
     useEffect(() => {
+        document.title = 'Giỏ hàng | VuTan-Mobile';
+    }, []);
+    useEffect(() => {
         localStorage.setItem(CART, JSON.stringify(store.productsInCart));
     }, [store.productsInCart]);
-
     useEffect(() => {
         if (store.productsInCart) {
             const productsId = store.productsInCart.map((product) => product.idProduct);

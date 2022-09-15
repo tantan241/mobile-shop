@@ -3,6 +3,9 @@
     width: 40%;
     margin-left: 20px;
 }
+.btn-buy-now {
+    margin: 10px 0 15px;
+}
 @include MediaQuery($min_tablet, $max_tablet) {
     .wrapper {
         margin-left: 10px;

@@ -25,6 +25,7 @@ function Mobile() {
             setFilters(res);
         };
         fetchApi();
+        document.title = 'Điện thoại | VuTan-Mobile';
     }, []);
     useEffect(() => {
         const fetchApi = async () => {

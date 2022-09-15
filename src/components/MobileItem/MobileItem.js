@@ -59,9 +59,10 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
             </Link>
 
             {buyNow && (
-                <div className={cx('footer')}>
-                    <div className={cx('footer-content')}>
+                <div className={cx('actions')}>
+                    <div className={cx('actions-content')}>
                         <Button
+                            className={cx('btn-buy-now')}
                             onClick={() => handleBuyNow(product.id)}
                             to="/cart"
                             primary
@@ -69,7 +70,11 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                         >
                             Mua ngay
                         </Button>
-                        <Button to="/compare" onClick={() => handCompareClick(product.id, product.type)}>
+                        <Button
+                            className={cx('btn-compare')}
+                            to="/compare"
+                            onClick={() => handCompareClick(product.id, product.type)}
+                        >
                             So sánh
                         </Button>
                     </div>

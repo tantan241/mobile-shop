@@ -13,6 +13,9 @@ function Compare() {
     const [product2, setProduct2] = useState();
     const [compare, setCompare] = useState();
     useEffect(() => {
+        document.title = 'So sánh sản phẩm | VuTan-Mobile';
+    }, []);
+    useEffect(() => {
         const fetchApi = async () => {
             const res = await compareService.products(store.productCompare);
             setProduct1(res[0]);

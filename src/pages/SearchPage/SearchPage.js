@@ -12,7 +12,9 @@ function SearchPage() {
     const [store, dispatch] = useStore();
     const [products, setProducts] = useState([]);
     const [pagesMax, setPagesMax] = useState(0);
-
+    useEffect(() => {
+        document.title = ' VuTan-Mobile';
+    }, []);
     useEffect(() => {
         const fetchApi = async () => {
             const res = await homeService.products(store.paramsApiFilter);

@@ -27,6 +27,7 @@ function Home() {
             setFilters(res);
         };
         fetchApi();
+        document.title = 'VuTan-Mobile';
     }, []);
     useEffect(() => {
         const fetchApi = async () => {

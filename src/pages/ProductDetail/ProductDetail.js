@@ -23,6 +23,9 @@ function MobileDetail() {
         product?.assess?.total
     ).toFixed(1);
     useEffect(() => {
+        product.name && (document.title = product.name);
+    }, [product]);
+    useEffect(() => {
         const fetchApi = async () => {
             const res = await mobileService.mobileDetail(store.idProduct);
             setImages(

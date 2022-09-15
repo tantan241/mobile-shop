@@ -1,11 +1,24 @@
 @import '../../../../scss/global.scss';
 .wrapper {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     margin-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 20px 100px;
-    justify-content: space-between;
+    padding: 20px 70px;
+}
+.btn-write-assess {
+    height: 100%;
+    width: 150px;
+    line-height: 1.5;
+    font-size: 2rem;
+}
+.btn-action-assess {
+    width: 200px;
+    height: 100%;
+    font-size: 2rem;
+    line-height: 1.5;
 }
 .header {
     display: flex;
@@ -34,9 +47,21 @@
 @include MediaQuery($min_mobile, $max_mobile) {
     .wrapper {
         justify-content: space-evenly;
-        padding: 20px 0;
+        padding: 20px 5px;
     }
     .header {
         padding: 10px 20px;
+    }
+    .btn-write-assess {
+        height: 100%;
+        width: 130px;
+        line-height: 1.5;
+        font-size: 1.4rem;
+    }
+    .btn-action-assess {
+        height: 100%;
+        width: 150px;
+        line-height: 1.5;
+        font-size: 1.4rem;
     }
 }

@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     background-color: rgb(231, 222, 222);
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-color: transparent;
     border-radius: 5px;
     font-size: 1.6rem;
@@ -16,9 +16,7 @@
         opacity: 0.4;
     }
 }
-.wrapper + .wrapper {
-    margin-top: 10px;
-}
+
 .big {
     padding: 20px;
     font-size: 2rem;
@@ -38,6 +36,11 @@
     &:hover {
         background-color: rgb(247, 242, 242);
     }
+    &:disabled {
+        &:hover {
+            background-color: unset;
+        }
+    }
 }
 .right-icon {
     margin-left: 5px;
@@ -48,9 +51,4 @@
     }
 }
 @include MediaQuery($min_mobile, $max_mobile) {
-    .wrapper {
-        &.mobile {
-            font-size: 1rem;
-        }
-    }
 }

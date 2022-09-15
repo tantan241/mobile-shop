@@ -19,11 +19,10 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
     }, []);
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('write-assess')}>
-                <Button primary onClick={handleOpenForm}>
-                    Viết đánh giá
-                </Button>
-            </div>
+            <Button className={cx('btn-write-assess')} primary onClick={handleOpenForm}>
+                Viết đánh giá
+            </Button>
+
             {openForm && (
                 <Overlay>
                     <>
@@ -40,6 +39,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
             {comments && comments.length > 3 ? (
                 endArrComment <= 3 ? (
                     <Button
+                        className={cx('btn-action-assess')}
                         mobile
                         more
                         rightIcon={<FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>}
@@ -49,6 +49,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                     </Button>
                 ) : (
                     <Button
+                        className={cx('btn-action-assess')}
                         mobile
                         more
                         rightIcon={<FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>}
@@ -58,7 +59,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                     </Button>
                 )
             ) : (
-                <Button mobile more disabled>
+                <Button className={cx('btn-action-assess')} more disabled>
                     Xem thêm đánh giá
                 </Button>
             )}

@@ -18,7 +18,9 @@ function Button({
     big,
     disabled,
     mobile,
+    className,
 }) {
+    console.log(className);
     let Button = 'button';
     const props = { href, to, disabled };
     const classNames = { more, primary, big, mobile };
@@ -31,7 +33,7 @@ function Button({
         props.to = to;
     }
     return (
-        <Button style={{ width }} onClick={onClick} {...props} className={cx('wrapper', classNames)}>
+        <Button style={{ width }} onClick={onClick} {...props} className={cx('wrapper', className, classNames)}>
             {leftIcon && <div className={cx('left-icon')}>{leftIcon}</div>}
             <span className={cx('title')}> {children}</span>
             {rightIcon && <div className={cx('right-icon')}>{rightIcon}</div>}
@@ -51,6 +53,7 @@ Button.propTypes = {
     big: PropTypes.bool,
     disabled: PropTypes.bool,
     mobile: PropTypes.bool,
+    className: PropTypes.string,
 };
 
 export default Button;

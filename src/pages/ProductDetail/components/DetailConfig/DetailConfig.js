@@ -20,7 +20,14 @@ function DetailConfig({ data }) {
             <div className={cx('advertise')}>
                 <Advertise width="100%" src="https://cdn.tgdd.vn/2022/08/banner/Banner---Desk-920x220.png" />
             </div>
-            <Button to="/cart" big primary width="100%" onClick={() => handleBuyNow(data.id)}>
+            <Button
+                className={cx('btn-buy-now')}
+                to="/cart"
+                big
+                primary
+                width="100%"
+                onClick={() => handleBuyNow(data.id)}
+            >
                 Mua ngay với giá {price} vnđ
             </Button>
             <Button to="/notification" big width="100%">
