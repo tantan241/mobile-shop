@@ -15,7 +15,7 @@ function FilterPrice() {
         dispatch(
             actions.setParamsApiFilter({ min: fromPriceInpuRef.current.value, max: toPriceInpuRef.current.value }),
         );
-        console.log(fromPriceInpuRef.current.value);
+        dispatch(actions.setOpenFiltersMobile(false));
     }, []);
     return (
         <div className={cx('wrapper')}>

@@ -4,8 +4,8 @@ import classNames from 'classnames/bind';
 import styles from './SearchPage.module.scss';
 import useStore from '~/store/hooks';
 import * as homeService from '~/apiServices/homeService';
-import AccessoryItem from '../Accessory/components/AccessoryItem';
-import MobileItem from '../Mobile/components/MobileItem';
+import AccessoryItem from '../../components/AccessoryItem';
+import MobileItem from '../../components/MobileItem';
 import MobilePages from '../../components/Pages';
 const cx = classNames.bind(styles);
 function SearchPage() {

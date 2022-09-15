@@ -67,6 +67,7 @@ function FeedbackImgList({ images, comments }) {
                                     {images &&
                                         images.map((image, index) => (
                                             <ImageAssess
+                                                s_3
                                                 onClick={() => handleImageClick(image)}
                                                 key={index}
                                                 sizeL

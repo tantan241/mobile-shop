@@ -27,12 +27,14 @@
 }
 @include MediaQuery($min_tablet, $max_tablet) {
     .wrapper {
-        padding: 10px 0;
+        justify-content: space-evenly;
+        padding: 20px 0;
     }
 }
 @include MediaQuery($min_mobile, $max_mobile) {
     .wrapper {
-        padding: 20px 0 5px;
+        justify-content: space-evenly;
+        padding: 20px 0;
     }
     .header {
         padding: 10px 20px;

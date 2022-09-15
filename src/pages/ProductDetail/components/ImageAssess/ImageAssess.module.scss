@@ -1,3 +1,4 @@
+@import '../../../../scss/global.scss';
 .wrapper {
     position: relative;
     width: 20%;
@@ -29,5 +30,13 @@
     height: 60px;
     &.sizeL {
         height: 120px;
+    }
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .wrapper {
+        &.s_3 {
+            flex: 0 0 33.3334%;
+            max-width: 33.3334%;
+        }
     }
 }

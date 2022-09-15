@@ -1,4 +1,4 @@
-@import '../../../../scss/global.scss';
+@import '../../scss/global.scss';
 .wrapper {
     position: relative;
     padding: 10px;
@@ -49,8 +49,8 @@
     border-radius: 2px;
 }
 .name {
-    font-size: 1.8rem;
-    font-weight: 400;
+    font-size: 2rem;
+    font-weight: 500;
 }
 .price {
     display: flex;
@@ -124,5 +124,8 @@
         &:hover .footer {
             display: none;
         }
+    }
+    .name {
+        font-size: 1.6rem;
     }
 }

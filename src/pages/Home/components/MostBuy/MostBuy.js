@@ -5,7 +5,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import * as mobileService from '~/apiServices/mobileService';
 import classNames from 'classnames/bind';
 import styles from './MostBuy.module.scss';
-import MobileItem from '../../../Mobile/components/MobileItem';
+import MobileItem from '../../../../components/MobileItem';
 const cx = classNames.bind(styles);
 function MostBuy() {
     const productListRef = useRef();

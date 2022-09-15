@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Accessory.module.scss';
-import AccessoryItem from './components/AccessoryItem';
+import AccessoryItem from '../../components/AccessoryItem';
 import * as accessoryService from '~/apiServices/accessoryService';
 import Filters from '~/components/Filters';
 import Sort from '../../components/Sort';

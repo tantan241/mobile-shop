@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './ImageAssess.module.scss';
 const cx = classNames.bind(styles);
-function ImageAssess({ more, src, onClick, sizeL }) {
+function ImageAssess({ more, src, onClick, sizeL, s_3 }) {
     return (
         <div
             className={cx('wrapper', {
                 sizeL,
+                s_3,
             })}
             onClick={onClick}
         >
@@ -21,6 +22,7 @@ ImageAssess.propTypes = {
     src: PropTypes.string,
     onClick: PropTypes.func,
     sizeL: PropTypes.bool,
+    s_3: PropTypes.bool,
 };
 
 export default ImageAssess;

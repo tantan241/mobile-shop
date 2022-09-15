@@ -1,8 +1,7 @@
-@import '../../../../scss/global.scss';
+@import '../../scss/global.scss';
 .wrapper {
     width: 33.3334%;
     padding: 0 10px;
-    // margin-top: 10px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     &:hover {
         border-color: rgba(0, 0, 0, 0.2);
@@ -26,7 +25,7 @@
     margin-bottom: 20px;
 }
 .name {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 500;
 }
 .price_cur-discount {
@@ -84,5 +83,11 @@
             flex: 0 0 50%;
             max-width: 50%;
         }
+        &:hover .actions {
+            display: none;
+        }
+    }
+    .name {
+        font-size: 1.6rem;
     }
 }

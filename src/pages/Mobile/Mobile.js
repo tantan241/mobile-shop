@@ -5,7 +5,7 @@ import styles from './Mobile.module.scss';
 import useStore from '~/store/hooks';
 import * as mobileService from '~/apiServices/mobileService';
 import Filters from '~/components/Filters';
-import MobileItem from '~/pages/Mobile/components/MobileItem';
+import MobileItem from '~/components/MobileItem';
 import Sort from '../../components/Sort';
 import MobilePages from '../../components/Pages';
 import { actions } from '~/store';

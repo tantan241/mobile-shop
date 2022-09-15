@@ -19,9 +19,11 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
     }, []);
     return (
         <div className={cx('wrapper')}>
-            <Button width="200px" primary onClick={handleOpenForm}>
-                Viết đánh giá
-            </Button>
+            <div className={cx('write-assess')}>
+                <Button primary onClick={handleOpenForm}>
+                    Viết đánh giá
+                </Button>
+            </div>
             {openForm && (
                 <Overlay>
                     <>
