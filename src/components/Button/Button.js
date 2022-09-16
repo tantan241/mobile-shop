@@ -20,7 +20,6 @@ function Button({
     mobile,
     className,
 }) {
-    console.log(className);
     let Button = 'button';
     const props = { href, to, disabled };
     const classNames = { more, primary, big, mobile };

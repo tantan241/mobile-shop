@@ -35,11 +35,7 @@
 .money-total {
     font-size: 2rem;
 }
-.action {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 50px;
-}
+
 @include MediaQuery($min_tablet, $max_tablet) {
     // .center {
     //     width: 80%;

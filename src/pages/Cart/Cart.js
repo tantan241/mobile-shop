@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
-import Button from '~/components/Button';
 import useStore from '~/store/hooks';
 import styles from './Cart.module.scss';
 import ProductInCart from './components/ProductInCart';
@@ -65,9 +64,6 @@ function Cart() {
                                 <div className={cx('money-total')}>{totalMoney} vnđ</div>
                             </div>
                             <FormCart />
-                            <div className={cx('action')}>
-                                <Button primary>Đặt hàng</Button>
-                            </div>
                         </div>
                     </div>
                 </div>

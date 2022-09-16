@@ -22,22 +22,45 @@
 }
 .input-name,
 .input-number {
-    width: 45%;
-    margin-right: 10px;
+    width: 90%;
+    margin-right: 5px;
 }
 .input-address {
-    margin: 20px 0;
+    margin-top: 25px;
+}
+.input-other {
+    margin-top: 15px;
+}
+.notification {
+    display: block;
+    margin-top: 5px;
+    font-size: 1.5rem;
+    color: red;
+}
+.action {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
 }
 @include MediaQuery($min_tablet, $max_tablet) {
     .input-address {
-        margin: 30px 0 20px;
+        margin: 30px 0 0;
     }
 }
 @include MediaQuery($min_mobile, $max_mobile) {
     .wrapper {
         padding: 10px;
     }
-    .input-address {
-        margin: 30px 0 20px;
+    .input-name-number {
+        flex-direction: column;
     }
+    .input-number {
+        margin-top: 15px;
+    }
+    .input-address {
+        margin: 25px 0 0;
+    }
+    // .notification {
+    //     margin-top: 0;
+    // }
 }

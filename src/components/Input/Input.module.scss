@@ -1,22 +1,25 @@
 @import '../../scss/global.scss';
 .wrapper {
+    display: flex;
     position: relative;
     --size-bezel: 0.5rem;
     --size-radius: 4px;
     width: 100%;
+    border: 1px solid transparent;
+    padding: 4px 0 0;
     & .label {
         position: absolute;
         left: 0;
         top: -3px;
         padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * 0.5);
         margin: calc(var(--size-bezel) * 0.75 + 5px) calc(var(--size-bezel) * 0.5);
-        white-space: nowrap;
+        // white-space: nowrap;
         transform: translate(0, 0);
         transform-origin: 0 0;
         background: white;
         transition: transform 120ms ease-in;
         opacity: 0.6;
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         line-height: 1.2;
         margin-left: 4px;
     }
@@ -30,8 +33,7 @@
         padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
         background: transparent;
         border-radius: var(--size-radius);
-        // margin-bottom: 20px;
-        font-size: 2rem;
+        font-size: 1.8rem;
 
         &:focus,
         &:not(:placeholder-shown) {
@@ -40,6 +42,9 @@
                 opacity: 1;
             }
         }
+    }
+    & .borderRed {
+        border-color: red;
     }
 }
 @include MediaQuery($min_mobile, $max_tablet) {
