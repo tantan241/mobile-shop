@@ -152,6 +152,7 @@ function Login() {
                     onChange={(e) => handleInputChange('password', e.target.value)}
                 ></TextField>
                 <Button
+                    disabled={!localValues.username || !localValues.password}
                     variant="contained"
                     size="large"
                     style={{ marginTop: '30px', fontSize: '18px' }}
