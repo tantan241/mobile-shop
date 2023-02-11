@@ -4,12 +4,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyle from './components/GlobalStyle';
 import Provider from './store/Provider';
+import { SnackbarProvider, useSnackbar } from 'notistack';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>
     <GlobalStyle>
         <Provider>
-            <App />
+            <SnackbarProvider maxSnack={3}>
+                <App />
+            </SnackbarProvider>
         </Provider>
     </GlobalStyle>,
     // </React.StrictMode>,

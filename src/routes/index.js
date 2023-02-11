@@ -1,12 +1,12 @@
 import Cart from '~/pages/Cart';
 import Home from '~/pages/Home';
 import Accessory from '~/pages/Accessory';
-import ProductSetail from '~/pages/ProductDetail';
 import Notification from '~/pages/Notification/Notification';
 import Mobile from '~/pages/Mobile';
 import SearchPage from '~/pages/SearchPage/SearchPage';
 import Compare from '~/pages/Compare';
 import ProductDetail from '~/pages/ProductDetail';
+import Order from '~/pages/Order/Order';
 
 const publicLayouts = [
     {
@@ -42,5 +42,10 @@ const publicLayouts = [
         component: Compare,
     },
 ];
-const privateLayouts = [];
+const privateLayouts = [
+    {
+        path: '/order',
+        component: Order,
+    },
+];
 export { privateLayouts, publicLayouts };

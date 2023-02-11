@@ -1,19 +1,32 @@
 import { useForm } from 'react-hook-form';
+import { useCallback } from 'react';
+
 import classNames from 'classnames/bind';
 import styles from './FormCart.module.scss';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
+import useStore from '~/store/hooks';
+import { actions } from '~/store';
 const cx = classNames.bind(styles);
 function FormCart() {
+    const [store, dispatch] = useStore();
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
-    };
 
+    const onSubmit = (data) => {
+        store.profileUser.googleId &&
+            console.log({
+                userId: store.profileUser.googleId,
+                ...data,
+                productsInCart: store.productsInCart,
+            });
+    };
+    const handleClick = useCallback(() => {
+        Object.keys(store.profileUser).length === 0 && dispatch(actions.setIsLogin(true));
+    }, [store]);
     return (
         <form className={cx('wrapper')} onSubmit={handleSubmit(onSubmit)}>
             <div className={cx('title')}>Thông tin người nhận</div>
@@ -65,7 +78,7 @@ function FormCart() {
                 register={register}
             />
             <div className={cx('action')}>
-                <Button onClick={handleSubmit} primary>
+                <Button onClick={handleClick} primary>
                     Đặt hàng
                 </Button>
             </div>

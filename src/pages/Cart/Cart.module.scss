@@ -37,9 +37,6 @@
 }
 
 @include MediaQuery($min_tablet, $max_tablet) {
-    // .center {
-    //     width: 80%;
-    // }
     .total {
         padding: 20px;
     }

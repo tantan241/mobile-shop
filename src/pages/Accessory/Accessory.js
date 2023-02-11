@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Accessory.module.scss';
-import AccessoryItem from '../../components/AccessoryItem';
+import AccessoryItem from './components/AccessoryItem';
 import * as accessoryService from '~/apiServices/accessoryService';
 import Filters from '~/components/Filters';
 import Sort from '../../components/Sort';
@@ -10,7 +10,7 @@ import MobilePages from '../../components/Pages';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
-import FiltersMobile from '~/components/FiltersMobile';
+import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 const cx = classNames.bind(styles);
 function Accessory() {
     const [filters, setFilters] = useState();

@@ -1,0 +1,65 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+import MainLayout from './layouts/MainLayout';
+import { publicLayouts, privateLayouts } from '~/routes';
+import { adminLayouts } from './admin/routes';
+import { PrivateRoute } from './privateRoute/privateRoute';
+import Login from './admin/Login/Login';
+import AdminLayout from './admin/AdminLayout';
+function App() {
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    {publicLayouts.map((publicLayouts, index) => {
+                        const Page = publicLayouts.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={publicLayouts.path}
+                                element={
+                                    <MainLayout>
+                                        <Page></Page>
+                                    </MainLayout>
+                                }
+                            />
+                        );
+                    })}
+                    {adminLayouts.map((adminLayout, index) => {
+                        const Page = adminLayout.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={adminLayout.path}
+                                element={
+                                    <AdminLayout>
+                                        <Page></Page>
+                                    </AdminLayout>
+                                }
+                            />
+                        );
+                    })}
+                    <Route path="/admin" element={<Login></Login>}></Route>
+                    {privateLayouts.map((privateLayouts, index) => {
+                        const Page = privateLayouts.component;
+                        return (
+                            <Route
+                                key={index}
+                                path={privateLayouts.path}
+                                element={
+                                    <MainLayout>
+                                        <PrivateRoute>
+                                            <Page />
+                                        </PrivateRoute>
+                                    </MainLayout>
+                                }
+                            />
+                        );
+                    })}
+                </Routes>
+            </div>
+        </Router>
+    );
+}
+
+export default App;

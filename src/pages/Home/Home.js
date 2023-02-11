@@ -6,13 +6,13 @@ import useStore from '~/store/hooks';
 import * as homeService from '~/apiServices/homeService';
 import Filters from '~/components/Filters';
 import MobileItem from '~/components/MobileItem';
-import MostBuy from '~/pages/Home/components/MostBuy';
+import MostBuy from '~/pages/MostBuy';
 import { actions } from '~/store';
-import AccessoryItem from '../../components/AccessoryItem';
+import AccessoryItem from '../Accessory/components/AccessoryItem';
 import Sort from '../../components/Sort';
-import MobilePages from '../../components/Pages';
+import Pages from '../../components/Pages';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
-import FiltersMobile from '~/components/FiltersMobile';
+import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 const cx = classNames.bind(styles);
 function Home() {
     const [store, dispatch] = useStore();
@@ -61,7 +61,7 @@ function Home() {
                                 ),
                             )}
                     </div>
-                    <MobilePages pagesMax={pagesMax} />
+                    <Pages pagesMax={pagesMax} />
                 </div>
                 {store.openFiltersMobile && <FiltersMobile filters={filters} />}
             </div>

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faFileInvoice } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css'; // optional
@@ -35,8 +35,17 @@ function Header() {
                             <span className={cx('number')}>{store.productsInCart.length}</span>
                         )}
 
-                        <span className={cx('title', 'hidden-mobile')}>Giỏ hàng</span>
+                        <span className={cx('title', 'hidden')}>Giỏ hàng</span>
                     </Link>
+                    {Object.keys(store.profileUser).length > 0 ? (
+                        <Link to="/order" className={cx('order')}>
+                            <FontAwesomeIcon className={cx('icon-order')} icon={faFileInvoice}></FontAwesomeIcon>
+                            <span className={cx('title', 'hidden')}>Đơn hàng</span>
+                        </Link>
+                    ) : (
+                        ''
+                    )}
+
                     {Object.keys(store.profileUser).length > 0 ? (
                         <Tippy
                             interactive="true"
@@ -49,8 +58,8 @@ function Header() {
                             )}
                         >
                             <div className={cx('user')}>
-                                <img className={cx('avatar')} src={store.profileUser.imageUrl} alt="avatar" />
-                                <p className={cx('name')}>{store.profileUser.name}</p>
+                                <img className={cx('avatar')} src={store.profileUser?.imageUrl} alt="" />
+                                <p className={cx('name', 'hidden')}>{store.profileUser?.fullName}</p>
                             </div>
                         </Tippy>
                     ) : (

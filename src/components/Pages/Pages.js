@@ -7,7 +7,7 @@ import classNames from 'classnames/bind';
 import styles from './Pages.module.scss';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
-import MobilePageBtn from './components/PageBtn';
+import PageBtn from './components/PageBtn';
 const cx = classNames.bind(styles);
 function MobilePages({ pagesMax }) {
     const [store, dispatch] = useStore();
@@ -75,7 +75,10 @@ function MobilePages({ pagesMax }) {
         let pageNumberNext;
         setPages((prev) =>
             prev.map((page, index) => {
-                page.active === true && (pageNumberNext = page.pageNumber + 1) && handlePageApi(pageNumberNext);
+                // page.active === true && (pageNumberNext = page.pageNumber + 1) && handlePageApi(pageNumberNext);
+                page.active === true &&
+                    (pageNumberNext = page.pageNumber + 1) &&
+                    dispatch(actions.setNumberPage(pageNumberNext));
                 return page.pageNumber === pageNumberNext ? { ...page, active: true } : { ...page, active: false };
             }),
         );
@@ -84,7 +87,9 @@ function MobilePages({ pagesMax }) {
         let pageNumberBack;
         setPages((prev) => {
             prev.forEach((page, index) => {
-                page.active === true && (pageNumberBack = page.pageNumber - 1) && handlePageApi(pageNumberBack);
+                page.active === true &&
+                    (pageNumberBack = page.pageNumber - 1) &&
+                    dispatch(actions.setNumberPage(pageNumberBack));
             });
             return prev.map((page, index) =>
                 page.pageNumber === pageNumberBack ? { ...page, active: true } : { ...page, active: false },
@@ -95,7 +100,8 @@ function MobilePages({ pagesMax }) {
         setPages((prev) =>
             prev.map((page, index) => (page.pageNumber === 1 ? { ...page, active: true } : { ...page, active: false })),
         );
-        handlePageApi(1);
+
+        dispatch(actions.setNumberPage(1));
     }, []);
     const handleNextEndPage = useCallback(() => {
         setPages((prev) =>
@@ -103,8 +109,8 @@ function MobilePages({ pagesMax }) {
                 page.pageNumber === pagesMax ? { ...page, active: true } : { ...page, active: false },
             ),
         );
-        handlePageApi(pagesMax);
-    }, [pagesMax]);
+        dispatch(actions.setNumberPage(pagesMax));
+    }, []);
 
     const handlePageApi = useCallback((page) => {
         dispatch(actions.setParamsApiFilter({ page }));
@@ -130,7 +136,7 @@ function MobilePages({ pagesMax }) {
                     )}
 
                     {pagesDisplay.map((page, index) => (
-                        <MobilePageBtn
+                        <PageBtn
                             key={page.pageNumber}
                             pageNumber={page.pageNumber}
                             active={page.active}
@@ -140,7 +146,7 @@ function MobilePages({ pagesMax }) {
                     {pagesMax > 4 && (
                         <button
                             className={cx('btn-arrow')}
-                            onClick={handleNextPage}
+                            onClick={() => handleNextPage()}
                             disabled={curPageNumber === pagesMax}
                         >
                             <FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon>
@@ -150,7 +156,7 @@ function MobilePages({ pagesMax }) {
                     {pagesMax > 6 && (
                         <button
                             className={cx('btn-arrow')}
-                            onClick={handleNextEndPage}
+                            onClick={() => handleNextEndPage()}
                             disabled={curPageNumber === pagesMax}
                         >
                             <FontAwesomeIcon icon={faAngleRight}></FontAwesomeIcon>

@@ -1,0 +1,37 @@
+.wrapper {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 15px;
+}
+.header {
+    align-items: center;
+}
+.code {
+    margin-left: 10px;
+}
+.code,
+.note {
+    color: rgb(13, 16, 186);
+    font-weight: 700;
+}
+.detail {
+    padding: 8px;
+    font-size: 2rem;
+    border-radius: 999px;
+}
+
+.information {
+    width: 90%;
+}
+.information-item,
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.label {
+    width: 45%;
+}
+.information {
+    flex: 1;
+}

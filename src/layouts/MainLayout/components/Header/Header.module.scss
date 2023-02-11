@@ -18,19 +18,24 @@
 .image {
 }
 .search {
-    width: 50%;
+    width: 40%;
 }
 .cart-account {
+    width: 330px;
     display: flex;
     align-items: center;
     color: white;
 }
 .icon-cart,
-.icon-account {
+.icon-account,
+.icon-order {
     font-size: 2rem;
 }
 .cart {
     position: relative;
+    color: white;
+}
+.order {
     color: white;
 }
 .number {
@@ -75,6 +80,14 @@
 .search-mobile {
     display: none;
 }
+@include MediaQuery($min_mobile, $max_tablet) {
+    .hidden {
+        display: none;
+    }
+    .search {
+        padding: 0 20px;
+    }
+}
 @include MediaQuery($min_tablet, $max_tablet) {
     .wrapper {
         width: 100%;
@@ -86,6 +99,9 @@
     .logo {
         width: 25%;
         margin-left: -40px;
+    }
+    .cart-account {
+        width: 150px;
     }
 }
 
@@ -108,10 +124,11 @@
     .cart {
         margin-right: 10px;
     }
-    .hidden-mobile {
-        display: none;
-    }
+
     .user {
         margin-left: 6px;
+    }
+    .cart-account {
+        width: unset;
     }
 }

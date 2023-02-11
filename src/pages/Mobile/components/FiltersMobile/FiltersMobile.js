@@ -6,9 +6,9 @@ import classNames from 'classnames/bind';
 import styles from './FiltersMobile.module.scss';
 import { actions } from '~/store';
 import useStore from '~/store/hooks';
-import Overlay from '../Overlay';
-import Filters from '../Filters';
-import FilterPrice from '../Filters/components/FilterPrice';
+import Overlay from '../../../../components/Overlay';
+import Filters from '../../../../components/Filters';
+import FilterPrice from '../../../../components/Filters/components/FilterPrice';
 const cx = classNames.bind(styles);
 function FiltersMobile({ filters }) {
     const [store, dispatch] = useStore();

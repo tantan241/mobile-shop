@@ -9,9 +9,9 @@ import MobileItem from '~/components/MobileItem';
 import Sort from '../../components/Sort';
 import MobilePages from '../../components/Pages';
 import { actions } from '~/store';
-import Advertise from '~/components/Advertise';
+import Advertise from '~/pages/Advertise';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
-import FiltersMobile from '~/components/FiltersMobile';
+import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 const cx = classNames.bind(styles);
 function Mobile() {
     const [store, dispatch] = useStore();

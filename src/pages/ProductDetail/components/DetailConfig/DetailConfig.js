@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './DetailConfig.module.scss';
-import Advertise from '~/components/Advertise';
+import Advertise from '~/pages/Advertise';
 import Button from '~/components/Button';
 import { actions } from '~/store';
 import useStore from '~/store/hooks';
