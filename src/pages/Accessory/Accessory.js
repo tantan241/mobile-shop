@@ -11,6 +11,8 @@ import useStore from '~/store/hooks';
 import { actions } from '~/store';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
+import { fetchData } from '~/common';
+import { API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Accessory() {
     const [filters, setFilters] = useState();
@@ -28,12 +30,10 @@ function Accessory() {
         document.title = 'Phụ kiện | VuTan-Mobile';
     }, []);
     useEffect(() => {
-        const fetchApi = async () => {
-            const resProducts = await accessoryService.accessories(store.paramsApiFilter);
-            setProducts(resProducts);
-            setPagesMax(Math.ceil(resProducts.length / 9));
-        };
-        fetchApi();
+        fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 1 }, 'POST').then((res) => {
+            setProducts(res);
+            setPagesMax(Math.ceil(res.length / 9));
+        });
     }, [store]);
     return (
         <div className={cx('wrapper')}>

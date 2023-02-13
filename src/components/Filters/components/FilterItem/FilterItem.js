@@ -7,6 +7,7 @@ import { actions } from '~/store';
 import useStore from '~/store/hooks';
 const cx = classNames.bind(styles);
 function FilterItem({ name, data }) {
+    console.log(name, data, 'test11');
     const [store, dispatch] = useStore();
     const [checked, setChecked] = useState(false);
 

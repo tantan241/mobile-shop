@@ -13,6 +13,8 @@ import Sort from '../../components/Sort';
 import Pages from '../../components/Pages';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
+import { fetchData } from '~/common';
+import { API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Home() {
     const [store, dispatch] = useStore();
@@ -30,36 +32,32 @@ function Home() {
         document.title = 'VuTan-Mobile';
     }, []);
     useEffect(() => {
-        const fetchApi = async () => {
-            const res = await homeService.products(store.paramsApiFilter);
+        fetchData(API_PRODUCT, { filter: store.paramsApiFilter }, 'POST').then((res) => {
             setProducts(res);
-            setPagesMax(Math.ceil(res.length / 6));
-        };
-        fetchApi();
+            setPagesMax(Math.ceil(res.length / 9));
+        });
     }, [store]);
-
     return (
         <div className={cx('wrapper')}>
             <MostBuy />
             <div className={cx('content')}>
                 <div className={cx('filters')}>
-                    {filters.map((filter) => (
-                        <Filters data={filter} key={filter.id} />
-                    ))}
+                    {filters.length > 0 && filters.map((filter) => <Filters data={filter} key={filter.id} />)}
                     <FilterPrice />
                 </div>
                 <div className={cx('products')}>
                     <Sort />
                     <div className={cx('products-content')}>
-                        {products
-                            .slice((store.numberPage - 1) * 6, (store.numberPage - 1) * 6 + 6)
-                            .map((product) =>
-                                product.type === 'accessory' ? (
-                                    <AccessoryItem m_2 s_2 key={product.id} product={product} buyNow />
-                                ) : (
-                                    <MobileItem m_2 l_3 s_2 key={product.id} product={product} buyNow />
-                                ),
-                            )}
+                        {products.length > 0 &&
+                            products
+                                .slice((store.numberPage - 1) * 6, (store.numberPage - 1) * 6 + 6)
+                                .map((product) =>
+                                    product.type === 'accessory' ? (
+                                        <AccessoryItem m_2 s_2 key={product.id} product={product} buyNow />
+                                    ) : (
+                                        <MobileItem m_2 l_3 s_2 key={product.id} product={product} buyNow />
+                                    ),
+                                )}
                     </div>
                     <Pages pagesMax={pagesMax} />
                 </div>

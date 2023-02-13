@@ -10,16 +10,22 @@ import { refreshTokenSetup } from '../../refreshTokenSetup ';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
 import { URL } from '~/utils/urlConfig';
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Button, Container, Grid, makeStyles, TextField, Typography } from '@mui/material';
 import SnackBar from '~/components/SnackBar';
 import { SnackbarProvider, useSnackbar } from 'notistack';
-import { handleClickVariant } from '~/comon';
+import { handleClickVariant } from '~/common';
+import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants';
 
 const cx = classNames.bind(styles);
+
 const clientId = '775095883325-s8o67ovu8ego3m7ei2ksk5mv304cn3gi.apps.googleusercontent.com';
 function Login() {
     const { enqueueSnackbar } = useSnackbar();
-
+    const styleTextField = {
+        style: {
+            fontSize: 20,
+        },
+    };
     const [isLoginForm, setIsLoginForm] = useState(true);
     const [store, dispatch] = useStore();
     const [localValues, setLocalValues] = useState({
@@ -37,21 +43,7 @@ function Login() {
     }, []);
 
     const handleSignInOnclick = useCallback(() => {
-        fetch(`${URL}/create-user/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(localValues),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data, 'data');
-            });
-    });
-
-    const handleLoginOnclick = useCallback(() => {
-        fetch(`${URL}/login/`, {
+        const login = fetch(`${URL}/create-user/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,10 +54,52 @@ function Login() {
             .then((data) => {
                 handleClickVariant(data.status === 200 ? 'success' : 'error', data.messenger, enqueueSnackbar);
                 if (data?.status === 200) {
-                    dispatch(actions.setProfileUser(data?.data));
-                    dispatch(actions.setIsLogin(false));
+                    setIsLoginForm(true);
                 }
             });
+    });
+
+    const handleLoginOnclick = useCallback(() => {
+        const getToken = fetch(`${URL}/api/token/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(localValues),
+        }).then((res) => res.json());
+
+        const login = fetch(`${URL}/login/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(localValues),
+        }).then((res) => res.json());
+        Promise.all([getToken, login]).then((res) => {
+            handleClickVariant(res[1].status === 200 ? 'success' : 'error', res[1].messenger, enqueueSnackbar);
+            if (res[1].status === 200) {
+                localStorage.setItem(ACCESS_TOKEN, JSON.stringify(res[0].access));
+                localStorage.setItem(REFRESH_TOKEN, JSON.stringify(res[0].refresh));
+                dispatch(actions.setProfileUser(res[1].data));
+                dispatch(actions.setIsLogin(false));
+            }
+        });
+        // .then((res) => console.log(res));
+        // fetch(`${URL}/login/`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(localValues),
+        // })
+        //     .then((response) => response.json())
+        //     .then((data) => {
+        //         handleClickVariant(data.status === 200 ? 'success' : 'error', data.messenger, enqueueSnackbar);
+        //         if (data?.status === 200) {
+        //             dispatch(actions.setProfileUser(data?.data));
+        //             dispatch(actions.setIsLogin(false));
+        //         }
+        //     });
     });
     useEffect(() => {
         function start() {
@@ -130,6 +164,8 @@ function Login() {
                     <TextField
                         label="Họ và tên"
                         fullWidth
+                        InputProps={styleTextField}
+                        InputLabelProps={styleTextField}
                         value={localValues.fullName}
                         onChange={(e) => handleInputChange('fullName', e.target.value)}
                     ></TextField>
@@ -137,7 +173,9 @@ function Login() {
 
                 <TextField
                     label="Tài khoản"
-                    size="large"
+                    // size="large"
+                    InputProps={styleTextField}
+                    InputLabelProps={styleTextField}
                     style={{ margin: '20px 0 20px 0' }}
                     fullWidth
                     variant="outlined"
@@ -148,8 +186,11 @@ function Login() {
                     label="Mật khẩu"
                     type="password"
                     fullWidth
+                    InputProps={styleTextField}
+                    InputLabelProps={styleTextField}
                     value={localValues.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
+                    style={{ fontSize: '20px' }}
                 ></TextField>
                 <Button
                     disabled={!localValues.username || !localValues.password}

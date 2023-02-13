@@ -38,7 +38,7 @@ function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
             onClick={() => handleClick(product.id)}
         >
             <Link to={linkTo}>
-                <img className={cx('img')} alt="ảnh" src={product.path} />
+                <img className={cx('img')} alt="ảnh" src={product.image} />
                 <div className={cx('content')}>
                     <p className={cx('name')}>{product.name}</p>
                     <div className={cx('price_cur-discount')}>

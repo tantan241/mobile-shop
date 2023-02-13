@@ -12,6 +12,9 @@ import { actions } from '~/store';
 import Advertise from '~/pages/Advertise';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
+import { fetchData } from '~/common';
+import { URL } from '~/utils/urlConfig';
+import { API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Mobile() {
     const [store, dispatch] = useStore();
@@ -27,13 +30,19 @@ function Mobile() {
         fetchApi();
         document.title = 'Điện thoại | VuTan-Mobile';
     }, []);
+    // useEffect(() => {
+    //   const fetchApi = async () => {
+    //         const res = await mobileService.mobile(store.paramsApiFilter);
+    // setProducts(res);
+    // setPagesMax(Math.ceil(res.length / 9));
+    //     };
+    //     fetchApi();
+    // }, [store]);
     useEffect(() => {
-        const fetchApi = async () => {
-            const res = await mobileService.mobile(store.paramsApiFilter);
+        fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 0 }, 'POST').then((res) => {
             setProducts(res);
             setPagesMax(Math.ceil(res.length / 9));
-        };
-        fetchApi();
+        });
     }, [store]);
     return (
         <div className={cx('wrapper')}>
@@ -48,9 +57,10 @@ function Mobile() {
                 <div className={cx('products')}>
                     <Sort />
                     <div className={cx('products-content')}>
-                        {products.slice((store.numberPage - 1) * 9, (store.numberPage - 1) * 9 + 9).map((product) => (
-                            <MobileItem s_2 m_2 l_3 key={product.id} product={product} buyNow />
-                        ))}
+                        {products.length > 0 &&
+                            products
+                                .slice((store.numberPage - 1) * 9, (store.numberPage - 1) * 9 + 9)
+                                .map((product) => <MobileItem s_2 m_2 l_3 key={product.id} product={product} buyNow />)}
                     </div>
                     <MobilePages pagesMax={pagesMax} />
                 </div>

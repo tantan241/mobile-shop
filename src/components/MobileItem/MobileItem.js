@@ -39,7 +39,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
             onClick={() => handleClick(product.id)}
         >
             <Link to={linkTo} className={cx('content')}>
-                <img className={cx('image')} src={product.path} alt={product.name} />
+                <img className={cx('image')} src={product?.image} alt={product.name} />
                 {product.discount > 0 && <div className={cx('discount')}>{product.discount}%</div>}
                 <p className={cx('noti-1')}>Trả góp 0%</p>
                 <span className={cx('name')}>{product.name}</span>

@@ -1,13 +1,17 @@
 import qs from 'qs';
-import request from '~/utils/request';
+import request, { requestPy } from '~/utils/request';
 
 export const mobile = async (parameter) => {
     try {
-        const res = await request.get('mobiles', {
-            params: parameter,
+        const res = await requestPy.post('api/get-products/', {
+            // filter: parameter,
             paramsSerializer: function (params) {
                 return qs.stringify(params, { arrayFormat: 'repeat' });
             },
+            Headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ filter: parameter }),
         });
         return res.data;
     } catch (error) {
