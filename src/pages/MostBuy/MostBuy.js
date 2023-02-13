@@ -18,7 +18,9 @@ function MostBuy() {
     useEffect(() => {
         const fetchApi = async () => {
             const res = await mobileService.mobile();
-            setProducts(res);
+            if (res.status === 200) {
+                setProducts(res.data);
+            }
         };
         fetchApi();
     }, []);
@@ -63,9 +65,8 @@ function MostBuy() {
             <h2 className={cx('title')}>Top 10 điện thoại mua nhiều nhất</h2>
             <div className={cx('product-list-wrapper')}>
                 <ul ref={productListRef} className={cx('product-list')}>
-                    {products.map((product) => (
-                        <MobileItem m_4 l_5 key={product.id} product={product} />
-                    ))}
+                    {products.length > 1 &&
+                        products.map((product) => <MobileItem m_4 l_5 key={product.id} product={product} />)}
                 </ul>
             </div>
             <button disabled={x === 0} onClick={handleBtnLeftClick} className={cx('btn-left')}>

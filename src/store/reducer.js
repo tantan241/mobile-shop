@@ -12,6 +12,7 @@ import {
     SET_PROFILE_USER,
     SET_IS_LOGIN,
     SET_OPEN_FILTERS_MOBILE,
+    SET_FILTER_PRICE,
 } from './constants';
 import { CART, SEARCH_HISTORY } from '~/constants';
 
@@ -19,6 +20,10 @@ const initState = {
     searchHistory: [],
     pathApi: 'http://localhost:3000/products',
     paramsApiFilter: {},
+    filterPrice: {
+        fromPrice: 0,
+        toPrice: 0,
+    },
     idProduct: null,
     numberPage: 1,
     isLogin: true,
@@ -52,6 +57,8 @@ const reducer = (state, action) => {
             };
         case SET_PARAMS_API_FILTER:
             return { ...state, paramsApiFilter: { ...state.paramsApiFilter, ...action.payload } };
+        case SET_FILTER_PRICE:
+            return { ...state, filterPrice: { ...state.filterPrice, ...action.payload } };
         case SET_ID_PRODUCT:
             return { ...state, idProduct: action.payload };
         case SET_NUMBER_PAGE:

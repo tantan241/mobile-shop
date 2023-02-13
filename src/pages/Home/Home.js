@@ -13,15 +13,19 @@ import Sort from '../../components/Sort';
 import Pages from '../../components/Pages';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
-import { fetchData } from '~/common';
+import { fetchData, handleClickVariant } from '~/common';
 import { API_PRODUCT } from '~/urlConfig';
+import { useSnackbar } from 'notistack';
 const cx = classNames.bind(styles);
 function Home() {
+    const { enqueueSnackbar } = useSnackbar();
     const [store, dispatch] = useStore();
     const [products, setProducts] = useState([]);
     const [filters, setFilters] = useState([]);
     const [pagesMax, setPagesMax] = useState(0);
-
+    useEffect(() => {
+        dispatch(actions.setFilterPrice({ fromPrice: 0, toPrice: 0 }));
+    }, []);
     useEffect(() => {
         dispatch(actions.setNumberPage(1));
         const fetchApi = async () => {
@@ -32,9 +36,12 @@ function Home() {
         document.title = 'VuTan-Mobile';
     }, []);
     useEffect(() => {
-        fetchData(API_PRODUCT, { filter: store.paramsApiFilter }, 'POST').then((res) => {
-            setProducts(res);
-            setPagesMax(Math.ceil(res.length / 9));
+        fetchData(API_PRODUCT, { filter: store.paramsApiFilter, price: store.filterPrice }, 'POST').then((res) => {
+            res.status === 400 && handleClickVariant('error', res.messenger, enqueueSnackbar);
+            if (res.status === 200) {
+                setProducts(res.data);
+                setPagesMax(Math.ceil(res.data.length / 9));
+            }
         });
     }, [store]);
     return (

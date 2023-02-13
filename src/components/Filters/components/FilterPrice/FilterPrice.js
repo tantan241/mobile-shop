@@ -5,18 +5,24 @@ import classNames from 'classnames/bind';
 import { actions } from '~/store';
 import useStore from '~/store/hooks';
 import styles from './FilterPrice.module.scss';
+import { Button, TextField } from '@mui/material';
 const cx = classNames.bind(styles);
 function FilterPrice() {
-    const fromPriceInpuRef = useRef();
-    const toPriceInpuRef = useRef();
+    const [localValue, setLocalValue] = useState({ fromPrice: '', toPrice: '' });
+
     const [store, dispatch] = useStore();
     const [isOpen, setIsOpen] = useState(true);
     const handleApply = useCallback(() => {
+        console.log(localValue);
         dispatch(
-            actions.setParamsApiFilter({ min: fromPriceInpuRef.current.value, max: toPriceInpuRef.current.value }),
+            actions.setFilterPrice({
+                fromPrice: localValue.fromPrice * 1,
+                toPrice: localValue.toPrice * 1,
+            }),
         );
         dispatch(actions.setOpenFiltersMobile(false));
-    }, []);
+    }, [localValue]);
+
     return (
         <div className={cx('wrapper')}>
             <h2 onClick={() => setIsOpen((prev) => !prev)} className={cx('header')}>
@@ -33,16 +39,33 @@ function FilterPrice() {
                 <div>
                     <div className={cx('input-group')}>
                         <label className={cx('input-label')}>Từ:</label>
-                        <input type="number" className={cx('input')} name="from-price" ref={fromPriceInpuRef} />
+                        <TextField
+                            size="small"
+                            value={localValue.fromPrice}
+                            onChange={(e) => setLocalValue((prev) => ({ ...prev, fromPrice: e.target.value }))}
+                            style={{ width: '80%' }}
+                            InputProps={{ style: { fontSize: '14px' } }}
+                            type="number"
+                        ></TextField>
                     </div>
                     <div className={cx('input-group')}>
                         <label className={cx('input-label')}>Đến:</label>
-                        <input type="number" className={cx('input')} name="to-price" ref={toPriceInpuRef} />
+                        <TextField
+                            size="small"
+                            value={localValue.toPrice}
+                            onChange={(e) => setLocalValue((prev) => ({ ...prev, toPrice: e.target.value }))}
+                            style={{ width: '80%' }}
+                            InputProps={{ style: { fontSize: '14px' } }}
+                            type="number"
+                        ></TextField>
                     </div>
                     <div className={cx('btn-wrapper')}>
-                        <button onClick={handleApply} className={cx('btn')}>
+                        <Button variant="contained" onClick={handleApply}>
                             Áp dụng
-                        </button>
+                        </Button>
+                        {/* <button onClick={handleApply} className={cx('btn')}>
+                            Áp dụng
+                        </button> */}
                     </div>
                 </div>
             )}

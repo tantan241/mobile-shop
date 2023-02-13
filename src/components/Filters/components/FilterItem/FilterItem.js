@@ -35,13 +35,13 @@ function FilterItem({ name, data }) {
     );
 
     return (
-        <li onClick={() => handleClick(data.name)} className={cx('wrapper')}>
+        <li onClick={() => handleClick(data.value)} className={cx('wrapper')}>
             <input
                 checked={checked}
                 id={data.id}
                 className={cx('checkbox')}
                 name={name}
-                value={data.name}
+                value={data.value}
                 type="checkbox"
                 onChange={(e) => setChecked(e.target.checked)} //Cầm xem lại đoạn này ( fix báo warning)
             />{' '}

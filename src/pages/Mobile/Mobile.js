@@ -40,8 +40,8 @@ function Mobile() {
     // }, [store]);
     useEffect(() => {
         fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 0 }, 'POST').then((res) => {
-            setProducts(res);
-            setPagesMax(Math.ceil(res.length / 9));
+            setProducts(res.data);
+            setPagesMax(Math.ceil(res.data.length / 9));
         });
     }, [store]);
     return (

@@ -12,6 +12,7 @@ import {
     SET_PROFILE_USER,
     SET_IS_LOGIN,
     SET_OPEN_FILTERS_MOBILE,
+    SET_FILTER_PRICE,
 } from './constants';
 export const addSearchHistory = (payload) => {
     return {
@@ -34,6 +35,12 @@ export const deleteSearchHistory = (payload) => {
 export const setParamsApiFilter = (payload) => {
     return {
         type: SET_PARAMS_API_FILTER,
+        payload,
+    };
+};
+export const setFilterPrice = (payload) => {
+    return {
+        type: SET_FILTER_PRICE,
         payload,
     };
 };
