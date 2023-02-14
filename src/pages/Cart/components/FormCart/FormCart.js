@@ -17,12 +17,12 @@ function FormCart() {
     } = useForm();
 
     const onSubmit = (data) => {
-        store.profileUser.googleId &&
-            console.log({
-                userId: store.profileUser.googleId,
-                ...data,
-                productsInCart: store.productsInCart,
-            });
+        // store.profileUser.googleId &&
+        //     console.log({
+        //         userId: store.profileUser.googleId,
+        //         ...data,
+        //         productsInCart: store.productsInCart,
+        //     });
     };
     const handleClick = useCallback(() => {
         Object.keys(store.profileUser).length === 0 && dispatch(actions.setIsLogin(true));

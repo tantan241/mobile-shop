@@ -15,6 +15,7 @@ import Overlay from '~/components/Overlay';
 import Loading from '~/components/Loading';
 import { fetchData } from '~/common';
 import { API_CART } from '~/urlConfig';
+import { actions } from '~/store';
 const cx = classNames.bind(styles);
 function Cart() {
     const [store, dispatch] = useStore();
@@ -35,6 +36,7 @@ function Cart() {
                 // setReload(new Date() * 1);
                 setProducts(res.data);
                 setOpenLoading(false);
+                dispatch(actions.addProductInCart(res.data.length));
                 const total = res.data.reduce((sum, product) => {
                     return (sum += (product.price - (product.price * product.discount) / 100) * product.number);
                 }, 0);
@@ -43,9 +45,6 @@ function Cart() {
         });
     }, [store?.profileUser?.id, reload]);
 
-    useEffect(() => {
-        localStorage.setItem(CART, JSON.stringify(store.productsInCart));
-    }, [store.productsInCart]);
     return (
         <>
             {products.length > 0 ? (

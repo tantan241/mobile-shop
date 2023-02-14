@@ -27,14 +27,13 @@ const initState = {
     idProduct: null,
     numberPage: 1,
     isLogin: true,
-    productsInCart: JSON.parse(localStorage.getItem(CART)) || [],
+    productsInCart: 0,
     productCompare: {},
     isLogin: false,
     profileUser: {},
     openFiltersMobile: false,
 };
 const reducer = (state, action) => {
-    let newProductsInCart;
     switch (action.type) {
         case SET_SEARCH_HISTORY:
             return { ...state, searchHistory: action.payload };
@@ -64,22 +63,7 @@ const reducer = (state, action) => {
         case SET_NUMBER_PAGE:
             return { ...state, numberPage: action.payload };
         case ADD_PRODUCT_IN_CART:
-            newProductsInCart = [...state.productsInCart, action.payload];
-            if (state.productsInCart) {
-                for (const productInCart of state.productsInCart) {
-                    productInCart.idProduct === action.payload.idProduct &&
-                        (newProductsInCart = state.productsInCart.map((item) =>
-                            item.idProduct === action.payload.idProduct
-                                ? {
-                                      ...item,
-                                      number: item.number + 1,
-                                  }
-                                : item,
-                        ));
-                }
-            }
-
-            return { ...state, productsInCart: newProductsInCart };
+            return { ...state, productsInCart: action.payload };
         // case UPDATE_NUMBER_PRODUCT_BUY:
         //     newProductsInCart = state.productsInCart.map((productInCart) =>
         //         productInCart.idProduct === action.payload.id

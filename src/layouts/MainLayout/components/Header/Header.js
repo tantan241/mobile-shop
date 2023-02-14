@@ -15,7 +15,9 @@ import logo from '~/images/Tan.png';
 import Login from '~/layouts/MainLayout/components/Header/components/Login';
 import Logout from './components/Logout';
 import { actions } from '~/store';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { fetchData } from '~/common';
+import { API_CART } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Header() {
     const [store, dispatch] = useStore();
@@ -31,6 +33,13 @@ function Header() {
         },
         [store],
     );
+    useEffect(() => {
+        fetchData(`${API_CART}/get-cart?id=${store?.profileUser?.id}`, '', 'GET', true).then((res) => {
+            if (res.status === 200) {
+                dispatch(actions.addProductInCart(res.data.length));
+            }
+        });
+    }, [store]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -47,9 +56,7 @@ function Header() {
                         onClick={handleCartOnClick}
                     >
                         <FontAwesomeIcon className={cx('icon-cart')} icon={faCartShopping}></FontAwesomeIcon>
-                        {store.productsInCart.length > 0 && (
-                            <span className={cx('number')}>{store.productsInCart.length}</span>
-                        )}
+                        {store.productsInCart > 0 && <span className={cx('number')}>{store.productsInCart}</span>}
 
                         <span className={cx('title', 'hidden')}>Giỏ hàng</span>
                     </Link>
