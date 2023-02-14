@@ -7,24 +7,58 @@ import classNames from 'classnames/bind';
 import { actions } from '~/store';
 import useStore from '~/store/hooks';
 import styles from './ProductInCart.module.scss';
+import { fetchData } from '~/common';
+import { API_CART, API_PRODUCT } from '~/urlConfig';
+import Loading from '~/components/Loading';
 const cx = classNames.bind(styles);
-function ProductInCart({ product }) {
-    const [count, setCount] = useState(product && product.numberProduct);
+function ProductInCart({ product, reload }) {
+    const [count, setCount] = useState(product && product.number);
     const [store, dispatch] = useStore();
-    let number = product && product.numberProduct;
+    const [open, setOpen] = useState(false);
     const handleReduce = useCallback(() => {
-        number -= 1;
-        setCount(number);
-        dispatch(actions.updateNumberProductBuy({ id: product.id, number }));
-    }, []);
+        setOpen(true);
+        fetchData(
+            `${API_CART}/update-cart/`,
+            { userId: store?.profileUser?.id, productId: product.product, type: 0 },
+            'POST',
+            true,
+        ).then((res) => {
+            if (res.status === 200) {
+                setCount(res.data?.number);
+                reload(new Date() * 1);
+                setOpen(false);
+            }
+        });
+    }, [product]);
     const handleIncrease = useCallback(() => {
-        number += 1;
-        setCount(number);
-        dispatch(actions.updateNumberProductBuy({ id: product.id, number }));
+        setOpen(true);
+        fetchData(
+            `${API_CART}/update-cart/`,
+            { userId: store?.profileUser?.id, productId: product.product, type: 1 },
+            'POST',
+            true,
+        ).then((res) => {
+            if (res.status === 200) {
+                setCount(res.data?.number);
+                reload(new Date() * 1);
+                setOpen(false);
+            }
+        });
     }, []);
-    const handleDelete = useCallback((id) => {
-        dispatch(actions.deleteProductInCart(id));
-    }, []);
+    const handleDelete = useCallback(
+        (productId) => {
+            setOpen(true);
+            fetchData(`${API_CART}/delete-cart/`, { userId: store?.profileUser?.id, productId }, 'POST', true).then(
+                (res) => {
+                    if (res.status === 200) {
+                        setOpen(false);
+                        reload(new Date() * 1);
+                    }
+                },
+            );
+        },
+        [product.product],
+    );
     const priceCur = product && product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceReal =
         product &&
@@ -35,7 +69,7 @@ function ProductInCart({ product }) {
             {product && (
                 <>
                     <div className={cx('infor')}>
-                        <img className={cx('img')} src={product.path} alt="ảnh" />
+                        <img className={cx('img')} src={product.image} alt="ảnh" />
                         <div className={cx('name')}>{product.name}</div>
                     </div>
                     <div className={'price-actions'}>
@@ -51,13 +85,14 @@ function ProductInCart({ product }) {
                                     <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
                                 </button>
                             </div>
-                            <div className={cx('delete')} onClick={() => handleDelete(product.id)}>
+                            <div className={cx('delete')} onClick={() => handleDelete(product.product)}>
                                 <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>
                             </div>
                         </div>
                     </div>
                 </>
             )}
+            <Loading open={open}></Loading>
         </li>
     );
 }

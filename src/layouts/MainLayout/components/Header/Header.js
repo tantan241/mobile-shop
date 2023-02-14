@@ -15,10 +15,22 @@ import logo from '~/images/Tan.png';
 import Login from '~/layouts/MainLayout/components/Header/components/Login';
 import Logout from './components/Logout';
 import { actions } from '~/store';
+import { useCallback, useState } from 'react';
 const cx = classNames.bind(styles);
 function Header() {
     const [store, dispatch] = useStore();
-
+    const [login, setLogin] = useState(false);
+    const handleClose = useCallback(() => {
+        setLogin(false);
+    }, []);
+    const handleCartOnClick = useCallback(
+        (id) => {
+            if (Object.keys(store.profileUser).length === 0) {
+                setLogin(true);
+            }
+        },
+        [store],
+    );
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -29,7 +41,11 @@ function Header() {
                     <Search />
                 </div>
                 <div className={cx('cart-account')}>
-                    <Link to="/cart" className={cx('cart')}>
+                    <Link
+                        to={Object.keys(store.profileUser).length > 0 ? '/cart' : ''}
+                        className={cx('cart')}
+                        onClick={handleCartOnClick}
+                    >
                         <FontAwesomeIcon className={cx('icon-cart')} icon={faCartShopping}></FontAwesomeIcon>
                         {store.productsInCart.length > 0 && (
                             <span className={cx('number')}>{store.productsInCart.length}</span>
@@ -38,7 +54,7 @@ function Header() {
                         <span className={cx('title', 'hidden')}>Giỏ hàng</span>
                     </Link>
                     {Object.keys(store.profileUser).length > 0 ? (
-                        <Link to="/order" className={cx('order')}>
+                        <Link to={'/order'} className={cx('order')}>
                             <FontAwesomeIcon className={cx('icon-order')} icon={faFileInvoice}></FontAwesomeIcon>
                             <span className={cx('title', 'hidden')}>Đơn hàng</span>
                         </Link>
@@ -79,6 +95,11 @@ function Header() {
                 <Search />
             </div>
             <Navbar />
+            {login && (
+                <Overlay>
+                    <Login handleClose={handleClose}></Login>
+                </Overlay>
+            )}
         </div>
     );
 }

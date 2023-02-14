@@ -3,7 +3,7 @@ import request, { requestPy } from '~/utils/request';
 
 export const mobile = async (parameter) => {
     try {
-        const res = await requestPy.post('api/get-products/', {
+        const res = await requestPy.post('api/product/get-products/', {
             // filter: parameter,
             paramsSerializer: function (params) {
                 return qs.stringify(params, { arrayFormat: 'repeat' });

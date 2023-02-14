@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -11,42 +11,44 @@ import * as cartServices from '~/apiServices/cartServices';
 import { CART } from '~/constants';
 import NoCart from './components/NoCart';
 import FormCart from './components/FormCart';
+import Overlay from '~/components/Overlay';
+import Loading from '~/components/Loading';
+import { fetchData } from '~/common';
+import { API_CART } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Cart() {
     const [store, dispatch] = useStore();
-    const [products, setProduct] = useState();
+    const [products, setProducts] = useState([]);
+    const [openLoading, setOpenLoading] = useState(false);
     const [totalMoney, setTotalMoney] = useState(0);
+
+    const [reload, setReload] = useState(0);
     useEffect(() => {
         document.title = 'Giỏ hàng | VuTan-Mobile';
     }, []);
+
+    useEffect(() => {
+        setOpenLoading(true);
+        fetchData(`${API_CART}/get-cart?id=${store?.profileUser?.id}`, '', 'GET', true).then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+                // setReload(new Date() * 1);
+                setProducts(res.data);
+                setOpenLoading(false);
+                const total = res.data.reduce((sum, product) => {
+                    return (sum += (product.price - (product.price * product.discount) / 100) * product.number);
+                }, 0);
+                setTotalMoney(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+            }
+        });
+    }, [store?.profileUser?.id, reload]);
+
     useEffect(() => {
         localStorage.setItem(CART, JSON.stringify(store.productsInCart));
     }, [store.productsInCart]);
-    useEffect(() => {
-        if (store.productsInCart) {
-            const productsId = store.productsInCart.map((product) => product.idProduct);
-            const fetchApi = async () => {
-                const productsInCart = [];
-                const res = await cartServices.products({ id: productsId });
-                res.map((product) => {
-                    for (const item of store.productsInCart) {
-                        product.id === item.idProduct &&
-                            productsInCart.push({ ...product, numberProduct: item.number });
-                    }
-                });
-
-                const total = productsInCart.reduce((sum, product) => {
-                    return (sum += (product.price - (product.price * product.discount) / 100) * product.numberProduct);
-                }, 0);
-                setTotalMoney(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
-                setProduct(productsInCart);
-            };
-            fetchApi();
-        }
-    }, [store]);
     return (
         <>
-            {store.productsInCart.length > 0 ? (
+            {products.length > 0 ? (
                 <div className={cx('wrapper')}>
                     <div className={cx('center')}>
                         <Link to="/" className={cx('header')}>
@@ -55,7 +57,15 @@ function Cart() {
                         <div className={cx('content')}>
                             <ul className={cx('product-list')}>
                                 {products &&
-                                    products.map((product) => <ProductInCart key={product.id} product={product} />)}
+                                    products.map((product) => (
+                                        <ProductInCart
+                                            key={product.id}
+                                            product={product}
+                                            reload={(a) => {
+                                                setReload(a);
+                                            }}
+                                        />
+                                    ))}
                             </ul>
                             <div className={cx('total')}>
                                 <div className={cx('quantity')}>
@@ -70,6 +80,7 @@ function Cart() {
             ) : (
                 <NoCart />
             )}
+            <Loading open={openLoading}></Loading>
         </>
     );
 }

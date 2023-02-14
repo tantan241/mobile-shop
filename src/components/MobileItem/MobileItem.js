@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,20 +10,51 @@ import useStore from '~/store/hooks';
 import { actions } from '~/store';
 import Button from '~/components/Button';
 import Rating from '~/components/Rating';
+import Overlay from '../Overlay';
+import Login from '~/layouts/MainLayout/components/Header/components/Login';
+import { setIsLogin } from '~/store/actions';
+import { fetchData } from '~/common';
+import { API_CART } from '~/urlConfig';
+import Loading from '../Loading';
 const cx = classNames.bind(styles);
 function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const [store, dispatch] = useStore();
+    const [login, setLogin] = useState(false);
+    const [openLoading, setOpenLoading] = useState(false);
     const moneyDiscount = (product.price * product.discount) / 100;
     const priceCurrent = (product.price - moneyDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceOld = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceSaved = moneyDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     let linkTo = `/product-detail/${product.slug}`;
+    const handleClose = useCallback(() => {
+        setLogin(false);
+    }, []);
     const handleClick = useCallback((productId, e) => {
         dispatch(actions.setIdProduct(productId));
     }, []);
-    const handleBuyNow = useCallback((id) => {
-        dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
-    }, []);
+    const handleBuyNow = useCallback(
+        (id) => {
+            if (Object.keys(store.profileUser).length > 0) {
+                setOpenLoading(true);
+                dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
+                const user = {
+                    user: store?.profileUser?.id || '',
+                    product: id,
+                    number: 1,
+                    price: product.price - moneyDiscount,
+                };
+                fetchData(`${API_CART}/add-cart/`, user, 'POST', true).then((res) => {
+                    console.log(res);
+                    if (res.status === 200) {
+                        setOpenLoading(false);
+                    }
+                });
+            } else {
+                setLogin(true);
+            }
+        },
+        [store],
+    );
     const handCompareClick = useCallback((id, type) => {
         dispatch(actions.setProductCompare({ id, type }));
     }, []);
@@ -64,7 +95,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                         <Button
                             className={cx('btn-buy-now')}
                             onClick={() => handleBuyNow(product.id)}
-                            to="/cart"
+                            to={Object.keys(store.profileUser).length > 0 ? '/cart' : ''}
                             primary
                             rightIcon={<FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>}
                         >
@@ -80,6 +111,12 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                     </div>
                 </div>
             )}
+            {login && (
+                <Overlay>
+                    <Login handleClose={handleClose}></Login>
+                </Overlay>
+            )}
+            <Loading open={openLoading}></Loading>
         </div>
     );
 }

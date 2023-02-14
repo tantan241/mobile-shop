@@ -19,7 +19,8 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants';
 const cx = classNames.bind(styles);
 
 const clientId = '775095883325-s8o67ovu8ego3m7ei2ksk5mv304cn3gi.apps.googleusercontent.com';
-function Login() {
+function Login(props) {
+    const { handleClose } = props;
     const { enqueueSnackbar } = useSnackbar();
     const styleTextField = {
         style: {
@@ -81,7 +82,9 @@ function Login() {
                 localStorage.setItem(ACCESS_TOKEN, JSON.stringify(res[0].access));
                 localStorage.setItem(REFRESH_TOKEN, JSON.stringify(res[0].refresh));
                 dispatch(actions.setProfileUser(res[1].data));
+                console.log(res[1].data);
                 dispatch(actions.setIsLogin(false));
+                handleClose && handleClose();
             }
         });
         // .then((res) => console.log(res));

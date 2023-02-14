@@ -62,12 +62,12 @@ export const addProductInCart = (payload) => {
         payload,
     };
 };
-export const updateNumberProductBuy = (payload) => {
-    return {
-        type: UPDATE_NUMBER_PRODUCT_BUY,
-        payload,
-    };
-};
+// export const updateNumberProductBuy = (payload) => {
+//     return {
+//         type: UPDATE_NUMBER_PRODUCT_BUY,
+//         payload,
+//     };
+// };
 export const deleteProductInCart = (payload) => {
     return {
         type: DELETE_PRODUCT_IN_CART,

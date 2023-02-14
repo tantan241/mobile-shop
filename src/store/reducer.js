@@ -80,16 +80,16 @@ const reducer = (state, action) => {
             }
 
             return { ...state, productsInCart: newProductsInCart };
-        case UPDATE_NUMBER_PRODUCT_BUY:
-            newProductsInCart = state.productsInCart.map((productInCart) =>
-                productInCart.idProduct === action.payload.id
-                    ? {
-                          ...productInCart,
-                          number: action.payload.number,
-                      }
-                    : productInCart,
-            );
-            return { ...state, productsInCart: newProductsInCart };
+        // case UPDATE_NUMBER_PRODUCT_BUY:
+        //     newProductsInCart = state.productsInCart.map((productInCart) =>
+        //         productInCart.idProduct === action.payload.id
+        //             ? {
+        //                   ...productInCart,
+        //                   number: action.payload.number,
+        //               }
+        //             : productInCart,
+        //     );
+        //     return { ...state, productsInCart: newProductsInCart };
 
         case DELETE_PRODUCT_IN_CART:
             state.productsInCart.forEach((productInCart, index) => {

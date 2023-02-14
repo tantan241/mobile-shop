@@ -15,6 +15,12 @@ export const fetchData = (url, body, method = 'GET', hasToken = false) => {
             Authorization: 'Bearer ' + token,
         };
     }
+    if (method === 'GET') {
+        return fetch(url, {
+            method,
+            headers,
+        }).then((res) => res.json());
+    }
     return fetch(url, {
         method,
         headers,
