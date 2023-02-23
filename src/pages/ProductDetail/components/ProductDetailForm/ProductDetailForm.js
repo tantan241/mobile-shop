@@ -9,19 +9,37 @@ import classNames from 'classnames/bind';
 import styles from './ProductDetailForm.module.scss';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
+import { fetchData, handleClickVariant } from '~/common';
+import { API_COMMENT } from '~/urlConfig';
+import useStore from '~/store/hooks';
+import { useSnackbar } from 'notistack';
 const cx = classNames.bind(styles);
 function MobileDetailForm({ data }) {
+    const { enqueueSnackbar } = useSnackbar();
+    const [store, dispatch] = useStore();
+    const userId = store.profileUser.id;
+    const productId = data.id;
+    console.log(data, 'data21');
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm();
+    const [starSelect, setStarSelect] = useState(5);
     const onSubmit = (data) => {
-        console.log({ ...data, number_rating: starSelect });
+        fetchData(
+            `${API_COMMENT}/send-comment/`,
+            { user: userId, product: productId, rating: starSelect },
+            'POST',
+            true,
+        ).then((res) => {
+            if (res.status === 200) {
+                handleClickVariant('success', res.messenger, enqueueSnackbar);
+            }
+        });
     };
 
     const arrStar = [1, 2, 3, 4, 5];
-    const [starSelect, setStarSelect] = useState(5);
     const handleStarClick = useCallback((number) => {
         setStarSelect(number);
     }, []);
@@ -63,7 +81,7 @@ function MobileDetailForm({ data }) {
                 </div>
                 <input className={cx('input-file')} type="file" accept="image/*,.jpg,.jpeg" {...register('image')} />
                 <div className={cx('information')}>
-                    <div>
+                    {/* <div>
                         <Input
                             classNames={cx('input-name')}
                             text="Họ và tên"
@@ -87,7 +105,7 @@ function MobileDetailForm({ data }) {
                         {errors.phone?.type === 'required' && (
                             <span className={cx('notification')}>Mời bạn nhập số điện thoại</span>
                         )}
-                    </div>
+                    </div> */}
                 </div>
                 <div className={cx('action')}>
                     <Button onClick={handleSubmit} primary>

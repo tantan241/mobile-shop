@@ -8,14 +8,25 @@ import Button from '~/components/Button';
 import Overlay from '~/components/Overlay';
 import MobileDetailForm from '../ProductDetailForm';
 import styles from './ActionsUserRating.module.scss';
+import Login from '~/layouts/MainLayout/components/Header/components/Login';
+import useStore from '~/store/hooks';
 const cx = classNames.bind(styles);
 function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data }) {
+    const [login, setLogin] = useState(false);
+    const [store, dispatch] = useStore();
     const [openForm, setOpenForm] = useState(false);
     const handleOpenForm = useCallback(() => {
-        setOpenForm(true);
+        if (Object.keys(store.profileUser).length > 0) {
+            setOpenForm(true);
+        } else {
+            setLogin(true);
+        }
     }, []);
     const handleCloseForm = useCallback(() => {
         setOpenForm(false);
+    }, []);
+    const handleClose = useCallback(() => {
+        setLogin(false);
     }, []);
     return (
         <div className={cx('wrapper')}>
@@ -23,8 +34,8 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                 Viết đánh giá
             </Button>
 
-            {openForm && (
-                <Overlay>
+            {
+                <Overlay open={login} handleClose={handleCloseForm}>
                     <>
                         <div className={cx('header')}>
                             <div className={cx('text')}>Đánh giá</div>
@@ -35,7 +46,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                         <MobileDetailForm data={data} />
                     </>
                 </Overlay>
-            )}
+            }
             {comments && comments.length > 3 ? (
                 endArrComment <= 3 ? (
                     <Button
@@ -62,6 +73,11 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                 <Button className={cx('btn-action-assess')} more disabled>
                     Xem thêm đánh giá
                 </Button>
+            )}
+            {login && (
+                <Overlay>
+                    <Login handleClose={handleClose}></Login>
+                </Overlay>
             )}
         </div>
     );

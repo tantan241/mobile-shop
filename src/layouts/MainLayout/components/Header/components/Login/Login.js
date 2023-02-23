@@ -15,6 +15,7 @@ import SnackBar from '~/components/SnackBar';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import { handleClickVariant } from '~/common';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants';
+import { Close } from '@mui/icons-material';
 
 const cx = classNames.bind(styles);
 
@@ -140,23 +141,19 @@ function Login(props) {
         console.log(res);
     };
     return (
-        // <div className={cx('wrapper')}>
-        //     <div className={cx('close')} onClick={() => dispatch(actions.setIsLogin(false))}>
-        //         <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
-        //     </div>
-        //     <h2 className={cx('header')}>Chào mừng bạn đến với VUTAN MOBILE</h2>
-        //     <GoogleLogin
-        //         className={cx('login')}
-        //         key="AIzaSyB0qwxU7f2lJNsK_OQD8JNKzIPKqaKfIpA"
-        //         clientId={clientId}
-        //         buttonText="Đăng nhập bằng google"
-        //         onSuccess={onSuccess}
-        //         onFailure={onFailure}
-        //         cookiePolicy={'single_host_origin'}
-        //         isSignedIn={true}
-        //     />
-        // </div>
-        <Container style={{ padding: '30px', width: '100%' }}>
+        <Container style={{ padding: '30px', width: '100%', position: 'relative' }}>
+            <Grid
+                style={{
+                    position: 'absolute',
+                    right: '5px',
+                    top: '5px',
+                    border: '1px solid rgba(0,0,0,0.5)',
+                    borderRadius: '999px',
+                    backgroundColor: 'black',
+                }}
+            >
+                <Close style={{ fontSize: '30px', color: 'white' }}></Close>
+            </Grid>
             <Grid style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h1" component="h2" fontWeight={700} marginBottom="30px">
                     {isLoginForm ? 'Đăng nhập' : 'Đăng ký'}

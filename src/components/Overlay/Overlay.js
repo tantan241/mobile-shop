@@ -3,27 +3,35 @@ import classNames from 'classnames/bind';
 import styles from './Overlay.module.scss';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
+
+import { useState } from 'react';
+import { Close } from '@mui/icons-material';
 const cx = classNames.bind(styles);
-function Overlay({ children, full_display }) {
+function Overlay({ children, full_display, open, handleClose }) {
+    console.log(open);
     const [store, dispatch] = useStore();
     return (
-        <div
-            className={cx('wrapper')}
-            onClick={() => {
-                dispatch(actions.setIsLogin(false));
-            }}
-        >
-            <div
-                className={cx('content', {
-                    full_display,
-                })}
-                onClick={(event) => {
-                    event.stopPropagation();
-                }}
-            >
-                {children}
-            </div>
-        </div>
+        <>
+            {
+                <div
+                    className={cx('wrapper')}
+                    onClick={() => {
+                        dispatch(actions.setIsLogin(false));
+                    }}
+                >
+                    <div
+                        className={cx('content', {
+                            full_display,
+                        })}
+                        onClick={(event) => {
+                            event.stopPropagation();
+                        }}
+                    >
+                        {children}
+                    </div>
+                </div>
+            }
+        </>
     );
 }
 Overlay.propTypes = {

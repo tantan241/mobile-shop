@@ -39,7 +39,7 @@ function Header() {
                 dispatch(actions.addProductInCart(res.data.length));
             }
         });
-    }, [store]);
+    }, [store.profileUser]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
