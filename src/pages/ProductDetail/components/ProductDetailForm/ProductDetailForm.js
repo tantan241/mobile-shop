@@ -13,11 +13,11 @@ import { fetchData, handleClickVariant } from '~/common';
 import { API_COMMENT } from '~/urlConfig';
 import useStore from '~/store/hooks';
 import { useSnackbar } from 'notistack';
+import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function MobileDetailForm({ data }) {
     const { enqueueSnackbar } = useSnackbar();
-    const [store, dispatch] = useStore();
-    const userId = store.profileUser.id;
+    const userId = JSON.parse(localStorage.getItem(PROFILE))?.id || '';
     const productId = data.id;
     console.log(data, 'data21');
     const {

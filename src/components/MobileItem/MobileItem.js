@@ -1,6 +1,6 @@
 import PropTypes, { number } from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,16 +16,21 @@ import { setIsLogin } from '~/store/actions';
 import { fetchData } from '~/common';
 import { API_CART } from '~/urlConfig';
 import Loading from '../Loading';
+import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const [store, dispatch] = useStore();
     const [login, setLogin] = useState(false);
     const [openLoading, setOpenLoading] = useState(false);
+    const [profile, setProfile] = useState({});
     const moneyDiscount = (product.price * product.discount) / 100;
     const priceCurrent = (product.price - moneyDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceOld = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceSaved = moneyDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     let linkTo = `/product-detail/${product.slug}`;
+    useEffect(() => {
+        setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
+    }, []);
     const handleClose = useCallback(() => {
         setLogin(false);
     }, []);
@@ -34,11 +39,12 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     }, []);
     const handleBuyNow = useCallback(
         (id) => {
-            if (Object.keys(store.profileUser).length > 0) {
+            const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
+            if (Object.keys(profile).length > 0) {
                 setOpenLoading(true);
                 dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
                 const user = {
-                    user: store?.profileUser?.id || '',
+                    user: profile?.id || '',
                     product: id,
                     number: 1,
                     price: product.price - moneyDiscount,
@@ -95,7 +101,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                         <Button
                             className={cx('btn-buy-now')}
                             onClick={() => handleBuyNow(product.id)}
-                            to={Object.keys(store.profileUser).length > 0 ? '/cart' : ''}
+                            to={Object.keys(profile).length > 0 ? '/cart' : ''}
                             primary
                             rightIcon={<FontAwesomeIcon icon={faCartPlus}></FontAwesomeIcon>}
                         >

@@ -10,13 +10,15 @@ import MobileDetailForm from '../ProductDetailForm';
 import styles from './ActionsUserRating.module.scss';
 import Login from '~/layouts/MainLayout/components/Header/components/Login';
 import useStore from '~/store/hooks';
+import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data }) {
     const [login, setLogin] = useState(false);
     const [store, dispatch] = useStore();
     const [openForm, setOpenForm] = useState(false);
     const handleOpenForm = useCallback(() => {
-        if (Object.keys(store.profileUser).length > 0) {
+        const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
+        if (Object.keys(profile).length > 0) {
             setOpenForm(true);
         } else {
             setLogin(true);
@@ -34,7 +36,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                 Viết đánh giá
             </Button>
 
-            {
+            {openForm && (
                 <Overlay open={login} handleClose={handleCloseForm}>
                     <>
                         <div className={cx('header')}>
@@ -46,7 +48,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                         <MobileDetailForm data={data} />
                     </>
                 </Overlay>
-            }
+            )}
             {comments && comments.length > 3 ? (
                 endArrComment <= 3 ? (
                     <Button

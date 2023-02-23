@@ -18,28 +18,35 @@ import { actions } from '~/store';
 import { useCallback, useEffect, useState } from 'react';
 import { fetchData } from '~/common';
 import { API_CART } from '~/urlConfig';
+import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function Header() {
     const [store, dispatch] = useStore();
     const [login, setLogin] = useState(false);
+    const [profile, setProfile] = useState({});
+
+    useEffect(() => {
+        setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
+    }, []);
     const handleClose = useCallback(() => {
         setLogin(false);
     }, []);
     const handleCartOnClick = useCallback(
         (id) => {
-            if (Object.keys(store.profileUser).length === 0) {
+            const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
+            if (Object.keys(profile).length === 0) {
                 setLogin(true);
             }
         },
         [store],
     );
     useEffect(() => {
-        fetchData(`${API_CART}/get-cart?id=${store?.profileUser?.id}`, '', 'GET', true).then((res) => {
+        fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
             if (res.status === 200) {
                 dispatch(actions.addProductInCart(res.data.length));
             }
         });
-    }, [store.profileUser]);
+    }, [profile]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -51,7 +58,7 @@ function Header() {
                 </div>
                 <div className={cx('cart-account')}>
                     <Link
-                        to={Object.keys(store.profileUser).length > 0 ? '/cart' : ''}
+                        to={Object.keys(profile).length > 0 ? '/cart' : ''}
                         className={cx('cart')}
                         onClick={handleCartOnClick}
                     >
@@ -60,7 +67,7 @@ function Header() {
 
                         <span className={cx('title', 'hidden')}>Giỏ hàng</span>
                     </Link>
-                    {Object.keys(store.profileUser).length > 0 ? (
+                    {Object.keys(profile).length > 0 ? (
                         <Link to={'/order'} className={cx('order')}>
                             <FontAwesomeIcon className={cx('icon-order')} icon={faFileInvoice}></FontAwesomeIcon>
                             <span className={cx('title', 'hidden')}>Đơn hàng</span>
@@ -69,7 +76,7 @@ function Header() {
                         ''
                     )}
 
-                    {Object.keys(store.profileUser).length > 0 ? (
+                    {Object.keys(profile).length > 0 ? (
                         <Tippy
                             interactive="true"
                             placement="bottom"
@@ -81,8 +88,8 @@ function Header() {
                             )}
                         >
                             <div className={cx('user')}>
-                                <img className={cx('avatar')} src={store.profileUser?.imageUrl} alt="" />
-                                <p className={cx('name', 'hidden')}>{store.profileUser?.fullName}</p>
+                                <img className={cx('avatar')} src={profile?.imageUrl} alt="" />
+                                <p className={cx('name', 'hidden')}>{profile?.fullName}</p>
                             </div>
                         </Tippy>
                     ) : (

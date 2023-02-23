@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './FormCart.module.scss';
@@ -7,25 +7,23 @@ import Input from '~/components/Input';
 import Button from '~/components/Button';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
+import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function FormCart() {
     const [store, dispatch] = useStore();
+    const [profile, setProfile] = useState({});
+    useEffect(() => {
+        setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
+    }, []);
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm();
 
-    const onSubmit = (data) => {
-        // store.profileUser.googleId &&
-        //     console.log({
-        //         userId: store.profileUser.googleId,
-        //         ...data,
-        //         productsInCart: store.productsInCart,
-        //     });
-    };
+    const onSubmit = (data) => {};
     const handleClick = useCallback(() => {
-        Object.keys(store.profileUser).length === 0 && dispatch(actions.setIsLogin(true));
+        Object.keys(profile).length === 0 && dispatch(actions.setIsLogin(true));
     }, [store]);
     return (
         <form className={cx('wrapper')} onSubmit={handleSubmit(onSubmit)}>

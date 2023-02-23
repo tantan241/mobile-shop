@@ -14,7 +14,7 @@ import { Button, Container, Grid, makeStyles, TextField, Typography } from '@mui
 import SnackBar from '~/components/SnackBar';
 import { SnackbarProvider, useSnackbar } from 'notistack';
 import { handleClickVariant } from '~/common';
-import { ACCESS_TOKEN, REFRESH_TOKEN } from '~/constants';
+import { ACCESS_TOKEN, PROFILE, REFRESH_TOKEN } from '~/constants';
 import { Close } from '@mui/icons-material';
 
 const cx = classNames.bind(styles);
@@ -83,7 +83,7 @@ function Login(props) {
                 localStorage.setItem(ACCESS_TOKEN, JSON.stringify(res[0].access));
                 localStorage.setItem(REFRESH_TOKEN, JSON.stringify(res[0].refresh));
                 dispatch(actions.setProfileUser(res[1].data));
-                console.log(res[1].data);
+                localStorage.setItem(PROFILE, JSON.stringify(res[1].data));
                 dispatch(actions.setIsLogin(false));
                 handleClose && handleClose();
             }
@@ -148,11 +148,13 @@ function Login(props) {
                     right: '5px',
                     top: '5px',
                     border: '1px solid rgba(0,0,0,0.5)',
-                    borderRadius: '999px',
+                    borderRadius: '100%',
                     backgroundColor: 'black',
+                    cursor: 'pointer',
                 }}
+                onClick={handleClose}
             >
-                <Close style={{ fontSize: '30px', color: 'white' }}></Close>
+                <Close style={{ fontSize: '25px', color: 'white' }}></Close>
             </Grid>
             <Grid style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h1" component="h2" fontWeight={700} marginBottom="30px">
