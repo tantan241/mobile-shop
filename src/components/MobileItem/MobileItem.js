@@ -12,7 +12,6 @@ import Button from '~/components/Button';
 import Rating from '~/components/Rating';
 import Overlay from '../Overlay';
 import Login from '~/layouts/MainLayout/components/Header/components/Login';
-import { setIsLogin } from '~/store/actions';
 import { fetchData } from '~/common';
 import { API_CART } from '~/urlConfig';
 import Loading from '../Loading';

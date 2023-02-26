@@ -23,7 +23,7 @@ function FormCart() {
 
     const onSubmit = (data) => {};
     const handleClick = useCallback(() => {
-        Object.keys(profile).length === 0 && dispatch(actions.setIsLogin(true));
+        // Object.keys(profile).length === 0 && dispatch(actions.setIsLogin(true));
     }, [store]);
     return (
         <form className={cx('wrapper')} onSubmit={handleSubmit(onSubmit)}>

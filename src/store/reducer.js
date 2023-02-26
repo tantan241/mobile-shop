@@ -29,7 +29,6 @@ const initState = {
     isLogin: true,
     productsInCart: 0,
     productCompare: {},
-    isLogin: false,
     profileUser: {},
     openFiltersMobile: false,
 };

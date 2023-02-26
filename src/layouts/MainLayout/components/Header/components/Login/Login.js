@@ -21,7 +21,8 @@ const cx = classNames.bind(styles);
 
 const clientId = '775095883325-s8o67ovu8ego3m7ei2ksk5mv304cn3gi.apps.googleusercontent.com';
 function Login(props) {
-    const { handleClose } = props;
+    const { handleClose, setProfile } = props;
+    // console.log(handleReload);
     const { enqueueSnackbar } = useSnackbar();
     const styleTextField = {
         style: {
@@ -61,7 +62,7 @@ function Login(props) {
             });
     });
 
-    const handleLoginOnclick = useCallback(() => {
+    const handleLoginOnclick = () => {
         const getToken = fetch(`${URL}/api/token/`, {
             method: 'POST',
             headers: {
@@ -82,29 +83,14 @@ function Login(props) {
             if (res[1].status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, JSON.stringify(res[0].access));
                 localStorage.setItem(REFRESH_TOKEN, JSON.stringify(res[0].refresh));
-                dispatch(actions.setProfileUser(res[1].data));
+                // dispatch(actions.setProfileUser(res[1].data));
                 localStorage.setItem(PROFILE, JSON.stringify(res[1].data));
-                dispatch(actions.setIsLogin(false));
+                setProfile && setProfile(res[1].data);
+                // dispatch(actions.setIsLogin(false));
                 handleClose && handleClose();
             }
         });
-        // .then((res) => console.log(res));
-        // fetch(`${URL}/login/`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(localValues),
-        // })
-        //     .then((response) => response.json())
-        //     .then((data) => {
-        //         handleClickVariant(data.status === 200 ? 'success' : 'error', data.messenger, enqueueSnackbar);
-        //         if (data?.status === 200) {
-        //             dispatch(actions.setProfileUser(data?.data));
-        //             dispatch(actions.setIsLogin(false));
-        //         }
-        //     });
-    });
+    };
     useEffect(() => {
         function start() {
             gapi.client.init({
@@ -131,7 +117,7 @@ function Login(props) {
             .then((data) => {
                 dispatch(actions.setProfileUser(res.profileObj));
                 refreshTokenSetup(res);
-                dispatch(actions.setIsLogin(false));
+                // dispatch(actions.setIsLogin(false));
             })
             .catch((error) => {
                 console.error('Error:', error);

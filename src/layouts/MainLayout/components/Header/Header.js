@@ -24,9 +24,9 @@ function Header() {
     const [store, dispatch] = useStore();
     const [login, setLogin] = useState(false);
     const [profile, setProfile] = useState({});
-
     useEffect(() => {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
+        console.log('88888');
     }, []);
     const handleClose = useCallback(() => {
         setLogin(false);
@@ -41,12 +41,15 @@ function Header() {
         [store],
     );
     useEffect(() => {
-        fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
-            if (res.status === 200) {
-                dispatch(actions.addProductInCart(res.data.length));
-            }
-        });
-    }, [profile]);
+        console.log('999');
+        if (Object.keys(profile) > 0) {
+            fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
+                if (res.status === 200) {
+                    dispatch(actions.addProductInCart(res.data.length));
+                }
+            });
+        }
+    }, [profile?.id]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>
@@ -83,7 +86,7 @@ function Header() {
                             trigger="click"
                             render={(attrs) => (
                                 <div className={cx('logout')} tabIndex="-1" {...attrs}>
-                                    <Logout />
+                                    <Logout setProfile={setProfile} />
                                 </div>
                             )}
                         >
@@ -93,26 +96,28 @@ function Header() {
                             </div>
                         </Tippy>
                     ) : (
-                        <div className={cx('account')} onClick={() => dispatch(actions.setIsLogin(true))}>
+                        <div
+                            className={cx('account')}
+                            onClick={() => {
+                                setLogin(true);
+                            }}
+                        >
                             <FontAwesomeIcon className={cx('icon-account')} icon={faUser}></FontAwesomeIcon>
                             <span className={cx('title')}>Đăng nhập</span>
                         </div>
                     )}
                 </div>
-                {store.isLogin && (
-                    <Overlay>
-                        <Login />
-                    </Overlay>
-                )}
             </div>
             <div className={cx('search-mobile')}>
                 <Search />
             </div>
             <Navbar />
-            {login && (
+            {login ? (
                 <Overlay>
-                    <Login handleClose={handleClose}></Login>
+                    <Login handleClose={handleClose} setProfile={setProfile}></Login>
                 </Overlay>
+            ) : (
+                ''
             )}
         </div>
     );

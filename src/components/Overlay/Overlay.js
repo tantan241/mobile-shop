@@ -15,9 +15,9 @@ function Overlay({ children, full_display, open, handleClose }) {
             {
                 <div
                     className={cx('wrapper')}
-                    onClick={() => {
-                        dispatch(actions.setIsLogin(false));
-                    }}
+                    // onClick={() => {
+                    //     dispatch(actions.setIsLogin(false));
+                    // }}
                 >
                     <div
                         className={cx('content', {
