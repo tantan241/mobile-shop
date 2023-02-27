@@ -9,7 +9,6 @@ const cx = classNames.bind(styles);
 function FilterItem({ name, data }) {
     const [store, dispatch] = useStore();
     const [checked, setChecked] = useState(false);
-    console.log(data, 'data');
     useEffect(() => {
         dispatch(actions.setParamsApiFilter({ [name]: [] }));
     }, []);

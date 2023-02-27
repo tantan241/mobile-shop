@@ -39,6 +39,11 @@
     background-color: var(--primary-color);
     border-radius: 999px;
 }
+.noti_specification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .noti-1 {
     width: 50%;
     text-align: center;
@@ -47,6 +52,19 @@
     color: rgb(236, 48, 48);
     border: 1px solid rgb(236, 48, 48);
     border-radius: 2px;
+}
+.specifications {
+    width: 30%;
+
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2px;
+    margin: 4px 0 8px 0;
+    border: 1px solid rgb(61, 57, 57);
+}
+.ram {
+    padding-right: 2px;
+    border-right: 1px solid rgb(61, 57, 57);
 }
 .name {
     font-size: 2rem;

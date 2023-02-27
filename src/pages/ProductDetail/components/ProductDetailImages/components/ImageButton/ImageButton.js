@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import styles from './ImageButton.module.scss';
 const cx = classNames.bind(styles);
-function ImageButton({ active, src, onImageButtonClick }) {
+function ImageButton({ active, src, onImageButtonClick, id }) {
     return (
         <li className={cx('wrapper')}>
             <img
@@ -12,7 +12,7 @@ function ImageButton({ active, src, onImageButtonClick }) {
                     active,
                 })}
                 alt=""
-                onClick={() => onImageButtonClick(src)}
+                onClick={() => onImageButtonClick(id)}
             ></img>
         </li>
     );

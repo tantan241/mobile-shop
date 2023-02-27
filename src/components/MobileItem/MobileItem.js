@@ -27,6 +27,14 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const priceOld = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceSaved = moneyDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     let linkTo = `/product-detail/${product.slug}`;
+    const specifications = product?.specifications || '';
+    const specificationsArr = specifications ? specifications.split('|') : [];
+    const ram = specificationsArr.find((item) => item.includes('ram='))
+        ? specificationsArr.find((item) => item.includes('ram=')).split('=')[1]
+        : '?';
+    const rom = specificationsArr.find((item) => item.includes('rom='))
+        ? specificationsArr.find((item) => item.includes('rom=')).split('=')[1]
+        : '?';
     useEffect(() => {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
     }, []);
@@ -77,7 +85,15 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
             <Link to={linkTo} className={cx('content')}>
                 <img className={cx('image')} src={product?.image} alt={product.name} />
                 {product.discount > 0 && <div className={cx('discount')}>{product.discount}%</div>}
-                <p className={cx('noti-1')}>Trả góp 0%</p>
+                <div className={cx('noti_specification')}>
+                    <p className={cx('noti-1')}>Trả góp 0%</p>
+                    {specificationsArr.length > 0 && (
+                        <div className={cx('specifications')}>
+                            <div className={cx('ram')}>{ram}</div>
+                            <div className={cx('rom')}>{rom}</div>
+                        </div>
+                    )}
+                </div>
                 <span className={cx('name')}>{product.name}</span>
                 <div className={cx('price')}>
                     <span className={cx('price-current')}>{priceCurrent} vnđ</span>

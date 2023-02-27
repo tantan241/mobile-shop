@@ -8,6 +8,8 @@ import DetailConfig from './components/DetailConfig';
 import useStore from '~/store/hooks';
 import * as mobileService from '~/apiServices/mobileService';
 import RatingDetail from './components/RatingDetail';
+import { fetchData } from '~/common';
+import { API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function MobileDetail() {
     const [store, dispatch] = useStore();
@@ -26,22 +28,27 @@ function MobileDetail() {
         product.name && (document.title = product.name);
     }, [product]);
     useEffect(() => {
-        const fetchApi = async () => {
-            const res = await mobileService.mobileDetail(store.idProduct);
-            setImages(
-                res[0].images.map((image) =>
-                    image.id === 1
-                        ? { id: image.id, src: image.src, active: true }
-                        : { id: image.id, src: image.src, active: false },
-                ),
-            );
-            setProduct(res[0]);
-        };
-        fetchApi();
+        fetchData(`${API_PRODUCT}?id=${store.idProduct}`).then((res) => {
+            if (res.status === 200) {
+                setProduct(res.data);
+                // setImages(JSON.parse(res.data.images));
+                const arrImage = JSON.parse(res.data.images).map((image, index) => ({
+                    id: index + 1,
+                    src: image,
+                }));
+                setImages(
+                    arrImage.map((image, index) =>
+                        image.id === 1
+                            ? { id: image.id, src: image.src, active: true }
+                            : { id: image.id, src: image.src, active: false },
+                    ),
+                );
+            }
+        });
     }, [store]);
     const handleImageButtonClick = useCallback((param) => {
         setImages((prev) =>
-            prev.map((image) => (image.src === param ? { ...image, active: true } : { ...image, active: false })),
+            prev.map((image) => (image.id === param ? { ...image, active: true } : { ...image, active: false })),
         );
     }, []);
     const handleBtnLeftClick = useCallback(() => {

@@ -10,11 +10,14 @@ import useStore from '~/store/hooks';
 import MobileConfig from '../ProductConfig';
 const cx = classNames.bind(styles);
 function DetailConfig({ data }) {
+    console.log(data);
     const [store, dispatch] = useStore();
     const price = (data.price - (data.price * data.discount) / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const configs = data.specifications ? data.specifications.split('|') : [];
     const handleBuyNow = useCallback((id) => {
         dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
     }, []);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('advertise')}>
@@ -33,7 +36,7 @@ function DetailConfig({ data }) {
             <Button to="/notification" big width="100%">
                 Trả góp với 0% lãi suất
             </Button>
-            <MobileConfig configs={data.data} name={data.name} />
+            <MobileConfig configs={configs} name={data.name} />
         </div>
     );
 }
