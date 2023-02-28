@@ -33,7 +33,7 @@ function MobileConfig({ configs, name }) {
             }
         });
         setConfigArr(configRp);
-    }, []);
+    }, [configs]);
     console.log(configs);
     const [endArrConfig, setEndArrConfig] = useState(5);
     const handleShowMoreConfig = useCallback(() => {
