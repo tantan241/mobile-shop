@@ -26,7 +26,6 @@ function Header() {
     const [profile, setProfile] = useState({});
     useEffect(() => {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
-        console.log('88888');
     }, []);
     const handleClose = useCallback(() => {
         setLogin(false);
@@ -41,7 +40,6 @@ function Header() {
         [store],
     );
     useEffect(() => {
-        console.log('999');
         if (Object.keys(profile) > 0) {
             fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
                 if (res.status === 200) {

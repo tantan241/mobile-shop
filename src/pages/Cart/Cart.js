@@ -8,7 +8,7 @@ import useStore from '~/store/hooks';
 import styles from './Cart.module.scss';
 import ProductInCart from './components/ProductInCart';
 import * as cartServices from '~/apiServices/cartServices';
-import { CART } from '~/constants';
+import { CART, PROFILE } from '~/constants';
 import NoCart from './components/NoCart';
 import FormCart from './components/FormCart';
 import Overlay from '~/components/Overlay';
@@ -22,18 +22,19 @@ function Cart() {
     const [products, setProducts] = useState([]);
     const [openLoading, setOpenLoading] = useState(false);
     const [totalMoney, setTotalMoney] = useState(0);
+    const [profile, setProfile] = useState({});
 
     const [reload, setReload] = useState(0);
     useEffect(() => {
         document.title = 'Giỏ hàng | VuTan-Mobile';
+        setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
+        console.log(JSON.parse(localStorage.getItem(PROFILE)));
     }, []);
-
     useEffect(() => {
         setOpenLoading(true);
-        fetchData(`${API_CART}/get-cart?id=${store?.profileUser?.id}`, '', 'GET', true).then((res) => {
+        fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
             console.log(res);
             if (res.status === 200) {
-                // setReload(new Date() * 1);
                 setProducts(res.data);
                 setOpenLoading(false);
                 dispatch(actions.addProductInCart(res.data.length));
@@ -43,7 +44,7 @@ function Cart() {
                 setTotalMoney(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
             }
         });
-    }, [store?.profileUser?.id, reload]);
+    }, [profile?.id, reload]);
 
     return (
         <>

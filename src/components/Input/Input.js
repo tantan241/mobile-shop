@@ -23,7 +23,9 @@ function Input({
         <label className={cx('wrapper', classNames)}>
             <Comp
                 onBlur={onBlur}
-                onChange={onChange}
+                onChange={(e) => {
+                    console.log(e);
+                }}
                 value={value}
                 className={cx('field', {
                     borderRed,

@@ -59,7 +59,8 @@ function ProductInCart({ product, reload }) {
         },
         [product.product],
     );
-    const priceCur = product && product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    console.log(product);
+    const priceCur = product && product?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceReal =
         product &&
         (product.price - (product.price * product.discount) / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');

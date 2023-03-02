@@ -14,12 +14,13 @@ import { API_COMMENT } from '~/urlConfig';
 import useStore from '~/store/hooks';
 import { useSnackbar } from 'notistack';
 import { PROFILE } from '~/constants';
+import { TextField } from '@mui/material';
 const cx = classNames.bind(styles);
 function MobileDetailForm({ data }) {
     const { enqueueSnackbar } = useSnackbar();
     const userId = JSON.parse(localStorage.getItem(PROFILE))?.id || '';
     const productId = data.id;
-    console.log(data, 'data21');
+    const [valueState, setValueState] = useState({ content: '' });
     const {
         register,
         formState: { errors },
@@ -29,7 +30,7 @@ function MobileDetailForm({ data }) {
     const onSubmit = (data) => {
         fetchData(
             `${API_COMMENT}/send-comment/`,
-            { user: userId, product: productId, rating: starSelect },
+            { user: userId, product: productId, rating: starSelect, ...valueState },
             'POST',
             true,
         ).then((res) => {
@@ -68,16 +69,34 @@ function MobileDetailForm({ data }) {
                     })}
                 </ul>
                 <div>
-                    <Input
+                    <TextField
+                        label={'Mời bạn nhập cảm nhận về sản phẩm'}
+                        variant="outlined"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        value={valueState.content}
+                        onChange={(e) => {
+                            setValueState((prev) => ({ ...prev, content: e.target.value }));
+                        }}
+                        InputLabelProps={{ style: { fontSize: '15px' } }}
+                        InputProps={{ style: { fontSize: '15px' } }}
+                        focused
+                    ></TextField>
+                    {/* <Input
                         textarea
                         text="Mời bạn chia sẻ cảm nhận về sản phẩm này"
                         name="content"
                         register={register}
                         borderRed={errors.content?.type === 'required'}
+                        value={valueState.content}
+                        onChange={(e) => {
+                            setValueState((prev) => ({ ...prev, content: e.target.value }));
+                        }}
                     />
                     {errors.content?.type === 'required' && (
                         <span className={cx('notification')}>Mời bạn nhập đánh giá về sản phẩm</span>
-                    )}
+                    )} */}
                 </div>
                 <input className={cx('input-file')} type="file" accept="image/*,.jpg,.jpeg" {...register('image')} />
                 <div className={cx('information')}>
