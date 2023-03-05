@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 function MobileDetailImages({ images, onBtnLeftClick, onBtnRightClick, onImageButtonClick }) {
     const [imageBig, setImageBig] = useState();
     useEffect(() => {
-        console.log(images);
+     
         images.forEach((image) => {
             image.active === true && setImageBig(image.src);
         });

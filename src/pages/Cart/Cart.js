@@ -28,12 +28,12 @@ function Cart() {
     useEffect(() => {
         document.title = 'Giỏ hàng | VuTan-Mobile';
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
-        console.log(JSON.parse(localStorage.getItem(PROFILE)));
+      
     }, []);
     useEffect(() => {
         setOpenLoading(true);
         fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
-            console.log(res);
+           
             if (res.status === 200) {
                 setProducts(res.data);
                 setOpenLoading(false);

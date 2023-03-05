@@ -84,6 +84,7 @@ function Login(props) {
                 localStorage.setItem(ACCESS_TOKEN, JSON.stringify(res[0].access));
                 localStorage.setItem(REFRESH_TOKEN, JSON.stringify(res[0].refresh));
                 // dispatch(actions.setProfileUser(res[1].data));
+                dispatch(actions.setReload(new Date() *1))
                 localStorage.setItem(PROFILE, JSON.stringify(res[1].data));
                 setProfile && setProfile(res[1].data);
                 // dispatch(actions.setIsLogin(false));

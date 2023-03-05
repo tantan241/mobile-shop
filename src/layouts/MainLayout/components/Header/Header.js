@@ -25,8 +25,9 @@ function Header() {
     const [login, setLogin] = useState(false);
     const [profile, setProfile] = useState({});
     useEffect(() => {
+  
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
-    }, []);
+    }, [store.reload]);
     const handleClose = useCallback(() => {
         setLogin(false);
     }, []);
@@ -40,14 +41,15 @@ function Header() {
         [store],
     );
     useEffect(() => {
-        if (Object.keys(profile) > 0) {
+        if (Object.keys(profile).length > 0) {
             fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
                 if (res.status === 200) {
                     dispatch(actions.addProductInCart(res.data.length));
+                    
                 }
             });
         }
-    }, [profile?.id]);
+    }, [profile?.id,store.reload]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>

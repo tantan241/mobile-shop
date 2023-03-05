@@ -10,7 +10,7 @@ import useStore from '~/store/hooks';
 import MobileConfig from '../ProductConfig';
 const cx = classNames.bind(styles);
 function DetailConfig({ data }) {
-    console.log(data);
+
     const [store, dispatch] = useStore();
     const price = (data.price - (data.price * data.discount) / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const configs = data.specifications ? data.specifications.split('|') : [];

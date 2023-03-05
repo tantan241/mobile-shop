@@ -24,7 +24,7 @@ function Input({
             <Comp
                 onBlur={onBlur}
                 onChange={(e) => {
-                    console.log(e);
+                   
                 }}
                 value={value}
                 className={cx('field', {

@@ -13,6 +13,7 @@ import {
     SET_IS_LOGIN,
     SET_OPEN_FILTERS_MOBILE,
     SET_FILTER_PRICE,
+    SET_RELOAD,
 } from './constants';
 export const addSearchHistory = (payload) => {
     return {
@@ -59,6 +60,12 @@ export const setNumberPage = (payload) => {
 export const addProductInCart = (payload) => {
     return {
         type: ADD_PRODUCT_IN_CART,
+        payload,
+    };
+};
+export const setReload = (payload) => {
+    return {
+        type: SET_RELOAD,
         payload,
     };
 };

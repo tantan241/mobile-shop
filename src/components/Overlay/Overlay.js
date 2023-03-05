@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { Close } from '@mui/icons-material';
 const cx = classNames.bind(styles);
 function Overlay({ children, full_display, open, handleClose }) {
-    console.log(open);
     const [store, dispatch] = useStore();
     return (
         <>

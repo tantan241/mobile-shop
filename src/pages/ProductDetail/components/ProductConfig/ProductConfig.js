@@ -34,7 +34,6 @@ function MobileConfig({ configs, name }) {
         });
         setConfigArr(configRp);
     }, [configs]);
-    console.log(configs);
     const [endArrConfig, setEndArrConfig] = useState(5);
     const handleShowMoreConfig = useCallback(() => {
         setEndArrConfig(config.lenght);
@@ -51,7 +50,7 @@ function MobileConfig({ configs, name }) {
                         {configArr.length > 0 &&
                             configArr
                                 .slice(0, endArrConfig)
-                                .map((config) => <ConfigItem key={config.id} data={config.split('=')} />)}
+                                .map((config,index) => <ConfigItem key={index} data={config.split('=')} />)}
                     </ul>
                     {endArrConfig <= 5 ? (
                         <div className={cx('more')}>

@@ -13,6 +13,7 @@ import {
     SET_IS_LOGIN,
     SET_OPEN_FILTERS_MOBILE,
     SET_FILTER_PRICE,
+    SET_RELOAD,
 } from './constants';
 import { CART, SEARCH_HISTORY } from '~/constants';
 
@@ -31,6 +32,7 @@ const initState = {
     productCompare: {},
     profileUser: {},
     openFiltersMobile: false,
+    reload: 0
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -63,6 +65,8 @@ const reducer = (state, action) => {
             return { ...state, numberPage: action.payload };
         case ADD_PRODUCT_IN_CART:
             return { ...state, productsInCart: action.payload };
+        case SET_RELOAD:
+            return { ...state, reload: action.payload };
         // case UPDATE_NUMBER_PRODUCT_BUY:
         //     newProductsInCart = state.productsInCart.map((productInCart) =>
         //         productInCart.idProduct === action.payload.id

@@ -57,7 +57,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                     price: product.price - moneyDiscount,
                 };
                 fetchData(`${API_CART}/add-cart/`, user, 'POST', true).then((res) => {
-                    console.log(res);
+                   
                     if (res.status === 200) {
                         setOpenLoading(false);
                     }
@@ -134,7 +134,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
             )}
             {login && (
                 <Overlay>
-                    <Login handleClose={handleClose}></Login>
+                    <Login handleClose={handleClose} setProfile ={setProfile}></Login>
                 </Overlay>
             )}
             <Loading open={openLoading}></Loading>
