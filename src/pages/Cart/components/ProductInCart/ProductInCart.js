@@ -10,16 +10,19 @@ import styles from './ProductInCart.module.scss';
 import { fetchData } from '~/common';
 import { API_CART, API_PRODUCT } from '~/urlConfig';
 import Loading from '~/components/Loading';
+import { URL_IMAGE } from '~/utils/urlConfig';
+import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function ProductInCart({ product, reload }) {
     const [count, setCount] = useState(product && product.number);
     const [store, dispatch] = useStore();
     const [open, setOpen] = useState(false);
+    const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
     const handleReduce = useCallback(() => {
         setOpen(true);
         fetchData(
             `${API_CART}/update-cart/`,
-            { userId: store?.profileUser?.id, productId: product.product, type: 0 },
+            { userId: profile?.id, productId: product.product, type: 0 },
             'POST',
             true,
         ).then((res) => {
@@ -34,7 +37,7 @@ function ProductInCart({ product, reload }) {
         setOpen(true);
         fetchData(
             `${API_CART}/update-cart/`,
-            { userId: store?.profileUser?.id, productId: product.product, type: 1 },
+            { userId: profile?.id, productId: product.product, type: 1 },
             'POST',
             true,
         ).then((res) => {
@@ -48,29 +51,26 @@ function ProductInCart({ product, reload }) {
     const handleDelete = useCallback(
         (productId) => {
             setOpen(true);
-            fetchData(`${API_CART}/delete-cart/`, { userId: store?.profileUser?.id, productId }, 'POST', true).then(
-                (res) => {
-                    if (res.status === 200) {
-                        setOpen(false);
-                        reload(new Date() * 1);
-                    }
-                },
-            );
+            fetchData(`${API_CART}/delete-cart/`, { userId: profile?.id, productId }, 'POST', true).then((res) => {
+                if (res.status === 200) {
+                    setOpen(false);
+                    reload(new Date() * 1);
+                }
+            });
         },
         [product.product],
     );
-  
+
     const priceCur = product && product?.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceReal =
         product &&
         (product.price - (product.price * product.discount) / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
     return (
         <li className={cx('wrapper')}>
             {product && (
                 <>
                     <div className={cx('infor')}>
-                        <img className={cx('img')} src={product.image} alt="ảnh" />
+                        <img className={cx('img')} src={`${URL_IMAGE}/${product.image}`} alt="ảnh" />
                         <div className={cx('name')}>{product.name}</div>
                     </div>
                     <div className={'price-actions'}>

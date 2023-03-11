@@ -9,14 +9,14 @@ const cx = classNames.bind(styles);
 function SortItem({ data, handleName }) {
     const [store, dispatch] = useStore();
     const handleSort = useCallback(
-        (type_sort, name) => {
-            dispatch(actions.setParamsApiFilter({ type_sort }));
-            handleName(name);
+        (data) => {
+            dispatch(actions.setParamsApiFilter({ type_sort: data.type }));
+            handleName(data);
         },
         [store],
     );
     return (
-        <li onClick={() => handleSort(data.type, data.name)} className={cx('wrapper')}>
+        <li onClick={() => handleSort(data)} className={cx('wrapper')}>
             {data.name}
         </li>
     );

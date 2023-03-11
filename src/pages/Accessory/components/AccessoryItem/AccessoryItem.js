@@ -10,6 +10,7 @@ import Rating from '~/components/Rating';
 import { actions } from '~/store';
 import useStore from '~/store/hooks';
 import styles from './AccessoryItem.module.scss';
+import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
     const [store, dispatch] = useStore();
@@ -17,8 +18,8 @@ function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
     const price_real = (product.price - (product.price * product.discount) / 100)
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    const handleClick = useCallback((productId) => {
-        dispatch(actions.setIdProduct(productId));
+    const handleClick = useCallback((product) => {
+        dispatch(actions.setProduct(product));
     }, []);
     const handleBuy = useCallback((id) => {
         dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
@@ -35,10 +36,10 @@ function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
                 m_4,
                 s_2,
             })}
-            onClick={() => handleClick(product.id)}
+            onClick={() => handleClick(product)}
         >
             <Link to={linkTo}>
-                <img className={cx('img')} alt="ảnh" src={product.image} />
+                <img className={cx('img')} alt="ảnh" src={`${URL_IMAGE}/${product?.image}`} />
                 <div className={cx('content')}>
                     <p className={cx('name')}>{product.name}</p>
                     <div className={cx('price_cur-discount')}>
@@ -46,10 +47,12 @@ function AccessoryItem({ product, l_5, m_2, m_4, s_2, buyNow }) {
                         <p className={cx('discount')}>-{product.discount}%</p>
                     </div>
                     <div className={cx('price-real')}>{price_real} vnđ</div>
-                    <div className={cx('rating')}>
-                        <Rating number={product.rating} />
-                        <span className={cx('number-rating')}>{product.rating_number}</span>
-                    </div>
+                    {product.rating && (
+                        <div className={cx('rating')}>
+                            <Rating number={product.rating} />
+                            <span className={cx('number-rating')}>{product.rating_number}</span>
+                        </div>
+                    )}
                 </div>
             </Link>
             {buyNow && (

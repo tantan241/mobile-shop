@@ -197,9 +197,9 @@ function Login(props) {
             <p
                 onClick={changeLogin}
                 className={cx('text')}
-                style={{ width: '100%', textAlign: 'right', fontSize: '16px', color: 'blue' }}
+                style={{ width: '100%', textAlign:"right", fontSize: '30px', color: 'blue' }}
             >
-                {isLoginForm ? 'Bạn chưa có tài khoản?' : 'Bạn đã có tài khoản rồi.'}
+                {isLoginForm ? <div style={{ padding: "5px"}}>Đăng ký</div>: ''}
             </p>
         </Container>
     );

@@ -31,7 +31,7 @@ function Filter({ data }) {
                     <ul className={cx('filter-list')}>
                         {data &&
                             data.children.map((filterData) => (
-                                <FilterItem key={filterData.id} name={data.name} data={filterData} />
+                                <FilterItem key={filterData.id} value={data.value} data={filterData} />
                             ))}
                     </ul>
                 )}

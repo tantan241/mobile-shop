@@ -3,7 +3,7 @@ import {
     ADD_SEARCH_HISTORY,
     DELETE_SEARCH_HISTORY,
     SET_PARAMS_API_FILTER,
-    SET_ID_PRODUCT,
+    SET_PRODUCT,
     SET_NUMBER_PAGE,
     ADD_PRODUCT_IN_CART,
     UPDATE_NUMBER_PRODUCT_BUY,
@@ -45,9 +45,9 @@ export const setFilterPrice = (payload) => {
         payload,
     };
 };
-export const setIdProduct = (payload) => {
+export const setProduct = (payload) => {
     return {
-        type: SET_ID_PRODUCT,
+        type: SET_PRODUCT,
         payload,
     };
 };

@@ -7,21 +7,33 @@ import * as homeService from '~/apiServices/homeService';
 import AccessoryItem from '../Accessory/components/AccessoryItem';
 import MobileItem from '../../components/MobileItem';
 import MobilePages from '../../components/Pages';
+import { fetchData } from '~/common';
+import { API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
-function SearchPage() {
+function SearchPage(props) {
     const [store, dispatch] = useStore();
     const [products, setProducts] = useState([]);
     const [pagesMax, setPagesMax] = useState(0);
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    const q = params.get('q');
+
     useEffect(() => {
         document.title = ' VuTan-Mobile';
     }, []);
     useEffect(() => {
-        const fetchApi = async () => {
-            const res = await homeService.products(store.paramsApiFilter);
-            setProducts(res);
-            setPagesMax(Math.ceil(res.length / 15));
-        };
-        fetchApi();
+        fetchData(`${API_PRODUCT}?q=${q}`).then((res) => {
+            if (res.status === 200) {
+                setProducts(res.data);
+            }
+        });
+        // console.log(store);
+        // const fetchApi = async () => {
+        //     const res = await homeService.products(store.paramsApiFilter);
+        //     setProducts(res);
+        //     setPagesMax(Math.ceil(res.length / 15));
+        // };
+        // fetchApi();
     }, [store]);
     return (
         <>

@@ -10,17 +10,18 @@ import styles from './ProductDetailForm.module.scss';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import { fetchData, handleClickVariant } from '~/common';
-import { API_COMMENT } from '~/urlConfig';
+import { API_COMMENT, API_FILES } from '~/urlConfig';
 import useStore from '~/store/hooks';
 import { useSnackbar } from 'notistack';
-import { PROFILE } from '~/constants';
+import { ACCESS_TOKEN, PROFILE } from '~/constants';
 import { TextField } from '@mui/material';
 const cx = classNames.bind(styles);
 function MobileDetailForm({ data }) {
     const { enqueueSnackbar } = useSnackbar();
+    const [store, dispatch] = useStore();
     const userId = JSON.parse(localStorage.getItem(PROFILE))?.id || '';
-    const productId = data.id;
-    const [valueState, setValueState] = useState({ content: '' });
+    const productId = store.product.id;
+    const [valueState, setValueState] = useState({ content: '', file: {} });
     const {
         register,
         formState: { errors },
@@ -28,16 +29,39 @@ function MobileDetailForm({ data }) {
     } = useForm();
     const [starSelect, setStarSelect] = useState(5);
     const onSubmit = (data) => {
-        fetchData(
-            `${API_COMMENT}/send-comment/`,
-            { user: userId, product: productId, rating: starSelect, ...valueState },
-            'POST',
-            true,
-        ).then((res) => {
-            if (res.status === 200) {
-                handleClickVariant('success', res.messenger, enqueueSnackbar);
-            }
-        });
+        const token = JSON.parse(localStorage.getItem(ACCESS_TOKEN))
+            ? JSON.parse(localStorage.getItem(ACCESS_TOKEN))
+            : '';
+        const urlFile = `${API_FILES}/upload-file/`;
+        const formData = new FormData();
+
+        formData.append('file', valueState.file);
+        fetch(urlFile, {
+            method: 'POST',
+            headers: { Authorization: 'Bearer ' + token },
+            body: formData,
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 200) {
+                    fetchData(
+                        `${API_COMMENT}/send-comment/`,
+                        {
+                            user: userId,
+                            product: productId,
+                            rating: starSelect,
+                            content: valueState.content,
+                            image: res.fileName,
+                        },
+                        'POST',
+                        true,
+                    ).then((res) => {
+                        if (res.status === 200) {
+                            handleClickVariant('success', res.messenger, enqueueSnackbar);
+                        }
+                    });
+                }
+            });
     };
 
     const arrStar = [1, 2, 3, 4, 5];
@@ -48,8 +72,9 @@ function MobileDetailForm({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>
-                <img className={cx('image')} alt="ảnh" src={data.image} />
-                <span className={cx('name')}>{data.name}</span>
+                <img className={cx('image')} alt="ảnh" src={data?.image} />
+                {/* Tý sửa */}
+                <span className={cx('name')}>{data?.name}</span>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ul className={cx('star-list')}>
@@ -98,34 +123,13 @@ function MobileDetailForm({ data }) {
                         <span className={cx('notification')}>Mời bạn nhập đánh giá về sản phẩm</span>
                     )} */}
                 </div>
-                <input className={cx('input-file')} type="file" accept="image/*,.jpg,.jpeg" {...register('image')} />
-                <div className={cx('information')}>
-                    {/* <div>
-                        <Input
-                            classNames={cx('input-name')}
-                            text="Họ và tên"
-                            name="name"
-                            register={register}
-                            borderRed={errors.name?.type === 'required'}
-                        />
-                        {errors.name?.type === 'required' && (
-                            <span className={cx('notification')}>Mời bạn nhập Họ và tên</span>
-                        )}
-                    </div>
-
-                    <div>
-                        <Input
-                            classNames={cx('input-phone')}
-                            text="Số điện thoại"
-                            name="phone"
-                            register={register}
-                            borderRed={errors.phone?.type === 'required'}
-                        />
-                        {errors.phone?.type === 'required' && (
-                            <span className={cx('notification')}>Mời bạn nhập số điện thoại</span>
-                        )}
-                    </div> */}
-                </div>
+                <input
+                    className={cx('input-file')}
+                    type="file"
+                    accept="image/*,.jpg,.jpeg"
+                    onChange={(e) => setValueState((prev) => ({ ...prev, file: e.target.files[0] }))}
+                />
+                <div className={cx('information')}></div>
                 <div className={cx('action')}>
                     <Button onClick={handleSubmit} primary>
                         Gửi đánh giá ngay

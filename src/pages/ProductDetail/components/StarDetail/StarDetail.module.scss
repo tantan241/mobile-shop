@@ -7,14 +7,17 @@
 .star-number {
     display: flex;
     align-items: center;
-    font-size: 2rem;
+    justify-content: space-between;
+    font-size: 1.8rem;
 }
-.number {
-    margin-right: 10px;
+.number-wrapper {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
 }
-.number-assess {
-    margin-left: 20px;
-}
+// .number-assess {
+//     margin-left: 20px;
+// }
 .percents {
     margin: 10px 0 0 10px;
 }
@@ -22,6 +25,9 @@
     .wrapper {
         width: 100%;
         border-color: transparent;
+    }
+    .number-wrapper {
+        width: 30%;
     }
 }
 @include MediaQuery($min_mobile, $max_mobile) {

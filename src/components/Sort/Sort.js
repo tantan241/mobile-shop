@@ -9,7 +9,8 @@ import SortItem from './components/SortItem';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
 const cx = classNames.bind(styles);
-function Sort() {
+function Sort(props) {
+    const { setOrderBy } = props;
     const [store, dispatch] = useStore();
     const sorts = [
         { id: 1, name: 'Nổi bật', type: 'popularity' },
@@ -30,8 +31,9 @@ function Sort() {
         setIsOpen((prev) => !prev);
     }, [isOpen]);
     const handleChangeSortName = useCallback(
-        (name) => {
-            setSortName(name);
+        (data) => {
+            setOrderBy(data.type);
+            setSortName(data.name);
         },
         [sortName],
     );

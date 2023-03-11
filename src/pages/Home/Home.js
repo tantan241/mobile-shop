@@ -14,8 +14,9 @@ import Pages from '../../components/Pages';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 import { fetchData, handleClickVariant } from '~/common';
-import { API_PRODUCT } from '~/urlConfig';
+import { API_FILTER, API_PRODUCT } from '~/urlConfig';
 import { useSnackbar } from 'notistack';
+import { URL } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function Home() {
     const { enqueueSnackbar } = useSnackbar();
@@ -23,27 +24,44 @@ function Home() {
     const [products, setProducts] = useState([]);
     const [filters, setFilters] = useState([]);
     const [pagesMax, setPagesMax] = useState(0);
+    const [orderBy, setOrderBy] = useState('');
     useEffect(() => {
         dispatch(actions.setFilterPrice({ fromPrice: 0, toPrice: 0 }));
     }, []);
     useEffect(() => {
         dispatch(actions.setNumberPage(1));
-        const fetchApi = async () => {
-            const res = await homeService.filterHome();
-            setFilters(res);
-        };
-        fetchApi();
+        fetch(`${API_FILTER}/get-filter?type=home`)
+            .then((res) => res.json())
+            .then((data) => {
+                setFilters(data);
+            });
+        // const fetchApi = async () => {
+        //     const res = await homeService.filterHome();
+        //     setFilters(res);
+        // };
+        // fetchApi();
         document.title = 'VuTan-Mobile';
     }, []);
+
     useEffect(() => {
-        fetchData(API_PRODUCT, { filter: store.paramsApiFilter, price: store.filterPrice }, 'POST').then((res) => {
+        fetchData(
+            API_PRODUCT,
+            {
+                filter: store.paramsApiFilter,
+                price: store.filterPrice,
+                order: orderBy,
+                page: store.numberPage,
+                numberProduct: store.numberProductInPage,
+            },
+            'POST',
+        ).then((res) => {
             res.status === 400 && handleClickVariant('error', res.messenger, enqueueSnackbar);
             if (res.status === 200) {
                 setProducts(res.data);
                 setPagesMax(Math.ceil(res.data.length / 9));
             }
         });
-    }, [store]);
+    }, [store, orderBy]);
     return (
         <div className={cx('wrapper')}>
             <MostBuy />
@@ -53,7 +71,7 @@ function Home() {
                     <FilterPrice />
                 </div>
                 <div className={cx('products')}>
-                    <Sort />
+                    <Sort setOrderBy={setOrderBy} />
                     <div className={cx('products-content')}>
                         {products.length > 0 &&
                             products

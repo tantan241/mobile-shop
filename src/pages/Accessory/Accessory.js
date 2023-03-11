@@ -12,29 +12,47 @@ import { actions } from '~/store';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 import { fetchData } from '~/common';
-import { API_PRODUCT } from '~/urlConfig';
+import { API_FILTER, API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Accessory() {
     const [filters, setFilters] = useState();
     const [products, setProducts] = useState();
     const [pagesMax, setPagesMax] = useState(0);
+    const [orderBy, setOrderBy] = useState('');
     const [store, dispatch] = useStore();
 
     useEffect(() => {
         dispatch(actions.setNumberPage(1));
-        const fetchApi = async () => {
-            const res = await accessoryService.filter();
-            setFilters(res);
-        };
-        fetchApi();
+        fetch(`${API_FILTER}/get-filter?type=accessory`)
+            .then((res) => res.json())
+            .then((data) => setFilters(data));
+        // const fetchApi = async () => {
+        //     const res = await accessoryService.filter();
+        //     setFilters(res);
+        // };
+        // fetchApi();
         document.title = 'Phụ kiện | VuTan-Mobile';
     }, []);
     useEffect(() => {
-        fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 1 }, 'POST').then((res) => {
+        fetchData(
+            API_PRODUCT,
+            {
+                filter: store.paramsApiFilter,
+                type: 1,
+                order: orderBy,
+                page: store.numberPage,
+                numberProduct: store.numberProductInPage,
+            },
+            'POST',
+        ).then((res) => {
             setProducts(res.data);
             setPagesMax(Math.ceil(res.data.length / 9));
         });
-    }, [store]);
+        // fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 1 }, 'POST').then((res) => {
+        //     setProducts(res.data);
+        //     setPagesMax(Math.ceil(res.data.length / 9));
+        // });
+    }, [store, orderBy]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('filters')}>
@@ -43,7 +61,7 @@ function Accessory() {
             </div>
 
             <div className={cx('content')}>
-                <Sort />
+                <Sort setOrderBy={setOrderBy} />
                 <div className={cx('products')}>
                     {products &&
                         products

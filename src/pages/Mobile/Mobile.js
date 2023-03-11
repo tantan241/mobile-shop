@@ -14,36 +14,45 @@ import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 import { fetchData } from '~/common';
 import { URL } from '~/utils/urlConfig';
-import { API_PRODUCT } from '~/urlConfig';
+import { API_FILTER, API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Mobile() {
     const [store, dispatch] = useStore();
     const [products, setProducts] = useState([]);
     const [filters, setFilters] = useState([]);
     const [pagesMax, setPagesMax] = useState(0);
+    const [orderBy, setOrderBy] = useState('');
     useEffect(() => {
         dispatch(actions.setNumberPage(1));
-        const fetchApi = async () => {
-            const res = await mobileService.filter();
-            setFilters(res);
-        };
-        fetchApi();
+        fetch(`${API_FILTER}/get-filter?type=mobile`)
+            .then((res) => res.json())
+            .then((data) => setFilters(data));
         document.title = 'Điện thoại | VuTan-Mobile';
     }, []);
     // useEffect(() => {
-    //   const fetchApi = async () => {
+    //     const fetchApi = async () => {
     //         const res = await mobileService.mobile(store.paramsApiFilter);
-    // setProducts(res);
-    // setPagesMax(Math.ceil(res.length / 9));
+    //         setProducts(res);
+    //         setPagesMax(Math.ceil(res.length / 9));
     //     };
     //     fetchApi();
     // }, [store]);
     useEffect(() => {
-        fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 0 }, 'POST').then((res) => {
+        fetchData(
+            API_PRODUCT,
+            {
+                filter: store.paramsApiFilter,
+                type: 0,
+                order: orderBy,
+                page: store.numberPage,
+                numberProduct: store.numberProductInPage,
+            },
+            'POST',
+        ).then((res) => {
             setProducts(res.data);
             setPagesMax(Math.ceil(res.data.length / 9));
         });
-    }, [store]);
+    }, [store, orderBy]);
     return (
         <div className={cx('wrapper')}>
             <Advertise width="100%" src="https://cdn.tgdd.vn/2022/08/banner/1200-44-1200x44-13.png" />
@@ -55,7 +64,7 @@ function Mobile() {
                     <FilterPrice />
                 </div>
                 <div className={cx('products')}>
-                    <Sort />
+                    <Sort setOrderBy={setOrderBy} />
                     <div className={cx('products-content')}>
                         {products.length > 0 &&
                             products

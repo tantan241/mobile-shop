@@ -14,7 +14,7 @@ function StartPercent({ number, percent }) {
                 <span style={{ width: percent + '%' }} className={cx('percent-display')}></span>
             </div>
 
-            <span className={cx('number-percent')}>{percent}%</span>
+            <span className={cx('number-percent')}>{percent === 'NaN' ? 0 : percent}%</span>
         </li>
     );
 }

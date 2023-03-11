@@ -6,11 +6,11 @@ import styles from './FilterItem.module.scss';
 import { actions } from '~/store';
 import useStore from '~/store/hooks';
 const cx = classNames.bind(styles);
-function FilterItem({ name, data }) {
+function FilterItem({ value, data }) {
     const [store, dispatch] = useStore();
     const [checked, setChecked] = useState(false);
     useEffect(() => {
-        dispatch(actions.setParamsApiFilter({ [name]: [] }));
+        dispatch(actions.setParamsApiFilter({ [value]: [] }));
     }, []);
     const handleClick = useCallback(
         (nameFilterItem) => {
@@ -18,7 +18,7 @@ function FilterItem({ name, data }) {
             setChecked((checked) => !checked);
 
             Object.keys(store.paramsApiFilter).forEach((key) => {
-                if (key === name) {
+                if (key === value) {
                     if (checked) {
                         paramValues = store.paramsApiFilter[key].filter((item) => item !== nameFilterItem);
                     } else {
@@ -38,7 +38,7 @@ function FilterItem({ name, data }) {
                 checked={checked}
                 id={data.id}
                 className={cx('checkbox')}
-                name={name}
+                // name={name}
                 value={data.value}
                 type="checkbox"
                 onChange={(e) => setChecked(e.target.checked)} //Cầm xem lại đoạn này ( fix báo warning)
@@ -48,7 +48,7 @@ function FilterItem({ name, data }) {
     );
 }
 FilterItem.propTypes = {
-    name: PropTypes.string,
+    value: PropTypes.string,
     data: PropTypes.object,
 };
 

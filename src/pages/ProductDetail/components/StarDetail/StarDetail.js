@@ -6,14 +6,16 @@ import StartPercent from '../StartPercent';
 import styles from './StarDetail.module.scss';
 const cx = classNames.bind(styles);
 function StarDetail({ starDetail, total }) {
-    const avgStar = (
-        (starDetail?.star_1 * 1 +
-            starDetail?.star_2 * 2 +
-            starDetail?.star_3 * 3 +
-            starDetail?.star_4 * 4 +
-            starDetail?.star_5 * 5) /
-        total
-    ).toFixed(1);
+    const avgStar = parseFloat(
+        (
+            (starDetail?.star_1 * 1 +
+                starDetail?.star_2 * 2 +
+                starDetail?.star_3 * 3 +
+                starDetail?.star_4 * 4 +
+                starDetail?.star_5 * 5) /
+            total
+        ).toFixed(1),
+    );
     const percentStar5 = ((starDetail?.star_5 / total) * 100).toFixed();
     const percentStar4 = ((starDetail?.star_4 / total) * 100).toFixed();
     const percentStar3 = ((starDetail?.star_3 / total) * 100).toFixed();
@@ -22,8 +24,11 @@ function StarDetail({ starDetail, total }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('star-number')}>
-                <span className={cx('number')}>{avgStar}</span>
-                <Rating number={avgStar} />
+                <div className={cx('number-wrapper')}>
+                    <span className={cx('number')}>{avgStar || 5}</span>
+                    <Rating number={avgStar} />
+                </div>
+
                 <div className={cx('number-assess')}>{total} đánh giá</div>
             </div>
             <ul className={cx('percents')}>

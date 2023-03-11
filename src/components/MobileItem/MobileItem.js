@@ -16,6 +16,7 @@ import { fetchData } from '~/common';
 import { API_CART } from '~/urlConfig';
 import Loading from '../Loading';
 import { PROFILE } from '~/constants';
+import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const [store, dispatch] = useStore();
@@ -41,8 +42,8 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const handleClose = useCallback(() => {
         setLogin(false);
     }, []);
-    const handleClick = useCallback((productId, e) => {
-        dispatch(actions.setIdProduct(productId));
+    const handleClick = useCallback((product, e) => {
+        dispatch(actions.setProduct(product));
     }, []);
     const handleBuyNow = useCallback(
         (id) => {
@@ -57,7 +58,6 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                     price: product.price - moneyDiscount,
                 };
                 fetchData(`${API_CART}/add-cart/`, user, 'POST', true).then((res) => {
-                   
                     if (res.status === 200) {
                         setOpenLoading(false);
                     }
@@ -80,10 +80,10 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                 m_2,
                 s_2,
             })}
-            onClick={() => handleClick(product.id)}
+            onClick={() => handleClick(product)}
         >
             <Link to={linkTo} className={cx('content')}>
-                <img className={cx('image')} src={product?.image} alt={product.name} />
+                <img className={cx('image')} src={`${URL_IMAGE}/${product?.image}`} alt={product.name} />
                 {product.discount > 0 && <div className={cx('discount')}>{product.discount}%</div>}
                 <div className={cx('noti_specification')}>
                     <p className={cx('noti-1')}>Trả góp 0%</p>
@@ -110,7 +110,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                 {product.note && <div className={cx('noti-2')}>{product.note}</div>}
             </Link>
 
-            {buyNow && (
+            {buyNow && product.number !== 0 && (
                 <div className={cx('actions')}>
                     <div className={cx('actions-content')}>
                         <Button
@@ -132,9 +132,19 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                     </div>
                 </div>
             )}
+            {product.number === 0 ? (
+                <div className={cx('overlay-item')} onClick={() => handleClick(product)}>
+                    <Link to={linkTo} className={cx('overlay-item-wrapper')}>
+                        <div className={cx('overlay-item-text')}>Đã hết hàng</div>
+                    </Link>
+                </div>
+            ) : (
+                ''
+            )}
+
             {login && (
                 <Overlay>
-                    <Login handleClose={handleClose} setProfile ={setProfile}></Login>
+                    <Login handleClose={handleClose} setProfile={setProfile}></Login>
                 </Overlay>
             )}
             <Loading open={openLoading}></Loading>

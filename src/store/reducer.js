@@ -3,7 +3,7 @@ import {
     SET_SEARCH_HISTORY,
     DELETE_SEARCH_HISTORY,
     SET_PARAMS_API_FILTER,
-    SET_ID_PRODUCT,
+    SET_PRODUCT,
     SET_NUMBER_PAGE,
     ADD_PRODUCT_IN_CART,
     UPDATE_NUMBER_PRODUCT_BUY,
@@ -25,14 +25,15 @@ const initState = {
         fromPrice: 0,
         toPrice: 0,
     },
-    idProduct: null,
+    product: {},
     numberPage: 1,
+    numberProductInPage: 9,
     isLogin: true,
     productsInCart: 0,
     productCompare: {},
     profileUser: {},
     openFiltersMobile: false,
-    reload: 0
+    reload: 0,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -59,8 +60,8 @@ const reducer = (state, action) => {
             return { ...state, paramsApiFilter: { ...state.paramsApiFilter, ...action.payload } };
         case SET_FILTER_PRICE:
             return { ...state, filterPrice: { ...state.filterPrice, ...action.payload } };
-        case SET_ID_PRODUCT:
-            return { ...state, idProduct: action.payload };
+        case SET_PRODUCT:
+            return { ...state, product: action.payload };
         case SET_NUMBER_PAGE:
             return { ...state, numberPage: action.payload };
         case ADD_PRODUCT_IN_CART:

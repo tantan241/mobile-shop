@@ -9,32 +9,36 @@ import useStore from '~/store/hooks';
 import * as mobileService from '~/apiServices/mobileService';
 import RatingDetail from './components/RatingDetail';
 import { fetchData } from '~/common';
-import { API_PRODUCT } from '~/urlConfig';
+import { API_COMMENT, API_PRODUCT } from '~/urlConfig';
+import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function MobileDetail() {
     const [store, dispatch] = useStore();
     const [product, setProduct] = useState({});
     const [images, setImages] = useState([]);
-    const starDetail = product?.assess?.star;
-    const avgStar = (
-        (starDetail?.star_1 * 1 +
-            starDetail?.star_2 * 2 +
-            starDetail?.star_3 * 3 +
-            starDetail?.star_4 * 4 +
-            starDetail?.star_5 * 5) /
-        product?.assess?.total
-    ).toFixed(1);
+    const [dataRatingDatail, setDataRatingDatail] = useState({});
+
+    const avgStar = parseFloat(
+        (
+            (dataRatingDatail?.star?.star_1 * 1 +
+                dataRatingDatail?.star?.star_2 * 2 +
+                dataRatingDatail?.star?.star_3 * 3 +
+                dataRatingDatail?.star?.star_4 * 4 +
+                dataRatingDatail?.star?.star_5 * 5) /
+            dataRatingDatail?.total
+        ).toFixed(1),
+    );
     useEffect(() => {
         product.name && (document.title = product.name);
     }, [product]);
     useEffect(() => {
-        fetchData(`${API_PRODUCT}?id=${store.idProduct}`).then((res) => {
+        fetchData(`${API_PRODUCT}?id=${store.product.id}`).then((res) => {
             if (res.status === 200) {
                 setProduct(res.data);
                 // setImages(JSON.parse(res.data.images));
                 const arrImage = JSON.parse(res.data.images).map((image, index) => ({
                     id: index + 1,
-                    src: image,
+                    src: `${URL_IMAGE}/${image}`,
                 }));
                 setImages(
                     arrImage.map((image, index) =>
@@ -44,6 +48,10 @@ function MobileDetail() {
                     ),
                 );
             }
+        });
+
+        fetchData(` http://127.0.0.1:8000/app/api/comment/get-comment?id=${store.product.id}`).then((res) => {
+            setDataRatingDatail(res);
         });
     }, [store]);
     const handleImageButtonClick = useCallback((param) => {
@@ -82,7 +90,7 @@ function MobileDetail() {
                     <Rating number={avgStar} />
                 </div>
                 <a href="#rating-detail" className={cx('text')}>
-                    {product?.assess?.total} đánh giá
+                    {dataRatingDatail?.total} đánh giá
                 </a>
             </div>
             <div className={cx('content')}>
@@ -97,7 +105,7 @@ function MobileDetail() {
                     )}
 
                     <div id="rating-detail">
-                        <RatingDetail data={product} />
+                        <RatingDetail data={dataRatingDatail} />
                     </div>
                 </div>
                 <DetailConfig data={product} />

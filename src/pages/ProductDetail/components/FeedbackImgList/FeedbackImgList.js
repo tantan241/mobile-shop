@@ -8,6 +8,7 @@ import styles from './FeedbackImgList.module.scss';
 import Overlay from '~/components/Overlay';
 import Comment from '../Comment';
 import ImageAssess from '../ImageAssess';
+import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function FeedbackImgList({ images, comments }) {
     const [showOverlay, setShowOverLay] = useState(false);
@@ -37,9 +38,22 @@ function FeedbackImgList({ images, comments }) {
             {images &&
                 images.slice(0, 10).map((image, index) => {
                     if (index === 9) {
-                        return <ImageAssess onClick={() => handleShowAllImages()} more key={index} src={image} />;
+                        return (
+                            <ImageAssess
+                                onClick={() => handleShowAllImages()}
+                                more
+                                key={index}
+                                src={`${URL_IMAGE}/${image}`}
+                            />
+                        );
                     }
-                    return <ImageAssess onClick={() => handleImageClick(image)} key={index} src={image} />;
+                    return (
+                        <ImageAssess
+                            onClick={() => handleImageClick(image)}
+                            key={index}
+                            src={`${URL_IMAGE}/${image}`}
+                        />
+                    );
                 })}
             {showOverlay && (
                 <Overlay>
@@ -71,7 +85,7 @@ function FeedbackImgList({ images, comments }) {
                                                 onClick={() => handleImageClick(image)}
                                                 key={index}
                                                 sizeL
-                                                src={image}
+                                                src={`${URL_IMAGE}/${image}`}
                                             />
                                         ))}
                                 </div>
@@ -79,7 +93,7 @@ function FeedbackImgList({ images, comments }) {
                         ) : commentDetail ? (
                             <div className={cx('detail')}>
                                 <div className={cx('image')}>
-                                    <img alt="ảnh" src={commentDetail.image} />
+                                    <img alt="ảnh" src={`${URL_IMAGE}/${commentDetail.image}`} />
                                 </div>
                                 <div className={cx('content')}>
                                     <Comment
