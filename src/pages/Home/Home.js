@@ -14,7 +14,7 @@ import Pages from '../../components/Pages';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 import { fetchData, handleClickVariant } from '~/common';
-import { API_FILTER, API_PRODUCT } from '~/urlConfig';
+import { API_FILTER, API_GET_PRODUCT, API_PRODUCT } from '~/urlConfig';
 import { useSnackbar } from 'notistack';
 import { URL } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
@@ -45,7 +45,7 @@ function Home() {
 
     useEffect(() => {
         fetchData(
-            API_PRODUCT,
+            `${API_GET_PRODUCT}`,
             {
                 filter: store.paramsApiFilter,
                 price: store.filterPrice,

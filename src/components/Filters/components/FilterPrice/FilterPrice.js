@@ -13,7 +13,6 @@ function FilterPrice() {
     const [store, dispatch] = useStore();
     const [isOpen, setIsOpen] = useState(true);
     const handleApply = useCallback(() => {
-       
         dispatch(
             actions.setFilterPrice({
                 fromPrice: localValue.fromPrice * 1,

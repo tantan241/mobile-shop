@@ -8,7 +8,7 @@ import { actions } from '~/store';
 import useStore from '~/store/hooks';
 import styles from './ProductInCart.module.scss';
 import { fetchData } from '~/common';
-import { API_CART, API_PRODUCT } from '~/urlConfig';
+import { API_CART, API_DELETE_PRODUCT_IN_CART, API_PRODUCT, API_UPDATE_CART } from '~/urlConfig';
 import Loading from '~/components/Loading';
 import { URL_IMAGE } from '~/utils/urlConfig';
 import { PROFILE } from '~/constants';
@@ -21,7 +21,7 @@ function ProductInCart({ product, reload }) {
     const handleReduce = useCallback(() => {
         setOpen(true);
         fetchData(
-            `${API_CART}/update-cart/`,
+            `${API_UPDATE_CART}`,
             { userId: profile?.id, productId: product.product, type: 0 },
             'POST',
             true,
@@ -36,7 +36,7 @@ function ProductInCart({ product, reload }) {
     const handleIncrease = useCallback(() => {
         setOpen(true);
         fetchData(
-            `${API_CART}/update-cart/`,
+            `${API_UPDATE_CART}`,
             { userId: profile?.id, productId: product.product, type: 1 },
             'POST',
             true,
@@ -51,7 +51,7 @@ function ProductInCart({ product, reload }) {
     const handleDelete = useCallback(
         (productId) => {
             setOpen(true);
-            fetchData(`${API_CART}/delete-cart/`, { userId: profile?.id, productId }, 'POST', true).then((res) => {
+            fetchData(`${API_DELETE_PRODUCT_IN_CART}`, { userId: profile?.id, productId }, 'POST', true).then((res) => {
                 if (res.status === 200) {
                     setOpen(false);
                     reload(new Date() * 1);

@@ -16,13 +16,13 @@ function MostBuy() {
     const [x, setX] = useState(0);
     const [products, setProducts] = useState([]);
     useEffect(() => {
-        const fetchApi = async () => {
-            const res = await mobileService.mobile();
-            if (res.status === 200) {
-                setProducts(res.data);
-            }
-        };
-        fetchApi();
+        // const fetchApi = async () => {
+        //     const res = await mobileService.mobile();
+        //     if (res.status === 200) {
+        //         setProducts(res.data);
+        //     }
+        // };
+        // fetchApi();
     }, []);
     useEffect(() => {
         widthListProduct = productListRef.current.clientWidth.toFixed(2);

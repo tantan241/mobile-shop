@@ -14,7 +14,7 @@ import FormCart from './components/FormCart';
 import Overlay from '~/components/Overlay';
 import Loading from '~/components/Loading';
 import { fetchData } from '~/common';
-import { API_CART } from '~/urlConfig';
+import { API_CART, API_GET_INFO_CART } from '~/urlConfig';
 import { actions } from '~/store';
 const cx = classNames.bind(styles);
 function Cart() {
@@ -28,22 +28,21 @@ function Cart() {
     useEffect(() => {
         document.title = 'Giỏ hàng | VuTan-Mobile';
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
-      
     }, []);
     useEffect(() => {
         setOpenLoading(true);
-        fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
-           
-            if (res.status === 200) {
-                setProducts(res.data);
-                setOpenLoading(false);
-                dispatch(actions.addProductInCart(res.data.length));
-                const total = res.data.reduce((sum, product) => {
-                    return (sum += (product.price - (product.price * product.discount) / 100) * product.number);
-                }, 0);
-                setTotalMoney(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
-            }
-        });
+        profile?.id &&
+            fetchData(`${API_GET_INFO_CART}?id=${profile?.id}`, '', 'GET', true).then((res) => {
+                if (res.status === 200) {
+                    setProducts(res.data);
+                    setOpenLoading(false);
+                    dispatch(actions.addProductInCart(res.data.length));
+                    const total = res.data.reduce((sum, product) => {
+                        return (sum += (product.price - (product.price * product.discount) / 100) * product.number);
+                    }, 0);
+                    setTotalMoney(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
+                }
+            });
     }, [profile?.id, reload]);
 
     return (

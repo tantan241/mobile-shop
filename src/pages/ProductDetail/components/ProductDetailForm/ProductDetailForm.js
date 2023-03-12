@@ -10,7 +10,7 @@ import styles from './ProductDetailForm.module.scss';
 import Input from '~/components/Input';
 import Button from '~/components/Button';
 import { fetchData, handleClickVariant } from '~/common';
-import { API_COMMENT, API_FILES } from '~/urlConfig';
+import { API_COMMENT, API_FILES, API_SEND_COMMENT, API_UPLOAD_FILE } from '~/urlConfig';
 import useStore from '~/store/hooks';
 import { useSnackbar } from 'notistack';
 import { ACCESS_TOKEN, PROFILE } from '~/constants';
@@ -32,7 +32,7 @@ function MobileDetailForm({ data }) {
         const token = JSON.parse(localStorage.getItem(ACCESS_TOKEN))
             ? JSON.parse(localStorage.getItem(ACCESS_TOKEN))
             : '';
-        const urlFile = `${API_FILES}/upload-file/`;
+        const urlFile = API_UPLOAD_FILE;
         const formData = new FormData();
 
         formData.append('file', valueState.file);
@@ -45,7 +45,7 @@ function MobileDetailForm({ data }) {
             .then((res) => {
                 if (res.status === 200) {
                     fetchData(
-                        `${API_COMMENT}/send-comment/`,
+                        `${API_SEND_COMMENT}`,
                         {
                             user: userId,
                             product: productId,

@@ -8,54 +8,101 @@ import Button from '~/components/Button';
 import useStore from '~/store/hooks';
 import { actions } from '~/store';
 import { PROFILE } from '~/constants';
+import TextFieldTan from '~/components/TextField';
+import { Grid } from '@mui/material';
 const cx = classNames.bind(styles);
 function FormCart() {
     const [store, dispatch] = useStore();
     const [profile, setProfile] = useState({});
+    const [localValue, setLocalValue] = useState({ name: '', phoneNumber: '', address: '', other: '' });
     useEffect(() => {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
     }, []);
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm();
-
+    // const {
+    //     register,
+    //     formState: { errors },
+    //     handleSubmit,
+    // } = useForm();
+    const handleInputChange = (name, value) => {
+        setLocalValue((prev) => ({ ...prev, [name]: value }));
+    };
     const onSubmit = (data) => {};
-    const handleClick = useCallback(() => {
-        // Object.keys(profile).length === 0 && dispatch(actions.setIsLogin(true));
-    }, [store]);
+    // const handleClick = useCallback(() => {
+    //     // Object.keys(profile).length === 0 && dispatch(actions.setIsLogin(true));
+    // }, [store]);
     return (
-        <form className={cx('wrapper')} onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className={cx('wrapper')}
+            // onSubmit={handleSubmit(onSubmit)}
+        >
             <div className={cx('title')}>Thông tin người nhận</div>
-            <div className={cx('input-name-number')}>
-                <div>
-                    <Input
-                        classNames={cx('input-name')}
-                        text="Họ và tên"
+            {/* <div className={cx('input-name-number')}> */}
+            <Grid container spacing={2}>
+                <Grid item xs="6">
+                    <TextFieldTan
+                        fontSize="18px"
+                        label="Họ và tên"
                         name="name"
-                        register={register}
-                        borderRed={errors.name?.type === 'required'}
-                    />
-                    {errors.name?.type === 'required' && (
-                        <span className={cx('notification')}>Mời bạn nhập Họ và tên</span>
-                    )}
-                </div>
-                <div>
-                    <Input
-                        classNames={cx('input-number')}
-                        text="Số điện thoại"
+                        value={localValue.name}
+                        required
+                        helperText={!localValue.name && 'Không được để trống họ và tên'}
+                        error={!localValue.name}
+                        FormHelperTextProps={{
+                            sx: { fontSize: '10px' }, // kích thước phông chữ
+                        }}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                    ></TextFieldTan>
+                </Grid>
+                <Grid item xs="6">
+                    <TextFieldTan
+                        fontSize="18px"
+                        label="Số điện thoại"
                         type="number"
-                        name="phone"
-                        register={register}
-                        borderRed={errors.phone?.type === 'required'}
-                    />
-                    {errors.phone?.type === 'required' && (
-                        <span className={cx('notification')}>Mời bạn nhập số điện thoại</span>
-                    )}
-                </div>
-            </div>
-            <div>
+                        required
+                        name="phoneNumber"
+                        error={!localValue.phoneNumber}
+                        helperText={!localValue.phoneNumber && 'Không được để trống số điện thoại'}
+                        FormHelperTextProps={{
+                            sx: { fontSize: '10px' }, // kích thước phông chữ
+                        }}
+                        value={localValue.phoneNumber}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                    ></TextFieldTan>
+                </Grid>
+                <Grid xs={12} item>
+                    <TextFieldTan
+                        fontSize="18px"
+                        label="Địa chỉ cụ thế (Số nhà, tên đường - phường/xã - quận/huyện - tỉnh/thành phố)"
+                        fullWidth
+                        multiline
+                        rows={3}
+                        name="address"
+                        required
+                        error={!localValue.address}
+                        helperText={!localValue.address && 'Không được để trống địa chỉ'}
+                        FormHelperTextProps={{
+                            sx: { fontSize: '10px' }, // kích thước phông chữ
+                        }}
+                        value={localValue.address}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                    ></TextFieldTan>
+                </Grid>
+                <Grid xs={12} item>
+                    <TextFieldTan
+                        fontSize="18px"
+                        label="Yêu cầu khác(Không bắt buộc)"
+                        fullWidth
+                        multiline
+                        rows={3}
+                        name="other"
+                        value={localValue.other}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                    ></TextFieldTan>
+                </Grid>
+            </Grid>
+
+            {/* </div> */}
+            {/* <div>
                 <Input
                     classNames={cx('input-address')}
                     text="Địa chỉ cụ thế (Số nhà, tên đường - phường/xã - quận/huyện - tỉnh/thành phố)"
@@ -74,9 +121,13 @@ function FormCart() {
                 textarea
                 name="other"
                 register={register}
-            />
+            /> */}
             <div className={cx('action')}>
-                <Button onClick={handleClick} primary>
+                <Button
+                    // onClick={handleClick}
+                    primary
+                    disabled={!localValue.name || !localValue.phoneNumber || !localValue.address}
+                >
                     Đặt hàng
                 </Button>
             </div>

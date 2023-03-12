@@ -12,7 +12,7 @@ import { actions } from '~/store';
 import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 import { fetchData } from '~/common';
-import { API_FILTER, API_PRODUCT } from '~/urlConfig';
+import { API_FILTER, API_GET_PRODUCT, API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Accessory() {
     const [filters, setFilters] = useState();
@@ -35,7 +35,7 @@ function Accessory() {
     }, []);
     useEffect(() => {
         fetchData(
-            API_PRODUCT,
+            `${API_GET_PRODUCT}`,
             {
                 filter: store.paramsApiFilter,
                 type: 1,

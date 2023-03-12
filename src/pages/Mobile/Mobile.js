@@ -14,7 +14,7 @@ import FilterPrice from '~/components/Filters/components/FilterPrice';
 import FiltersMobile from '~/pages/Mobile/components/FiltersMobile';
 import { fetchData } from '~/common';
 import { URL } from '~/utils/urlConfig';
-import { API_FILTER, API_PRODUCT } from '~/urlConfig';
+import { API_FILTER, API_GET_PRODUCT, API_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function Mobile() {
     const [store, dispatch] = useStore();
@@ -39,7 +39,7 @@ function Mobile() {
     // }, [store]);
     useEffect(() => {
         fetchData(
-            API_PRODUCT,
+            `${API_GET_PRODUCT}`,
             {
                 filter: store.paramsApiFilter,
                 type: 0,

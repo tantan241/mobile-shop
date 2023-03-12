@@ -14,7 +14,7 @@ import { SEARCH_HISTORY } from '~/constants';
 import useStore from '~/store/hooks';
 import HistoryItem from './components/HistoryItem';
 import ProductSearch from './components/ProductSearch';
-import { API_PRODUCT } from '~/urlConfig';
+import { API_GET_PRODUCT, API_PRODUCT } from '~/urlConfig';
 import { fetchData } from '~/common';
 const cx = classNames.bind(styles);
 function Search() {
@@ -28,16 +28,12 @@ function Search() {
         dispatch(actions.setSearchHistory(JSON.parse(localStorage.getItem(SEARCH_HISTORY)) || []));
     }, []);
     useEffect(() => {
-        fetchData(`${API_PRODUCT}?q=${searchValue}`).then((res) => {
-            if (res.status === 200) {
-                setSearchProducts(res.data);
-            }
-        });
-        // const fetchApi = async () => {
-        //     const res = await searchService.search(searchValue);
-        //     setSearchProducts(res);
-        // };
-        // fetchApi();
+        searchValue &&
+            fetchData(`${API_GET_PRODUCT}?query=${searchValue || ''}`).then((res) => {
+                if (res.status === 200) {
+                    setSearchProducts(res.data);
+                }
+            });
     }, [searchValue]);
     const handleInputChange = useCallback((e) => {
         if (e.target.value.startsWith(' ')) {

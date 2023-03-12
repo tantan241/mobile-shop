@@ -17,7 +17,7 @@ import Logout from './components/Logout';
 import { actions } from '~/store';
 import { useCallback, useEffect, useState } from 'react';
 import { fetchData } from '~/common';
-import { API_CART } from '~/urlConfig';
+import { API_CART, API_GET_INFO_CART } from '~/urlConfig';
 import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function Header() {
@@ -25,7 +25,6 @@ function Header() {
     const [login, setLogin] = useState(false);
     const [profile, setProfile] = useState({});
     useEffect(() => {
-  
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
     }, [store.reload]);
     const handleClose = useCallback(() => {
@@ -42,14 +41,13 @@ function Header() {
     );
     useEffect(() => {
         if (Object.keys(profile).length > 0) {
-            fetchData(`${API_CART}/get-cart?id=${profile?.id}`, '', 'GET', true).then((res) => {
+            fetchData(`${API_GET_INFO_CART}?id=${profile?.id}`, '', 'GET', true).then((res) => {
                 if (res.status === 200) {
                     dispatch(actions.addProductInCart(res.data.length));
-                    
                 }
             });
         }
-    }, [profile?.id,store.reload]);
+    }, [profile?.id, store.reload]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('content')}>

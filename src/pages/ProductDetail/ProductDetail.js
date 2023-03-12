@@ -9,7 +9,7 @@ import useStore from '~/store/hooks';
 import * as mobileService from '~/apiServices/mobileService';
 import RatingDetail from './components/RatingDetail';
 import { fetchData } from '~/common';
-import { API_COMMENT, API_PRODUCT } from '~/urlConfig';
+import { API_COMMENT, API_GET_COMMENT, API_GET_PRODUCT, API_PRODUCT } from '~/urlConfig';
 import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function MobileDetail() {
@@ -32,7 +32,7 @@ function MobileDetail() {
         product.name && (document.title = product.name);
     }, [product]);
     useEffect(() => {
-        fetchData(`${API_PRODUCT}?id=${store.product.id}`).then((res) => {
+        fetchData(`${API_GET_PRODUCT}/?id=${store.product.id}`).then((res) => {
             if (res.status === 200) {
                 setProduct(res.data);
                 // setImages(JSON.parse(res.data.images));
@@ -50,7 +50,7 @@ function MobileDetail() {
             }
         });
 
-        fetchData(` http://127.0.0.1:8000/app/api/comment/get-comment?id=${store.product.id}`).then((res) => {
+        fetchData(`${API_GET_COMMENT}?id=${store.product.id}`).then((res) => {
             setDataRatingDatail(res);
         });
     }, [store]);

@@ -10,6 +10,7 @@ export const fetchData = (url, body, method = 'GET', hasToken = false) => {
         // Authorization: 'Bearer ' + token,
     };
     if (hasToken) {
+        console.log(token);
         headers = {
             'Content-Type': 'application/json',
             Authorization: 'Bearer ' + token,

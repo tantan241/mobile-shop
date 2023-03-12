@@ -13,7 +13,7 @@ import Rating from '~/components/Rating';
 import Overlay from '../Overlay';
 import Login from '~/layouts/MainLayout/components/Header/components/Login';
 import { fetchData } from '~/common';
-import { API_CART } from '~/urlConfig';
+import { API_ADD_PRODUCT_GO_CART, API_CART } from '~/urlConfig';
 import Loading from '../Loading';
 import { PROFILE } from '~/constants';
 import { URL_IMAGE } from '~/utils/urlConfig';
@@ -23,21 +23,23 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
     const [login, setLogin] = useState(false);
     const [openLoading, setOpenLoading] = useState(false);
     const [profile, setProfile] = useState({});
+    const [ramAndRom, setRamAndRom] = useState([]);
     const moneyDiscount = (product.price * product.discount) / 100;
     const priceCurrent = (product.price - moneyDiscount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceOld = product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     const priceSaved = moneyDiscount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     let linkTo = `/product-detail/${product.slug}`;
-    const specifications = product?.specifications || '';
-    const specificationsArr = specifications ? specifications.split('|') : [];
-    const ram = specificationsArr.find((item) => item.includes('ram='))
-        ? specificationsArr.find((item) => item.includes('ram=')).split('=')[1]
-        : '?';
-    const rom = specificationsArr.find((item) => item.includes('rom='))
-        ? specificationsArr.find((item) => item.includes('rom=')).split('=')[1]
-        : '?';
+    const specifications = product?.specifications || [];
+
     useEffect(() => {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
+
+        const res = specifications.map((item) => {
+            if (item.name === 'ram' || item.name === 'rom') {
+                return item;
+            }
+        });
+        setRamAndRom(res);
     }, []);
     const handleClose = useCallback(() => {
         setLogin(false);
@@ -57,7 +59,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                     number: 1,
                     price: product.price - moneyDiscount,
                 };
-                fetchData(`${API_CART}/add-cart/`, user, 'POST', true).then((res) => {
+                fetchData(`${API_ADD_PRODUCT_GO_CART}`, user, 'POST', true).then((res) => {
                     if (res.status === 200) {
                         setOpenLoading(false);
                     }
@@ -87,10 +89,13 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                 {product.discount > 0 && <div className={cx('discount')}>{product.discount}%</div>}
                 <div className={cx('noti_specification')}>
                     <p className={cx('noti-1')}>Trả góp 0%</p>
-                    {specificationsArr.length > 0 && (
+                    {ramAndRom.length > 0 && (
                         <div className={cx('specifications')}>
-                            <div className={cx('ram')}>{ram}</div>
-                            <div className={cx('rom')}>{rom}</div>
+                            {ramAndRom.map((item, index) => (
+                                <div key={index} className={cx(`${item.name}`)}>
+                                    {item.value}
+                                </div>
+                            ))}
                         </div>
                     )}
                 </div>

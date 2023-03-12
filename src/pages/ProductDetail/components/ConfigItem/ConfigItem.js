@@ -6,8 +6,8 @@ const cx = classNames.bind(styles);
 function ConfigItem({ data }) {
     return (
         <li className={cx('wrapper')}>
-            <span className={cx('left')}>{data[0]}:</span>
-            <span className={cx('right')}>{data[1]}</span>
+            <span className={cx('left')}>{data.title}:</span>
+            <span className={cx('right')}>{data.value}</span>
         </li>
     );
 }

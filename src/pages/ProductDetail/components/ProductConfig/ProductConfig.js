@@ -10,7 +10,8 @@ import Button from '~/components/Button';
 import ConfigItem from '../ConfigItem';
 const cx = classNames.bind(styles);
 function MobileConfig({ configs, name }) {
-    const [configArr, setConfigArr] = useState([]);
+    console.log(configs);
+
     const convertConfig = {
         ram: 'Ram',
         rom: 'Rom',
@@ -22,18 +23,7 @@ function MobileConfig({ configs, name }) {
         sim: 'Sim',
         battery: 'Pin',
     };
-    useEffect(() => {
-        const configRp = configs.map((item) => {
-            const a = item.split('=')[0];
-            for (const key in convertConfig) {
-                if (key === a) {
-                    item = item.replace(key, convertConfig[key]);
-                    return item;
-                }
-            }
-        });
-        setConfigArr(configRp);
-    }, [configs]);
+
     const [endArrConfig, setEndArrConfig] = useState(5);
     const handleShowMoreConfig = useCallback(() => {
         setEndArrConfig(config.lenght);
@@ -43,14 +33,14 @@ function MobileConfig({ configs, name }) {
     }, []);
     return (
         <>
-            {configArr && (
+            {configs && (
                 <div className={cx('wrapper')}>
                     <div className={cx('name')}>Cấu hình {name}</div>
                     <ul className={cx('config-list')}>
-                        {configArr.length > 0 &&
-                            configArr
+                        {configs.length > 0 &&
+                            configs
                                 .slice(0, endArrConfig)
-                                .map((config,index) => <ConfigItem key={index} data={config.split('=')} />)}
+                                .map((config, index) => <ConfigItem key={index} data={config} />)}
                     </ul>
                     {endArrConfig <= 5 ? (
                         <div className={cx('more')}>

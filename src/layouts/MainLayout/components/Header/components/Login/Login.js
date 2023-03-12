@@ -46,7 +46,7 @@ function Login(props) {
     }, []);
 
     const handleSignInOnclick = useCallback(() => {
-        const login = fetch(`${URL}/create-user/`, {
+        const login = fetch(`${URL}/create-user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function Login(props) {
             body: JSON.stringify(localValues),
         }).then((res) => res.json());
 
-        const login = fetch(`${URL}/login/`, {
+        const login = fetch(`${URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ function Login(props) {
                 localStorage.setItem(ACCESS_TOKEN, JSON.stringify(res[0].access));
                 localStorage.setItem(REFRESH_TOKEN, JSON.stringify(res[0].refresh));
                 // dispatch(actions.setProfileUser(res[1].data));
-                dispatch(actions.setReload(new Date() *1))
+                dispatch(actions.setReload(new Date() * 1));
                 localStorage.setItem(PROFILE, JSON.stringify(res[1].data));
                 setProfile && setProfile(res[1].data);
                 // dispatch(actions.setIsLogin(false));
@@ -107,7 +107,7 @@ function Login(props) {
             email: res?.profileObj?.email,
             idGoogle: res?.profileObj?.googleId,
         };
-        fetch(`${URL}create-user/`, {
+        fetch(`${URL}create-user`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -197,9 +197,9 @@ function Login(props) {
             <p
                 onClick={changeLogin}
                 className={cx('text')}
-                style={{ width: '100%', textAlign:"right", fontSize: '30px', color: 'blue' }}
+                style={{ width: '100%', textAlign: 'right', fontSize: '30px', color: 'blue' }}
             >
-                {isLoginForm ? <div style={{ padding: "5px"}}>Đăng ký</div>: ''}
+                {isLoginForm ? <div style={{ padding: '5px' }}>Đăng ký</div> : ''}
             </p>
         </Container>
     );

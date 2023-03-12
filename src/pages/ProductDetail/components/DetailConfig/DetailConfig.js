@@ -12,7 +12,8 @@ const cx = classNames.bind(styles);
 function DetailConfig({ data }) {
     const [store, dispatch] = useStore();
     const price = (data.price - (data.price * data.discount) / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    const configs = data.specifications ? data.specifications.split('|') : [];
+    const configs = data.specifications ? data.specifications : [];
+    console.log(configs);
     const handleBuyNow = useCallback((id) => {
         dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
     }, []);
