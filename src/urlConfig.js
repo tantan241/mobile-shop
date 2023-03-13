@@ -5,6 +5,7 @@ export const API_CART = `${URL}/api/cart`;
 export const API_COMMENT = `${URL}/api/comment`;
 export const API_FILES = `${URL}/api/files`;
 export const API_FILTER = `${URL}/api/filter`;
+export const API_ORDER = `${URL}/api/order`;
 
 export const API_GET_PRODUCT = `${API_PRODUCT}/get-product`;
 
@@ -17,3 +18,6 @@ export const API_ADD_PRODUCT_GO_CART = `${API_CART}/add-cart`;
 export const API_GET_INFO_CART = `${API_CART}/get-cart`;
 export const API_UPDATE_CART = `${API_CART}/update-cart`;
 export const API_DELETE_PRODUCT_IN_CART = `${API_CART}/delete-cart`;
+export const API_DELETE_ALL_CART = `${API_CART}/delete-all-cart`;
+
+export const API_CREATE_ORDER = `${API_ORDER}/create-order`;

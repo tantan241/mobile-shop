@@ -30,6 +30,7 @@ function Cart() {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
     }, []);
     useEffect(() => {
+        console.log(222);
         setOpenLoading(true);
         profile?.id &&
             fetchData(`${API_GET_INFO_CART}?id=${profile?.id}`, '', 'GET', true).then((res) => {
@@ -43,7 +44,7 @@ function Cart() {
                     setTotalMoney(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
                 }
             });
-    }, [profile?.id, reload]);
+    }, [profile?.id, reload, store.reload]);
 
     return (
         <>
@@ -72,7 +73,7 @@ function Cart() {
                                 </div>
                                 <div className={cx('money-total')}>{totalMoney} vnđ</div>
                             </div>
-                            <FormCart />
+                            <FormCart totalMoney={totalMoney} products={products} />
                         </div>
                     </div>
                 </div>

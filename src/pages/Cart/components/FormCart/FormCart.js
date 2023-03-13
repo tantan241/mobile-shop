@@ -10,28 +10,58 @@ import { actions } from '~/store';
 import { PROFILE } from '~/constants';
 import TextFieldTan from '~/components/TextField';
 import { Grid } from '@mui/material';
+import { fetchData } from '~/common';
+import { API_CREATE_ORDER, API_DELETE_ALL_CART } from '~/urlConfig';
 const cx = classNames.bind(styles);
-function FormCart() {
+function FormCart(props) {
+    const { totalMoney, products } = props;
     const [store, dispatch] = useStore();
     const [profile, setProfile] = useState({});
-    const [localValue, setLocalValue] = useState({ name: '', phoneNumber: '', address: '', other: '' });
+    const [localValue, setLocalValue] = useState({ name: '', phoneNumber: '', address: '', note: '', email: '' });
+    const [validate, setValidate] = useState('');
     useEffect(() => {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
-    }, []);
+    }, [store.reload]);
     // const {
     //     register,
     //     formState: { errors },
     //     handleSubmit,
     // } = useForm();
     const handleInputChange = (name, value) => {
+        if (name === 'email') {
+            const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            !regex.test(value) ? setValidate('Sai định dạng gmail') : setValidate('');
+            console.log(regex.test(value));
+        }
         setLocalValue((prev) => ({ ...prev, [name]: value }));
     };
-    const onSubmit = (data) => {};
-    // const handleClick = useCallback(() => {
-    //     // Object.keys(profile).length === 0 && dispatch(actions.setIsLogin(true));
-    // }, [store]);
+    const handleClick = useCallback(() => {
+        const productInOrder = products.map((item) => ({
+            product: item.product,
+            number: item.number,
+            price: item.price,
+        }));
+
+        const body = {
+            ...localValue,
+            phone: localValue.phoneNumber * 1,
+            user: profile.id,
+            totalMoney: parseFloat(totalMoney.replace(/[.,]/g, '')),
+            order_detail: productInOrder,
+            order_method: 1,
+        };
+        fetchData(API_CREATE_ORDER, body, 'POST', true).then((res) => {
+            if (res.status === 200) {
+                fetchData(`${API_DELETE_ALL_CART}?userId=${profile.id}`, '', 'DELETE', true).then((res) => {
+                    if (res.status === 200) {
+                        dispatch(actions.setReload(new Date() * 1));
+                    }
+                });
+            }
+        });
+    }, [store, localValue]);
     return (
-        <form
+        <div
             className={cx('wrapper')}
             // onSubmit={handleSubmit(onSubmit)}
         >
@@ -72,6 +102,23 @@ function FormCart() {
                 <Grid xs={12} item>
                     <TextFieldTan
                         fontSize="18px"
+                        label="Email"
+                        fullWidth
+                        name="email"
+                        required
+                        error={!localValue.email || validate}
+                        helperText={(!localValue.email && 'Không được để trống email') || (validate && validate)}
+                        FormHelperTextProps={{
+                            sx: { fontSize: '10px' }, // kích thước phông chữ
+                        }}
+                        value={localValue.email}
+                        onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                        type="email"
+                    ></TextFieldTan>
+                </Grid>
+                <Grid xs={12} item>
+                    <TextFieldTan
+                        fontSize="18px"
                         label="Địa chỉ cụ thế (Số nhà, tên đường - phường/xã - quận/huyện - tỉnh/thành phố)"
                         fullWidth
                         multiline
@@ -94,7 +141,7 @@ function FormCart() {
                         fullWidth
                         multiline
                         rows={3}
-                        name="other"
+                        name="note"
                         value={localValue.other}
                         onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                     ></TextFieldTan>
@@ -124,14 +171,14 @@ function FormCart() {
             /> */}
             <div className={cx('action')}>
                 <Button
-                    // onClick={handleClick}
+                    onClick={handleClick}
                     primary
-                    disabled={!localValue.name || !localValue.phoneNumber || !localValue.address}
+                    disabled={!localValue.name || !localValue.phoneNumber || !localValue.address || validate}
                 >
                     Đặt hàng
                 </Button>
             </div>
-        </form>
+        </div>
     );
 }
 

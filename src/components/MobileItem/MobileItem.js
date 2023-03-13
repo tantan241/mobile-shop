@@ -40,36 +40,34 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
             }
         });
         setRamAndRom(res);
-    }, []);
+    }, [store]);
     const handleClose = useCallback(() => {
         setLogin(false);
     }, []);
     const handleClick = useCallback((product, e) => {
         dispatch(actions.setProduct(product));
     }, []);
-    const handleBuyNow = useCallback(
-        (id) => {
-            const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
-            if (Object.keys(profile).length > 0) {
-                setOpenLoading(true);
-                dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
-                const user = {
-                    user: profile?.id || '',
-                    product: id,
-                    number: 1,
-                    price: product.price - moneyDiscount,
-                };
-                fetchData(`${API_ADD_PRODUCT_GO_CART}`, user, 'POST', true).then((res) => {
-                    if (res.status === 200) {
-                        setOpenLoading(false);
-                    }
-                });
-            } else {
-                setLogin(true);
-            }
-        },
-        [store],
-    );
+    const handleBuyNow = useCallback((id) => {
+        // const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
+        if (Object.keys(profile).length > 0) {
+            setOpenLoading(true);
+            dispatch(actions.addProductInCart({ idProduct: id, number: 1 }));
+            const user = {
+                user: profile?.id || '',
+                product: id,
+                number: 1,
+                price: product.price - moneyDiscount,
+            };
+            fetchData(`${API_ADD_PRODUCT_GO_CART}`, user, 'POST', true).then((res) => {
+                if (res.status === 200) {
+                    setOpenLoading(false);
+                    dispatch(actions.setReload(new Date() * 1));
+                }
+            });
+        } else {
+            setLogin(true);
+        }
+    });
     const handCompareClick = useCallback((id, type) => {
         dispatch(actions.setProductCompare({ id, type }));
     }, []);
