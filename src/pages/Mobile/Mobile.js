@@ -42,6 +42,7 @@ function Mobile() {
             `${API_GET_PRODUCT}`,
             {
                 filter: store.paramsApiFilter,
+                price: store.filterPrice,
                 type: 0,
                 order: orderBy,
                 page: store.numberPage,

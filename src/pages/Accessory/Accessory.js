@@ -38,6 +38,7 @@ function Accessory() {
             `${API_GET_PRODUCT}`,
             {
                 filter: store.paramsApiFilter,
+                price: store.filterPrice,
                 type: 1,
                 order: orderBy,
                 page: store.numberPage,
