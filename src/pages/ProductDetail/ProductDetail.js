@@ -32,7 +32,7 @@ function MobileDetail() {
         product.name && (document.title = product.name);
     }, [product]);
     useEffect(() => {
-        fetchData(`${API_GET_PRODUCT}/?id=${store.product.id}`).then((res) => {
+        fetchData(`${API_GET_PRODUCT}?id=${store.product.id}`).then((res) => {
             if (res.status === 200) {
                 setProduct(res.data);
                 // setImages(JSON.parse(res.data.images));
@@ -53,7 +53,7 @@ function MobileDetail() {
         fetchData(`${API_GET_COMMENT}?id=${store.product.id}`).then((res) => {
             setDataRatingDatail(res);
         });
-    }, [store]);
+    }, [store, store.reload]);
     const handleImageButtonClick = useCallback((param) => {
         setImages((prev) =>
             prev.map((image) => (image.id === param ? { ...image, active: true } : { ...image, active: false })),

@@ -57,8 +57,9 @@ function Home() {
         ).then((res) => {
             res.status === 400 && handleClickVariant('error', res.messenger, enqueueSnackbar);
             if (res.status === 200) {
+                console.log(res.data);
                 setProducts(res.data);
-                setPagesMax(Math.ceil(res.data.length / 9));
+                setPagesMax(res.numberPage);
             }
         });
     }, [store, orderBy]);
@@ -74,15 +75,13 @@ function Home() {
                     <Sort setOrderBy={setOrderBy} />
                     <div className={cx('products-content')}>
                         {products.length > 0 &&
-                            products
-                                .slice((store.numberPage - 1) * 6, (store.numberPage - 1) * 6 + 6)
-                                .map((product) =>
-                                    product.type === 'accessory' ? (
-                                        <AccessoryItem m_2 s_2 key={product.id} product={product} buyNow />
-                                    ) : (
-                                        <MobileItem m_2 l_3 s_2 key={product.id} product={product} buyNow />
-                                    ),
-                                )}
+                            products.map((product) =>
+                                product.type === 1 ? (
+                                    <AccessoryItem m_2 s_2 key={product.id} product={product} buyNow />
+                                ) : (
+                                    <MobileItem m_2 l_3 s_2 key={product.id} product={product} buyNow />
+                                ),
+                            )}
                     </div>
                     <Pages pagesMax={pagesMax} />
                 </div>

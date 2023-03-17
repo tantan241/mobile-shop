@@ -17,7 +17,7 @@ import Logout from './components/Logout';
 import { actions } from '~/store';
 import { useCallback, useEffect, useState } from 'react';
 import { fetchData } from '~/common';
-import { API_CART, API_GET_INFO_CART } from '~/urlConfig';
+import { API_CART, API_COUNT_ORDER, API_GET_INFO_CART } from '~/urlConfig';
 import { PROFILE } from '~/constants';
 const cx = classNames.bind(styles);
 function Header() {
@@ -46,6 +46,11 @@ function Header() {
                     dispatch(actions.addProductInCart(res.data.length));
                 }
             });
+            fetchData(`${API_COUNT_ORDER}?user=${profile?.id}`, '', 'GET', true).then((res) => {
+                if (res.status === 200) {
+                    dispatch(actions.countOrder(res.count));
+                }
+            });
         }
     }, [profile?.id, store.reload]);
     return (
@@ -72,6 +77,7 @@ function Header() {
                         <Link to={'/order'} className={cx('order')}>
                             <FontAwesomeIcon className={cx('icon-order')} icon={faFileInvoice}></FontAwesomeIcon>
                             <span className={cx('title', 'hidden')}>Đơn hàng</span>
+                            {store.countOrder > 0 ? <span className={cx('number')}>{store.countOrder}</span> : ''}
                         </Link>
                     ) : (
                         ''

@@ -14,6 +14,7 @@ import {
     SET_OPEN_FILTERS_MOBILE,
     SET_FILTER_PRICE,
     SET_RELOAD,
+    COUNT_ORDER,
 } from './constants';
 export const addSearchHistory = (payload) => {
     return {
@@ -60,6 +61,12 @@ export const setNumberPage = (payload) => {
 export const addProductInCart = (payload) => {
     return {
         type: ADD_PRODUCT_IN_CART,
+        payload,
+    };
+};
+export const countOrder = (payload) => {
+    return {
+        type: COUNT_ORDER,
         payload,
     };
 };

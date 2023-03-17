@@ -15,6 +15,7 @@ import useStore from '~/store/hooks';
 import { useSnackbar } from 'notistack';
 import { ACCESS_TOKEN, PROFILE } from '~/constants';
 import { TextField } from '@mui/material';
+import { actions } from '~/store';
 const cx = classNames.bind(styles);
 function MobileDetailForm({ data }) {
     const { enqueueSnackbar } = useSnackbar();
@@ -58,6 +59,7 @@ function MobileDetailForm({ data }) {
                     ).then((res) => {
                         if (res.status === 200) {
                             handleClickVariant('success', res.messenger, enqueueSnackbar);
+                            dispatch(actions.setReload(new Date() * 1));
                         }
                     });
                 }

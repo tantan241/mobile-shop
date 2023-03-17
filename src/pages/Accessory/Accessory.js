@@ -47,7 +47,7 @@ function Accessory() {
             'POST',
         ).then((res) => {
             setProducts(res.data);
-            setPagesMax(Math.ceil(res.data.length / 9));
+            setPagesMax(res.numberPage);
         });
         // fetchData(API_PRODUCT, { filter: store.paramsApiFilter, type: 1 }, 'POST').then((res) => {
         //     setProducts(res.data);
@@ -65,9 +65,7 @@ function Accessory() {
                 <Sort setOrderBy={setOrderBy} />
                 <div className={cx('products')}>
                     {products &&
-                        products
-                            .slice((store.numberPage - 1) * 9, (store.numberPage - 1) * 9 + 9)
-                            .map((product) => <AccessoryItem s_2 m_2 key={product.id} product={product} buyNow />)}
+                        products.map((product) => <AccessoryItem s_2 m_2 key={product.id} product={product} buyNow />)}
                 </div>
                 <MobilePages pagesMax={pagesMax} />
             </div>

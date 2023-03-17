@@ -14,3 +14,5 @@ export const SET_PROFILE_USER = 'set_profile_user';
 export const SET_OPEN_FILTERS_MOBILE = 'set_open_filters_mobile';
 export const SET_FILTER_PRICE = 'set_filter_price';
 export const SET_RELOAD = 'set_reload';
+
+export const COUNT_ORDER = 'count_order';

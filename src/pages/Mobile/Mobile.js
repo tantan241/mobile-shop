@@ -22,6 +22,7 @@ function Mobile() {
     const [filters, setFilters] = useState([]);
     const [pagesMax, setPagesMax] = useState(0);
     const [orderBy, setOrderBy] = useState('');
+
     useEffect(() => {
         dispatch(actions.setNumberPage(1));
         fetch(`${API_FILTER}/get-filter?type=mobile`)
@@ -51,7 +52,7 @@ function Mobile() {
             'POST',
         ).then((res) => {
             setProducts(res.data);
-            setPagesMax(Math.ceil(res.data.length / 9));
+            setPagesMax(res.numberPage);
         });
     }, [store, orderBy]);
     return (
@@ -68,9 +69,9 @@ function Mobile() {
                     <Sort setOrderBy={setOrderBy} />
                     <div className={cx('products-content')}>
                         {products.length > 0 &&
-                            products
-                                .slice((store.numberPage - 1) * 9, (store.numberPage - 1) * 9 + 9)
-                                .map((product) => <MobileItem s_2 m_2 l_3 key={product.id} product={product} buyNow />)}
+                            products.map((product) => (
+                                <MobileItem s_2 m_2 l_3 key={product.id} product={product} buyNow />
+                            ))}
                     </div>
                     <MobilePages pagesMax={pagesMax} />
                 </div>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,11 +11,26 @@ import styles from './ActionsUserRating.module.scss';
 import Login from '~/layouts/MainLayout/components/Header/components/Login';
 import useStore from '~/store/hooks';
 import { PROFILE } from '~/constants';
+import { fetchData } from '~/common';
+import { API_GET_ROLE_COMMENT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data }) {
     const [login, setLogin] = useState(false);
     const [store, dispatch] = useStore();
     const [openForm, setOpenForm] = useState(false);
+    const [commented, setCommented] = useState(false);
+    useEffect(() => {
+        const profile = JSON.parse(localStorage.getItem(PROFILE));
+        if (profile && Object.keys(profile).length > 0) {
+            fetchData(API_GET_ROLE_COMMENT, { userId: profile.id, productId: store.product.id }, 'POST', true).then(
+                (res) => {
+                    if (res.status === 200) {
+                        res.commented === 0 ? setCommented(false) : setCommented(true);
+                    }
+                },
+            );
+        }
+    }, [store.reload]);
     const handleOpenForm = useCallback(() => {
         const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
         if (Object.keys(profile).length > 0) {
@@ -24,6 +39,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
             setLogin(true);
         }
     }, []);
+
     const handleCloseForm = useCallback(() => {
         setOpenForm(false);
     }, []);
@@ -32,7 +48,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
     }, []);
     return (
         <div className={cx('wrapper')}>
-            <Button className={cx('btn-write-assess')} primary onClick={handleOpenForm}>
+            <Button disabled={commented} className={cx('btn-write-assess')} primary onClick={handleOpenForm}>
                 Viết đánh giá
             </Button>
 

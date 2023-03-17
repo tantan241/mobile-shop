@@ -8,6 +8,7 @@ export const API_FILTER = `${URL}/api/filter`;
 export const API_ORDER = `${URL}/api/order`;
 
 export const API_GET_PRODUCT = `${API_PRODUCT}/get-product`;
+export const API_GET_ROLE_COMMENT = `${API_PRODUCT}/get-role-comment`;
 
 export const API_UPLOAD_FILE = `${API_FILES}/upload-file`;
 
@@ -21,3 +22,4 @@ export const API_DELETE_PRODUCT_IN_CART = `${API_CART}/delete-cart`;
 export const API_DELETE_ALL_CART = `${API_CART}/delete-all-cart`;
 
 export const API_CREATE_ORDER = `${API_ORDER}/create-order`;
+export const API_COUNT_ORDER = `${API_ORDER}/count-order`;

@@ -14,6 +14,7 @@ import {
     SET_OPEN_FILTERS_MOBILE,
     SET_FILTER_PRICE,
     SET_RELOAD,
+    COUNT_ORDER,
 } from './constants';
 import { CART, SEARCH_HISTORY } from '~/constants';
 
@@ -27,13 +28,14 @@ const initState = {
     },
     product: {},
     numberPage: 1,
-    numberProductInPage: 9,
+    numberProductInPage: 3,
     isLogin: true,
     productsInCart: 0,
     productCompare: {},
     profileUser: {},
     openFiltersMobile: false,
     reload: 0,
+    countOrder: 0,
 };
 const reducer = (state, action) => {
     switch (action.type) {
@@ -68,6 +70,8 @@ const reducer = (state, action) => {
             return { ...state, productsInCart: action.payload };
         case SET_RELOAD:
             return { ...state, reload: action.payload };
+        case COUNT_ORDER:
+            return { ...state, countOrder: action.payload };
         // case UPDATE_NUMBER_PRODUCT_BUY:
         //     newProductsInCart = state.productsInCart.map((productInCart) =>
         //         productInCart.idProduct === action.payload.id
