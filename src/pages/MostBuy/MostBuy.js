@@ -6,6 +6,8 @@ import * as mobileService from '~/apiServices/mobileService';
 import classNames from 'classnames/bind';
 import styles from './MostBuy.module.scss';
 import MobileItem from '../../components/MobileItem';
+import { fetchData } from '~/common';
+import { API_GET_TOP_PRODUCT } from '~/urlConfig';
 const cx = classNames.bind(styles);
 function MostBuy() {
     const productListRef = useRef();
@@ -23,6 +25,11 @@ function MostBuy() {
         //     }
         // };
         // fetchApi();
+        fetchData(`${API_GET_TOP_PRODUCT}?limit=10`, {}, 'GET').then((res) => {
+            if (res.status === 200) {
+                setProducts(res.data);
+            }
+        });
     }, []);
     useEffect(() => {
         widthListProduct = productListRef.current.clientWidth.toFixed(2);

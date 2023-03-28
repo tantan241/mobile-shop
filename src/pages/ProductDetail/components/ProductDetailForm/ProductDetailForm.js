@@ -16,8 +16,9 @@ import { useSnackbar } from 'notistack';
 import { ACCESS_TOKEN, PROFILE } from '~/constants';
 import { TextField } from '@mui/material';
 import { actions } from '~/store';
+import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
-function MobileDetailForm({ data }) {
+function MobileDetailForm({ data, handleCloseForm }) {
     const { enqueueSnackbar } = useSnackbar();
     const [store, dispatch] = useStore();
     const userId = JSON.parse(localStorage.getItem(PROFILE))?.id || '';
@@ -35,48 +36,69 @@ function MobileDetailForm({ data }) {
             : '';
         const urlFile = API_UPLOAD_FILE;
         const formData = new FormData();
-
-        formData.append('file', valueState.file);
-        fetch(urlFile, {
-            method: 'POST',
-            headers: { Authorization: 'Bearer ' + token },
-            body: formData,
-        })
-            .then((res) => res.json())
-            .then((res) => {
+        if (Object.keys(valueState.file).length > 0) {
+            formData.append('file', valueState.file);
+            fetch(urlFile, {
+                method: 'POST',
+                headers: { Authorization: 'Bearer ' + token },
+                body: formData,
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.status === 200) {
+                        fetchData(
+                            `${API_SEND_COMMENT}`,
+                            {
+                                user: userId,
+                                product: productId,
+                                rating: starSelect,
+                                content: valueState.content,
+                                image: res.fileName,
+                            },
+                            'POST',
+                            true,
+                        ).then((res) => {
+                            if (res.status === 200) {
+                                handleClickVariant('success', res.messenger, enqueueSnackbar);
+                                dispatch(actions.setReload(new Date() * 1));
+                                handleCloseForm();
+                            }
+                        });
+                    }
+                });
+        } else {
+            fetchData(
+                `${API_SEND_COMMENT}`,
+                {
+                    user: userId,
+                    product: productId,
+                    rating: starSelect,
+                    content: valueState.content,
+                    image: '',
+                },
+                'POST',
+                true,
+            ).then((res) => {
                 if (res.status === 200) {
-                    fetchData(
-                        `${API_SEND_COMMENT}`,
-                        {
-                            user: userId,
-                            product: productId,
-                            rating: starSelect,
-                            content: valueState.content,
-                            image: res.fileName,
-                        },
-                        'POST',
-                        true,
-                    ).then((res) => {
-                        if (res.status === 200) {
-                            handleClickVariant('success', res.messenger, enqueueSnackbar);
-                            dispatch(actions.setReload(new Date() * 1));
-                        }
-                    });
+                    handleClickVariant('success', res.messenger, enqueueSnackbar);
+                    dispatch(actions.setReload(new Date() * 1));
+                    handleCloseForm();
                 }
             });
+        }
     };
 
     const arrStar = [1, 2, 3, 4, 5];
     const handleStarClick = useCallback((number) => {
         setStarSelect(number);
     }, []);
-
+    console.log(data?.image);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>
-                <img className={cx('image')} alt="ảnh" src={data?.image} />
+                <img className={cx('image')} alt="ảnh" src={`${URL_IMAGE}/${store?.product.image}`} />
                 {/* Tý sửa */}
-                <span className={cx('name')}>{data?.name}</span>
+                <span className={cx('name')}>{store?.product.name}</span>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ul className={cx('star-list')}>

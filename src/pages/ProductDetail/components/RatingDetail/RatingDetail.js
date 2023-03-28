@@ -10,11 +10,12 @@ function RatingDetail({ data }) {
     const [images, setImages] = useState([]);
     const [store, dispatch] = useStore();
     useEffect(() => {
+        console.log(data?.comments);
         data?.comments &&
             data?.comments.length > 0 &&
             setImages(() => {
                 return data?.comments.reduce((prev, comment) => {
-                    return prev.concat(comment.image);
+                    return comment.image ? prev.concat(comment.image) : prev;
                 }, []);
             });
     }, [data]);

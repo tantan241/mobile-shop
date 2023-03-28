@@ -26,11 +26,11 @@ function MobileConfig({ configs, name }) {
 
     const [endArrConfig, setEndArrConfig] = useState(5);
     const handleShowMoreConfig = useCallback(() => {
-        setEndArrConfig(config.lenght);
-    }, []);
+        setEndArrConfig(configs.length);
+    }, [configs]);
     const handleHidMoreConfig = useCallback(() => {
         setEndArrConfig(5);
-    }, []);
+    }, [configs]);
     return (
         <>
             {configs && (
@@ -47,6 +47,7 @@ function MobileConfig({ configs, name }) {
                             <Button
                                 onClick={handleShowMoreConfig}
                                 more
+                                disabled={configs.length < 5}
                                 rightIcon={<FontAwesomeIcon icon={faCaretRight}></FontAwesomeIcon>}
                             >
                                 Xem thêm cấu hình chi tiết

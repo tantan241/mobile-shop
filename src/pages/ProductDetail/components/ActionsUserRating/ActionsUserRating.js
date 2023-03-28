@@ -31,6 +31,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
             );
         }
     }, [store.reload]);
+    console.log(data, 'data6766');
     const handleOpenForm = useCallback(() => {
         const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
         if (Object.keys(profile).length > 0) {
@@ -61,7 +62,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
                                 Đóng &nbsp;<FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
                             </div>
                         </div>
-                        <MobileDetailForm data={data} />
+                        <MobileDetailForm data={data} handleCloseForm={handleCloseForm} />
                     </>
                 </Overlay>
             )}

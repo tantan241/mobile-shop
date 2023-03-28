@@ -21,7 +21,12 @@ function FilterPrice() {
         );
         dispatch(actions.setOpenFiltersMobile(false));
     }, [localValue]);
-
+    const handleInputChange = useCallback((name, value) => {
+        // let valueInt = parseInt(value.replace('.', ''));
+        // // valueInt = valueInt.toLocaleString('vi-VN');
+        // console.log(valueInt, typeof valueInt);
+        setLocalValue((prev) => ({ ...prev, [name]: value }));
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <h2 onClick={() => setIsOpen((prev) => !prev)} className={cx('header')}>
@@ -40,23 +45,28 @@ function FilterPrice() {
                         <label className={cx('input-label')}>Từ:</label>
                         <TextField
                             size="small"
-                            value={localValue.fromPrice}
-                            onChange={(e) => setLocalValue((prev) => ({ ...prev, fromPrice: e.target.value }))}
+                            value={localValue.fromPrice.toLocaleString('en-US', {
+                                useGrouping: true,
+                                maximumFractionDigits: 0,
+                            })}
+                            onChange={(e) => handleInputChange('fromPrice', e.target.value)}
                             style={{ width: '80%' }}
-                            InputProps={{ style: { fontSize: '14px' } }}
-                            type="number"
+                            InputProps={{ style: { fontSize: '14px', width: '90%' } }}
+                            // type="number"
                         ></TextField>
+                        <div className={cx('input-text')}>VNĐ</div>
                     </div>
                     <div className={cx('input-group')}>
                         <label className={cx('input-label')}>Đến:</label>
                         <TextField
                             size="small"
                             value={localValue.toPrice}
-                            onChange={(e) => setLocalValue((prev) => ({ ...prev, toPrice: e.target.value }))}
+                            onChange={(e) => handleInputChange('toPrice', e.target.value)}
                             style={{ width: '80%' }}
-                            InputProps={{ style: { fontSize: '14px' } }}
-                            type="number"
+                            InputProps={{ style: { fontSize: '14px', width: '90%' } }}
+                            // type="number"
                         ></TextField>
+                        <div className={cx('input-text')}>VNĐ</div>
                     </div>
                     <div className={cx('btn-wrapper')}>
                         <Button variant="contained" onClick={handleApply}>

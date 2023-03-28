@@ -8,6 +8,7 @@ export const API_FILTER = `${URL}/api/filter`;
 export const API_ORDER = `${URL}/api/order`;
 
 export const API_GET_PRODUCT = `${API_PRODUCT}/get-product`;
+export const API_GET_TOP_PRODUCT = `${API_PRODUCT}/get-top-product`;
 export const API_GET_ROLE_COMMENT = `${API_PRODUCT}/get-role-comment`;
 
 export const API_UPLOAD_FILE = `${API_FILES}/upload-file`;

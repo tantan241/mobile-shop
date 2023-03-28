@@ -19,12 +19,17 @@
     padding: 0 4px;
 }
 .input-label {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    width: 20%;
 }
 .input {
     font-size: 1.6rem;
     padding: 5px;
     // border-radius: 4px;
+}
+.input-text {
+    // width: 20%;
+    font-size: 1.6rem;
 }
 .btn-wrapper {
     text-align: center;
