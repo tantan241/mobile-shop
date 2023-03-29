@@ -128,7 +128,7 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                         <Button
                             className={cx('btn-compare')}
                             to="/compare"
-                            onClick={() => handCompareClick(product.id, product.type)}
+                            onClick={() => handCompareClick(product.id, product.type.toString())}
                         >
                             So sánh
                         </Button>
