@@ -15,7 +15,7 @@ function SelectsFormCompare({ handleCompare }) {
     const [brandId, setBrandId] = useState();
     const [brands, setBrands] = useState([]);
     const [products, setProducts] = useState([]);
-    const [product, setProduct] = useState([]);
+    const [product, setProduct] = useState('');
     useEffect(() => {
         fetchData(API_GET_BRAND).then((res) => {
             if (res.status === 200) {
@@ -68,7 +68,7 @@ function SelectsFormCompare({ handleCompare }) {
                 handleChoose={(id) => handleSelectProductChange(id)}
             />
             <div className={cx('action')}>
-                <Button primary onClick={() => handleCompare(product)}>
+                <Button primary onClick={() => handleCompare(product)} disabled={!product}>
                     So Sánh
                 </Button>
             </div>

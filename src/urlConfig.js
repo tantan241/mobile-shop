@@ -12,6 +12,7 @@ export const API_GET_TOP_PRODUCT = `${API_PRODUCT}/get-top-product`;
 export const API_GET_ROLE_COMMENT = `${API_PRODUCT}/get-role-comment`;
 export const API_GET_BRAND = `${API_PRODUCT}/get-brand`;
 export const API_GET_LIST_PRODUCT_COMPARE = `${API_PRODUCT}/get-list-product-compare`;
+export const API_COMPARE_PRODUCT = `${API_PRODUCT}/compare-product`;
 
 export const API_UPLOAD_FILE = `${API_FILES}/upload-file`;
 
