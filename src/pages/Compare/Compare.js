@@ -78,10 +78,10 @@ function Compare() {
                 <TableHead>
                     <TableRow>
                         <TableCell style={{ textAlign: 'center', fontSize: '1.8rem' }}>#</TableCell>
-                        <TableCell style={{ width: '45%' }}>
+                        <TableCell style={{ width: '45%', lineHeight: 'unset' }}>
                             <ProductCompare src={product1.image} name={product1.name} />
                         </TableCell>
-                        <TableCell style={{ width: '45%' }}>
+                        <TableCell style={{ width: '45%', lineHeight: 'unset' }}>
                             {product2 ? (
                                 <ProductCompare
                                     src={product2.image}
