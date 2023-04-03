@@ -7,6 +7,7 @@ import SearchPage from '~/pages/SearchPage/SearchPage';
 import Compare from '~/pages/Compare';
 import ProductDetail from '~/pages/ProductDetail';
 import Order from '~/pages/Order/Order';
+import OrderDetail from '~/components/OrderDetail/OrderDetail';
 
 const publicLayouts = [
     {
@@ -41,11 +42,14 @@ const publicLayouts = [
         path: '/compare',
         component: Compare,
     },
-];
-const privateLayouts = [
     {
         path: '/order',
         component: Order,
     },
+    {
+        path: '/order-detail',
+        component: OrderDetail,
+    },
 ];
+const privateLayouts = [];
 export { privateLayouts, publicLayouts };

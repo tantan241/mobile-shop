@@ -27,3 +27,4 @@ export const API_DELETE_ALL_CART = `${API_CART}/delete-all-cart`;
 
 export const API_CREATE_ORDER = `${API_ORDER}/create-order`;
 export const API_COUNT_ORDER = `${API_ORDER}/count-order`;
+export const API_GET_LIST_ORDER = `${API_ORDER}/get-list-order`;
