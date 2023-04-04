@@ -47,7 +47,7 @@ const publicLayouts = [
         component: Order,
     },
     {
-        path: '/order-detail',
+        path: 'order/:id',
         component: OrderDetail,
     },
 ];

@@ -13,16 +13,26 @@
     font-size: 1.8rem;
 }
 .status {
-    background-color: #54f554;
     padding: 20px 0;
     text-align: center;
     color: white;
     border-radius: 5px;
 }
+.yellow {
+    background-color: rgb(236, 233, 35);
+}
+.green {
+    background-color: rgb(14, 174, 12);
+}
+.blue {
+    background-color: rgb(13, 16, 186);
+}
 .product-item {
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     margin-top: 5px;
+    padding-bottom: 10px;
+
     // border-top: 1px solid rgba(0, 0, 0, 0.5);
 }
 .content-number {

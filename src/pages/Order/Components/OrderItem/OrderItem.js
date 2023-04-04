@@ -11,7 +11,7 @@ function OrderItem(props) {
         <li className={cx('wrapper')}>
             <div className={cx('header')}>
                 <div className={cx('code')}>#{data.id}</div>
-                <Button primary className={cx('detail')}>
+                <Button primary className={cx('detail')} to={`${data.id}`}>
                     Xem chi tiết
                 </Button>
             </div>
