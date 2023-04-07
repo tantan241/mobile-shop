@@ -85,7 +85,7 @@ function Search() {
                 </Tippy>
             </div>
             <Link
-                to={searchValue.length > 1 && '/search/?q=' + searchValue}
+                to={searchValue.length > 1 && '/search?q=' + searchValue}
                 onClick={handleClickSearch}
                 className={cx('search-btn')}
             >

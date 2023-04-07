@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { fetchData } from '~/common';
 import { API_GET_ORDER_DETAIL } from '~/urlConfig';
 import { URL_IMAGE } from '~/utils/urlConfig';
+import { Link } from 'react-router-dom';
+
 const cx = classNames.bind(styles);
 function OrderDetail() {
     const [order, setOrder] = useState({});
@@ -27,10 +29,13 @@ function OrderDetail() {
         <div className={cx('wrapper')}>
             {Object.keys(order).length > 0 && (
                 <div className={cx('content')}>
-                    <IconButton aria-label="delete" style={{ color: 'black', fontSize: '2.4rem' }}>
-                        <ArrowBackIcon fontSize="2.4rem" />
-                        <div style={{ marginLeft: '10px' }}>Quay lại</div>
-                    </IconButton>
+                    <Link to="/order">
+                        <IconButton aria-label="delete" style={{ color: 'black', fontSize: '2.4rem' }}>
+                            <ArrowBackIcon fontSize="2.4rem" />
+                            <div style={{ marginLeft: '10px' }}>Quay lại</div>
+                        </IconButton>
+                    </Link>
+
                     <div
                         className={cx(
                             'status',
@@ -65,7 +70,7 @@ function OrderDetail() {
                     {order.orderDetail.map((item) => (
                         <div className={cx('product-item')}>
                             <img src={`${URL_IMAGE}/${item.image}`} alt="" style={{ width: '20%' }} />
-                            <div style={{ padding: '10px', flex: 1 }}>
+                            <div style={{ padding: '10px', flex: 1, position: 'relative' }}>
                                 <div>{item.name}</div>
                                 <div className={cx('content-number')}>
                                     <div style={{ color: 'rgba(0,0,0,0.6)', fontSize: '1.6rem' }}>
@@ -73,8 +78,11 @@ function OrderDetail() {
                                     </div>
                                     <div>x{item.number}</div>
                                 </div>
-                                <div style={{ textAlign: 'right' }}>
-                                    {item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')} VNĐ
+                                <div style={{ position: 'absolute', bottom: 0, right: 0 }}>
+                                    {(item.price - (item.price * item.discount) / 100)
+                                        .toString()
+                                        .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}{' '}
+                                    VNĐ
                                 </div>
                             </div>
                         </div>

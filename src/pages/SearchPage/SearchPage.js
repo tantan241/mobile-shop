@@ -22,6 +22,7 @@ function SearchPage(props) {
         document.title = ' VuTan-Mobile';
     }, []);
     useEffect(() => {
+        console.log(q);
         q &&
             fetchData(`${API_GET_PRODUCT}?query=${q || ''}`).then((res) => {
                 if (res.status === 200) {
@@ -35,7 +36,7 @@ function SearchPage(props) {
         //     setPagesMax(Math.ceil(res.length / 15));
         // };
         // fetchApi();
-    }, [store]);
+    }, [store, store.reload, q]);
     return (
         <>
             {products.length < 1 ? (

@@ -9,12 +9,27 @@ const cx = classNames.bind(styles);
 function HistoryItem({ title, index }) {
     const [state, dispatch] = useStore();
     return (
-        <Link to={'/search/?q=' + title} className={cx('wrapper')}>
-            <p className={cx('title')}>{title}</p>
-            <span className={cx('btn')} onClick={() => dispatch(actions.deleteSearchHistory(index))}>
+        // <Link  className={cx('wrapper')}>
+        <div className={cx('wrapper')}>
+            <Link
+                to={'/search?q=' + title}
+                style={{ width: '100%' }}
+                onClick={() => dispatch(actions.setReload(new Date() * 1))}
+            >
+                <p className={cx('title')}>{title}</p>
+            </Link>
+            <span
+                className={cx('btn')}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(actions.deleteSearchHistory(index));
+                }}
+            >
                 xóa
             </span>
-        </Link>
+        </div>
+
+        // </Link>
     );
 }
 HistoryItem.propTypes = {
