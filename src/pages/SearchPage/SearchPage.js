@@ -22,7 +22,6 @@ function SearchPage(props) {
         document.title = ' VuTan-Mobile';
     }, []);
     useEffect(() => {
-        console.log(q);
         q &&
             fetchData(`${API_GET_PRODUCT}?query=${q || ''}`).then((res) => {
                 if (res.status === 200) {

@@ -57,7 +57,6 @@ function Home() {
         ).then((res) => {
             res.status === 400 && handleClickVariant('error', res.messenger, enqueueSnackbar);
             if (res.status === 200) {
-                console.log(res.data);
                 setProducts(res.data);
                 setPagesMax(res.numberPage);
             }

@@ -28,7 +28,6 @@ function MobilePages({ pagesMax }) {
     }, [pagesMax]);
     useEffect(() => {
         setPagesDisplay(pages.slice(0, 6));
-        console.log(pages, '989989', pagesMax);
     }, [pages]);
     const [pagesDisplay, setPagesDisplay] = useState(pages.slice(0, 6));
     const curPageNumber = useMemo(() => {

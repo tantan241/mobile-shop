@@ -92,7 +92,7 @@ function MobileDetailForm({ data, handleCloseForm }) {
     const handleStarClick = useCallback((number) => {
         setStarSelect(number);
     }, []);
-    console.log(data?.image);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>

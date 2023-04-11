@@ -30,7 +30,6 @@ function Cart() {
         setProfile(JSON.parse(localStorage.getItem(PROFILE)) || {});
     }, []);
     useEffect(() => {
-        console.log(222);
         setOpenLoading(true);
         profile?.id &&
             fetchData(`${API_GET_INFO_CART}?id=${profile?.id}`, '', 'GET', true).then((res) => {

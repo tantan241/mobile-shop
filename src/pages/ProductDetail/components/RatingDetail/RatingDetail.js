@@ -10,7 +10,6 @@ function RatingDetail({ data }) {
     const [images, setImages] = useState([]);
     const [store, dispatch] = useStore();
     useEffect(() => {
-        console.log(data?.comments);
         data?.comments &&
             data?.comments.length > 0 &&
             setImages(() => {

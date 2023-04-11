@@ -10,8 +10,6 @@ import Button from '~/components/Button';
 import ConfigItem from '../ConfigItem';
 const cx = classNames.bind(styles);
 function MobileConfig({ configs, name }) {
-    console.log(configs);
-
     const convertConfig = {
         ram: 'Ram',
         rom: 'Rom',

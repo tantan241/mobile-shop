@@ -7,7 +7,6 @@ import styles from './ProductCompare.module.scss';
 import { URL_IMAGE } from '~/utils/urlConfig';
 const cx = classNames.bind(styles);
 function ProductCompare({ src, name, icon, handleClose }) {
-    console.log(`${URL_IMAGE}/${src}`);
     return (
         <div className={cx('wrapper')}>
             <img className={cx('image')} alt="ảnh" src={`${URL_IMAGE}/${src}`} />

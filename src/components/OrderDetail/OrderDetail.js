@@ -15,7 +15,7 @@ function OrderDetail() {
     useEffect(() => {
         let id = '';
         const path = window.location.pathname.split('/');
-        console.log(path);
+
         if (path.length > 1) {
             id = path[2];
         }

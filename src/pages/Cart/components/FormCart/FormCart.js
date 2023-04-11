@@ -31,7 +31,6 @@ function FormCart(props) {
         if (name === 'email') {
             const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
             !regex.test(value) ? setValidate('Sai định dạng gmail') : setValidate('');
-            console.log(regex.test(value));
         }
         setLocalValue((prev) => ({ ...prev, [name]: value }));
     };

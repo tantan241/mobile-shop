@@ -31,7 +31,7 @@ function ActionsUserRating({ comments, endArrComment, showMoreCmt, hidCmt, data 
             );
         }
     }, [store.reload]);
-    console.log(data, 'data6766');
+
     const handleOpenForm = useCallback(() => {
         const profile = JSON.parse(localStorage.getItem(PROFILE)) || {};
         if (Object.keys(profile).length > 0) {
