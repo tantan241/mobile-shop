@@ -38,7 +38,7 @@ function FormCart(props) {
         const productInOrder = products.map((item) => ({
             product: item.product,
             number: item.number,
-            price: item.price,
+            price: (item.price - (item.price * item.discount) / 100) * item.number,
         }));
 
         const body = {
