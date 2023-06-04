@@ -9,6 +9,8 @@ import useStore from '~/store/hooks';
 import Overlay from '../../../../components/Overlay';
 import Filters from '../../../../components/Filters';
 import FilterPrice from '../../../../components/Filters/components/FilterPrice';
+import CloseIcon from '@mui/icons-material/Close';
+import { Fab } from '@mui/material';
 const cx = classNames.bind(styles);
 function FiltersMobile({ filters }) {
     const [store, dispatch] = useStore();
@@ -16,9 +18,12 @@ function FiltersMobile({ filters }) {
         <div className={cx('wrapper')}>
             <Overlay full_display>
                 <h2 className={cx('header')}>
-                    <div className={cx('close')} onClick={() => dispatch(actions.setOpenFiltersMobile(false))}>
+                    {/* <div className={cx('close')} onClick={() => dispatch(actions.setOpenFiltersMobile(false))}>
                         <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
-                    </div>
+                    </div> */}
+                    <Fab size="small" color="error" onClick={() => dispatch(actions.setOpenFiltersMobile(false))}>
+                        <CloseIcon style={{ fontSize: '20px' }}></CloseIcon>
+                    </Fab>
                 </h2>
                 {filters.map((filter) => (
                     <Filters data={filter} key={filter.id} />

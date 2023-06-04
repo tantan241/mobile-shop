@@ -90,8 +90,8 @@ function MobileItem({ product, l_5, l_3, m_4, m_2, s_2, buyNow }) {
                     {ramAndRom.length > 0 && (
                         <div className={cx('specifications')}>
                             {ramAndRom.map((item, index) => (
-                                <div key={index} className={cx(`${item.name}`)}>
-                                    {item.value}
+                                <div key={index} className={cx(`${item?.name}`)}>
+                                    {item?.value}
                                 </div>
                             ))}
                         </div>

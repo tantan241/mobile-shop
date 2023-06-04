@@ -11,7 +11,7 @@ function Order() {
     const [orders, setOrders] = useState([]);
     const profile = JSON.parse(localStorage.getItem(PROFILE));
     useEffect(() => {
-        fetchData(`${API_GET_LIST_ORDER}?userId=${profile.id}`, {}, 'GET', true).then((res) => {
+        fetchData(`${API_GET_LIST_ORDER}?userId=${profile?.id}`, {}, 'GET', true).then((res) => {
             if (res.status === 200) {
                 setOrders(res.data);
             }

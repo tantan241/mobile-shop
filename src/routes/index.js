@@ -8,6 +8,7 @@ import Compare from '~/pages/Compare';
 import ProductDetail from '~/pages/ProductDetail';
 import Order from '~/pages/Order/Order';
 import OrderDetail from '~/components/OrderDetail/OrderDetail';
+import Contact from '~/pages/Contact/Contact';
 
 const publicLayouts = [
     {
@@ -25,6 +26,10 @@ const publicLayouts = [
     {
         path: '/notification',
         component: Notification,
+    },
+    {
+        path: '/contact',
+        component: Contact,
     },
     {
         path: '/cart',
@@ -49,6 +54,10 @@ const publicLayouts = [
     {
         path: 'order/:id',
         component: OrderDetail,
+    },
+    {
+        path: '*',
+        component: Notification,
     },
 ];
 const privateLayouts = [];

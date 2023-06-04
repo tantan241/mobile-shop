@@ -29,7 +29,7 @@ function Navbar() {
                     </i>
                     <span className={cx('title')}>Phụ kiện </span>
                 </Link>
-                <Link to="/notification" className={cx('navbar-item')}>
+                <Link to="/contact" className={cx('navbar-item')}>
                     <i className={cx('icon')}>
                         <FontAwesomeIcon icon={faNewspaper}></FontAwesomeIcon>
                     </i>

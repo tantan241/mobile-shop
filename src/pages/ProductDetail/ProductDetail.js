@@ -11,13 +11,18 @@ import RatingDetail from './components/RatingDetail';
 import { fetchData } from '~/common';
 import { API_COMMENT, API_GET_COMMENT, API_GET_PRODUCT, API_PRODUCT } from '~/urlConfig';
 import { URL_IMAGE } from '~/utils/urlConfig';
+import { useRef } from 'react';
+import { Button, Dialog, DialogContent } from '@mui/material';
+
 const cx = classNames.bind(styles);
 function MobileDetail() {
     const [store, dispatch] = useStore();
     const [product, setProduct] = useState({});
     const [images, setImages] = useState([]);
     const [dataRatingDatail, setDataRatingDatail] = useState({});
-
+    const [openDialog, setOpenDialog] = useState(true);
+    const productDetail = useRef();
+    let domParser = new DOMParser();
     const avgStar = parseFloat(
         (
             (dataRatingDatail?.star?.star_1 * 1 +
@@ -29,8 +34,14 @@ function MobileDetail() {
         ).toFixed(1),
     );
     useEffect(() => {
+        setOpenDialog(false);
         product.name && (document.title = product.name);
     }, [product]);
+    async function viewProductDetail() {
+        await setOpenDialog(true);
+
+        productDetail?.current && (productDetail.current.innerHTML = product.description ? product.description : '');
+    }
     useEffect(() => {
         fetchData(`${API_GET_PRODUCT}?id=${store.product.id}`).then((res) => {
             if (res.status === 200) {
@@ -103,6 +114,21 @@ function MobileDetail() {
                             onImageButtonClick={handleImageButtonClick}
                         />
                     )}
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid #00adff ',
+                            boxShadow: '10px 10px 36px 16px rgba(128,189,242,0.6)',
+                            margin: '20px 0',
+                            borderRadius: '10px',
+                        }}
+                    >
+                        <Button style={{ fontSize: '1.8rem' }} onClick={() => viewProductDetail()}>
+                            Xem thông tin chi tiết sản phẩm
+                        </Button>
+                    </div>
 
                     <div id="rating-detail">
                         <RatingDetail data={dataRatingDatail} />
@@ -110,6 +136,11 @@ function MobileDetail() {
                 </div>
                 <DetailConfig data={product} />
             </div>
+            <Dialog open={openDialog} maxWidth={'lg'} onClose={() => setOpenDialog(false)}>
+                <DialogContent>
+                    <div style={{ fontSize: '16px' }} ref={productDetail} className="product-detail"></div>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

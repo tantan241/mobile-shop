@@ -1,3 +1,4 @@
+@import '../../scss/global.scss';
 .wrapper {
     display: flex;
     justify-content: center;
@@ -46,4 +47,9 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
+}
+@include MediaQuery($min_mobile, $max_mobile) {
+    .content {
+        width: 100%;
+    }
 }
